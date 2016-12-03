@@ -14,6 +14,10 @@
 		E7558D901DEF6B1400093962 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7558D8E1DEF6B1400093962 /* LaunchScreen.storyboard */; };
 		E7558D9B1DEF6B1500093962 /* DistanceConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7558D9A1DEF6B1500093962 /* DistanceConverterTests.swift */; };
 		E7558DA61DEF6B1500093962 /* DistanceConverterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7558DA51DEF6B1500093962 /* DistanceConverterUITests.swift */; };
+		E7558DB41DF2BC1000093962 /* AstroLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7558DB31DF2BC1000093962 /* AstroLabel.swift */; };
+		E7558DB61DF2BC3600093962 /* AstroButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7558DB51DF2BC3600093962 /* AstroButton.swift */; };
+		E7558DB81DF2BC6D00093962 /* AstroSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7558DB71DF2BC6D00093962 /* AstroSegmentedControl.swift */; };
+		E7558DBA1DF2BC9800093962 /* AstroTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7558DB91DF2BC9800093962 /* AstroTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +51,10 @@
 		E7558DA11DEF6B1500093962 /* DistanceConverterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DistanceConverterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7558DA51DEF6B1500093962 /* DistanceConverterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceConverterUITests.swift; sourceTree = "<group>"; };
 		E7558DA71DEF6B1500093962 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E7558DB31DF2BC1000093962 /* AstroLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AstroLabel.swift; sourceTree = "<group>"; };
+		E7558DB51DF2BC3600093962 /* AstroButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AstroButton.swift; sourceTree = "<group>"; };
+		E7558DB71DF2BC6D00093962 /* AstroSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AstroSegmentedControl.swift; sourceTree = "<group>"; };
+		E7558DB91DF2BC9800093962 /* AstroTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AstroTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +111,10 @@
 				E7558D8C1DEF6B1400093962 /* Assets.xcassets */,
 				E7558D8E1DEF6B1400093962 /* LaunchScreen.storyboard */,
 				E7558D911DEF6B1400093962 /* Info.plist */,
+				E7558DB31DF2BC1000093962 /* AstroLabel.swift */,
+				E7558DB51DF2BC3600093962 /* AstroButton.swift */,
+				E7558DB71DF2BC6D00093962 /* AstroSegmentedControl.swift */,
+				E7558DB91DF2BC9800093962 /* AstroTextField.swift */,
 			);
 			path = DistanceConverter;
 			sourceTree = "<group>";
@@ -263,7 +275,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E7558D881DEF6B1300093962 /* ViewController.swift in Sources */,
+				E7558DBA1DF2BC9800093962 /* AstroTextField.swift in Sources */,
+				E7558DB61DF2BC3600093962 /* AstroButton.swift in Sources */,
+				E7558DB81DF2BC6D00093962 /* AstroSegmentedControl.swift in Sources */,
 				E7558D861DEF6B1300093962 /* AppDelegate.swift in Sources */,
+				E7558DB41DF2BC1000093962 /* AstroLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
