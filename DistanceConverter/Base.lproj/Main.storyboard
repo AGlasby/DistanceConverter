@@ -25,14 +25,14 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="universe3small" translatesAutoresizingMaskIntoConstraints="NO" id="syD-KB-JzP">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b9h-F3-TWy" userLabel="DistanceIn">
+                            <textField opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="b9h-F3-TWy" userLabel="DistanceIn">
                                 <rect key="frame" x="143" y="95" width="128" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="128" id="Se6-5m-52A"/>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="continue" enablesReturnKeyAutomatically="YES"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Parsecs" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V3z-j2-QQV" userLabel="InputUnits">
                                 <rect key="frame" x="127" y="133" width="160" height="20"/>
@@ -49,7 +49,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="64" id="W0e-iT-UFd"/>
                                 </constraints>
-                                <state key="normal" title="Convert"/>
+                                <state key="normal" title="convert"/>
                                 <connections>
                                     <action selector="convertDistanceTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zsg-mS-D2C"/>
                                 </connections>
@@ -60,7 +60,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="EPb-3z-AhB">
                                         <rect key="frame" x="0.0" y="0.0" width="326" height="20.333333333333314"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zco-GA-kh3" userLabel="DistanceOutA" customClass="AstroLabel" customModule="DistanceConverter" customModuleProvider="target">
+                                            <label opaque="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zco-GA-kh3" userLabel="DistanceOutA" customClass="AstroLabel" customModule="DistanceConverter" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="128" height="20.333333333333314"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -91,7 +91,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="SOG-F7-vs8">
                                         <rect key="frame" x="0.0" y="44.333333333333314" width="326" height="20.333333333333371"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="53o-SE-iq8" userLabel="DistanceOutB" customClass="AstroLabel" customModule="DistanceConverter" customModuleProvider="target">
+                                            <label opaque="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="53o-SE-iq8" userLabel="DistanceOutB" customClass="AstroLabel" customModule="DistanceConverter" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="128" height="20.333333333333371"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -116,7 +116,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="seD-zd-qPq">
                                         <rect key="frame" x="0.0" y="88.666666666666686" width="326" height="20.333333333333314"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O8v-cb-cRH" userLabel="DistanceOutC" customClass="AstroLabel" customModule="DistanceConverter" customModuleProvider="target">
+                                            <label opaque="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O8v-cb-cRH" userLabel="DistanceOutC" customClass="AstroLabel" customModule="DistanceConverter" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="128" height="20.333333333333314"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -143,10 +143,10 @@
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iI5-lO-e2j">
                                 <rect key="frame" x="36" y="36" width="342" height="29"/>
                                 <segments>
-                                    <segment title="Parsecs"/>
+                                    <segment title="parsecs"/>
                                     <segment title="kilometres"/>
-                                    <segment title="Astronomical Units"/>
-                                    <segment title="Light Years"/>
+                                    <segment title="astronomical units"/>
+                                    <segment title="light years"/>
                                 </segments>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -176,6 +176,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="convertButton" destination="r0U-xp-kMp" id="2OQ-a9-YXo"/>
                         <outlet property="distanceInputTextField" destination="b9h-F3-TWy" id="JAj-Bf-av2"/>
                         <outlet property="inputUnitLabel" destination="V3z-j2-QQV" id="TCb-hM-S7o"/>
                         <outlet property="unit1Label" destination="sWl-e1-ZSY" id="8eV-UA-tP5"/>

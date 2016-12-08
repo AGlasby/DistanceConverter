@@ -14,7 +14,7 @@ class AstroLabel: UILabel {
 
 
     override func awakeFromNib() {
-        layer.cornerRadius = 2.0
+        layer.cornerRadius = 3.0
         clipsToBounds = true
         textColor = UIColor(colorLiteralRed: 0.004, green: 0.055, blue: 0.129, alpha: 1.00)
     }

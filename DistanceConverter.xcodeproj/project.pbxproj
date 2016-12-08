@@ -18,6 +18,7 @@
 		E7558DB61DF2BC3600093962 /* AstroButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7558DB51DF2BC3600093962 /* AstroButton.swift */; };
 		E7558DB81DF2BC6D00093962 /* AstroSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7558DB71DF2BC6D00093962 /* AstroSegmentedControl.swift */; };
 		E7558DBA1DF2BC9800093962 /* AstroTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7558DB91DF2BC9800093962 /* AstroTextField.swift */; };
+		E7558DBC1DF467CB00093962 /* AGTapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7558DBB1DF467CB00093962 /* AGTapGestureRecognizer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		E7558DB51DF2BC3600093962 /* AstroButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AstroButton.swift; sourceTree = "<group>"; };
 		E7558DB71DF2BC6D00093962 /* AstroSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AstroSegmentedControl.swift; sourceTree = "<group>"; };
 		E7558DB91DF2BC9800093962 /* AstroTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AstroTextField.swift; sourceTree = "<group>"; };
+		E7558DBB1DF467CB00093962 /* AGTapGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGTapGestureRecognizer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				E7558DB51DF2BC3600093962 /* AstroButton.swift */,
 				E7558DB71DF2BC6D00093962 /* AstroSegmentedControl.swift */,
 				E7558DB91DF2BC9800093962 /* AstroTextField.swift */,
+				E7558DBB1DF467CB00093962 /* AGTapGestureRecognizer.swift */,
 			);
 			path = DistanceConverter;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7558DBC1DF467CB00093962 /* AGTapGestureRecognizer.swift in Sources */,
 				E7558D881DEF6B1300093962 /* ViewController.swift in Sources */,
 				E7558DBA1DF2BC9800093962 /* AstroTextField.swift in Sources */,
 				E7558DB61DF2BC3600093962 /* AstroButton.swift in Sources */,

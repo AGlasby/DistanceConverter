@@ -13,7 +13,7 @@ let SHADOW_COLOUR: CGFloat = 157.0 / 255.0
 class AstroButton: UIButton {
 
     override func awakeFromNib() {
-        layer.cornerRadius = 2.0
+        layer.cornerRadius = 3.0
         layer.shadowColor = UIColor(red: SHADOW_COLOUR, green: SHADOW_COLOUR, blue: SHADOW_COLOUR, alpha: 0.5).cgColor
         layer.shadowOpacity = 0.8
         layer.shadowRadius = 5.0

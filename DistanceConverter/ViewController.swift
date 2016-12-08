@@ -15,6 +15,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var distanceInputTextField: UITextField!
     @IBOutlet weak var inputUnitLabel: UILabel!
 
+    @IBOutlet weak var convertButton: AstroButton!
+
     @IBOutlet weak var unit1OutputLabel: UILabel!
     @IBOutlet weak var unit1Label: UILabel!
 
@@ -42,6 +44,10 @@ class ViewController: UIViewController {
     var auLyConversionFactor:Double!
 
     var conversionFactors = [String: Double]()
+
+    var distanceResult1:Double!
+    var distanceResult2:Double!
+    var distanceResult3:Double!
 
 
     override func viewDidLoad() {
@@ -72,10 +78,43 @@ class ViewController: UIViewController {
         unit1Label.text = "kilometres"
         unit2Label.text = "astronomical units"
         unit3Label.text = "light years"
+
+        let tap1 = AGTapGestureRecognizer(target: self, action: #selector(tapFunction))
+        tap1.label = 1
+        unit1OutputLabel.isUserInteractionEnabled = true
+        unit1OutputLabel.addGestureRecognizer(tap1)
+
+        let tap2 = AGTapGestureRecognizer(target: self, action: #selector(tapFunction))
+        tap2.label = 2
+        unit2OutputLabel.isUserInteractionEnabled = true
+        unit2OutputLabel.addGestureRecognizer(tap2)
+
+        let tap3 = AGTapGestureRecognizer(target: self, action: #selector(tapFunction))
+        tap3.label = 3
+        unit3OutputLabel.isUserInteractionEnabled = true
+        unit3OutputLabel.addGestureRecognizer(tap3)
+
+        distanceInputTextField.becomeFirstResponder()
     }
 
 
-    func convertToScientifc(distance: Double) -> String {
+    func tapFunction(sender:AGTapGestureRecognizer) {
+        let tap = sender.label! as Int
+        switch tap {
+        case 1:
+            let unitStr = convertToDecimalString(distance: distanceResult1)
+            displayDistance(distance: unitStr, unit: unit1Label.text!)
+        case 2:
+            let unitStr = convertToDecimalString(distance: distanceResult2)
+            displayDistance(distance: unitStr, unit: unit2Label.text!)
+        default:
+            let unitStr = convertToDecimalString(distance: distanceResult3)
+            displayDistance(distance: unitStr, unit: unit3Label.text!)
+        }
+    }
+
+
+    func convertToScientific(distance: Double) -> String {
         let distanceNSNumber = NSNumber(value: Double(distance))
         let formatter = NumberFormatter()
         formatter.numberStyle = NumberFormatter.Style.scientific
@@ -89,10 +128,56 @@ class ViewController: UIViewController {
     }
 
 
+    func convertToDecimalString(distance: Double) -> String {
+        var stringFromNumber:String = ""
+        let formatter = NumberFormatter()
+        formatter.numberStyle = NumberFormatter.Style.decimal
+
+        if distance >= 100 {
+            formatter.maximumFractionDigits = 0
+            formatter.minimumFractionDigits = 0
+            stringFromNumber = formatter.string(from: NSNumber(value: distance))!
+            return stringFromNumber
+        }
+
+        if distance >= 1 && distance < 100 {
+            formatter.maximumFractionDigits = 3
+            formatter.minimumFractionDigits = 3
+            stringFromNumber = formatter.string(from: NSNumber(value: distance))!
+            return stringFromNumber
+        }
+
+        if distance < 1 {
+            var check = distance
+            var loopCount = 0
+            while check < 1 {
+                check = check * 10
+                loopCount += 1
+            }
+            print(loopCount)
+            formatter.maximumFractionDigits = loopCount + 3
+            formatter.minimumFractionDigits = loopCount + 3
+            stringFromNumber = formatter.string(from: NSNumber(value: distance))!
+            return stringFromNumber
+        }
+        return stringFromNumber
+    }
+
+
+    func displayDistance(distance: String, unit: String) {
+        let alert = UIAlertController(title: "Distance", message: "The distance is \(distance) \(unit)", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+
+
     func updateOutput() {
-        unit1OutputLabel.text = convertToScientifc(distance: Double(distanceInputTextField.text!)! * conversionFactors[unit1Label.text!]!)
-        unit2OutputLabel.text = convertToScientifc(distance: Double(distanceInputTextField.text!)! * conversionFactors[unit2Label.text!]!)
-        unit3OutputLabel.text = convertToScientifc(distance: Double(distanceInputTextField.text!)! * conversionFactors[unit3Label.text!]!)
+        distanceResult1 = Double(distanceInputTextField.text!)! * conversionFactors[unit1Label.text!]!
+        unit1OutputLabel.text = convertToScientific(distance: distanceResult1)
+        distanceResult2 = Double(distanceInputTextField.text!)! * conversionFactors[unit2Label.text!]!
+        unit2OutputLabel.text = convertToScientific(distance: distanceResult2)
+        distanceResult3 = Double(distanceInputTextField.text!)! * conversionFactors[unit3Label.text!]!
+        unit3OutputLabel.text = convertToScientific(distance: distanceResult3)
     }
 
 
@@ -141,7 +226,19 @@ class ViewController: UIViewController {
 
 
     @IBAction func convertDistanceTapped(_ sender: Any) {
-        updateOutput()
+        if let distanceInput = Double(distanceInputTextField.text!) {
+            if distanceInput >= 0 {
+                updateOutput()
+            } else {
+                let alert = UIAlertController(title: "Incorrect input", message: "Distance entered must be 0 or greater.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+        } else {
+            let alert = UIAlertController(title: "Incorrect input", message: "Distance entered must be a non-negative number.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 }
 
