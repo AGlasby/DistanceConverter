@@ -27,9 +27,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var unit3Label: UILabel!
 
 //  From parsecs
-    let kmParsecConversionFactor = 3.086e13 //per parsec
-    let auParsecConversionFactor = 2.06265e5 //per parsec
-    let lyParsecConversionFactor = 3.26165 //per parsec
+    let kmParsecConversionFactor = 3.08567758149137e13 //per parsec
+    let auParsecConversionFactor = 2.0626481e5 //per parsec
+    let lyParsecConversionFactor = 3.2615638 //per parsec
 
     var parsecKmConversionFactor:Double!
     var auKmConversionFactor:Double!
@@ -94,6 +94,7 @@ class ViewController: UIViewController {
         unit3OutputLabel.isUserInteractionEnabled = true
         unit3OutputLabel.addGestureRecognizer(tap3)
 
+        addDoneButtonOnKeyboard()
         distanceInputTextField.becomeFirstResponder()
     }
 
@@ -178,6 +179,27 @@ class ViewController: UIViewController {
         unit2OutputLabel.text = convertToScientific(distance: distanceResult2)
         distanceResult3 = Double(distanceInputTextField.text!)! * conversionFactors[unit3Label.text!]!
         unit3OutputLabel.text = convertToScientific(distance: distanceResult3)
+    }
+
+
+    func addDoneButtonOnKeyboard() {
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        doneToolbar.barStyle       = UIBarStyle.default
+        let flexSpace              = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem  = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(ViewController.doneButtonAction))
+
+        var items = [UIBarButtonItem]()
+        items.append(flexSpace)
+        items.append(done)
+
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+
+        self.distanceInputTextField.inputAccessoryView = doneToolbar
+    }
+
+    func doneButtonAction() {
+        self.distanceInputTextField.resignFirstResponder()
     }
 
 
