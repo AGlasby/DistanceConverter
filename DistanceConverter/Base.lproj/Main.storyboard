@@ -22,7 +22,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="universe3small" translatesAutoresizingMaskIntoConstraints="NO" id="syD-KB-JzP">
+                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="universe3small" translatesAutoresizingMaskIntoConstraints="NO" id="syD-KB-JzP">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="b9h-F3-TWy" userLabel="DistanceIn">
@@ -179,6 +179,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="c7o-Nw-cfm"/>
                     <connections>
+                        <outlet property="backgroundImageView" destination="syD-KB-JzP" id="aP8-pf-UNW"/>
                         <outlet property="convertButton" destination="r0U-xp-kMp" id="2OQ-a9-YXo"/>
                         <outlet property="distanceInputTextField" destination="b9h-F3-TWy" id="JAj-Bf-av2"/>
                         <outlet property="inputUnitLabel" destination="V3z-j2-QQV" id="TCb-hM-S7o"/>

@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var unitsSegmentedControl: UISegmentedControl!
 
     @IBOutlet weak var distanceInputTextField: UITextField!
@@ -50,16 +51,29 @@ class ViewController: UIViewController {
     var distanceResult3:Double!
 
     var url:String = ""
-    let BASEURL = "https://en.m.wikipedia.org/wiki/"
-    let PARSEC = "parsec"
-    let KILOMETRE = "Kilometre"
-    let ASTRONOMICALUNIT = "Astronomical_unit"
-    let LIGHTYEAR = "Light-year"
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpConversionFactors()
 
+        distanceInputTextField.text = "0"
+        inputUnitLabel.text = "parsecs"
+        unit1Label.text = "kilometres"
+        unit2Label.text = "astronomical units"
+        unit3Label.text = "light years"
+
+        setUpTapGestures()
+
+        addDoneButtonOnKeyboard()
+        distanceInputTextField.becomeFirstResponder()
+
+        setUpSegmentedControl()
+        setUpSwipeGestureRecognizers()
+    }
+
+
+    func setUpConversionFactors() {
         //  From kilometres
         parsecKmConversionFactor = 1 / kmParsecConversionFactor
         auKmConversionFactor = parsecKmConversionFactor * auParsecConversionFactor
@@ -79,13 +93,10 @@ class ViewController: UIViewController {
         conversionFactors["kilometres"] = kmParsecConversionFactor
         conversionFactors["astronomical units"] = auParsecConversionFactor
         conversionFactors["light years"] = lyParsecConversionFactor
+    }
 
-        distanceInputTextField.text = "0"
-        inputUnitLabel.text = "parsecs"
-        unit1Label.text = "kilometres"
-        unit2Label.text = "astronomical units"
-        unit3Label.text = "light years"
 
+    func setUpTapGestures() {
         let tap1 = AGTapGestureRecognizer(target: self, action: #selector(tapFunction))
         tap1.label = 1
         unit1OutputLabel.isUserInteractionEnabled = true
@@ -100,14 +111,6 @@ class ViewController: UIViewController {
         tap3.label = 3
         unit3OutputLabel.isUserInteractionEnabled = true
         unit3OutputLabel.addGestureRecognizer(tap3)
-
-        addDoneButtonOnKeyboard()
-        distanceInputTextField.becomeFirstResponder()
-
-        setImagesForSegmentedControl()
-        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(longPressFunction))
-        unitsSegmentedControl.addGestureRecognizer(lpgr)
-        lpgr.minimumPressDuration = 1
     }
 
 
@@ -124,6 +127,48 @@ class ViewController: UIViewController {
             let unitStr = convertToDecimalString(distance: distanceResult3)
             displayDistance(distance: unitStr, unit: unit3Label.text!)
         }
+    }
+
+
+    func addDoneButtonOnKeyboard() {
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        doneToolbar.barStyle       = UIBarStyle.default
+        let flexSpace              = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem  = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(ViewController.doneButtonAction))
+
+        var items = [UIBarButtonItem]()
+        items.append(flexSpace)
+        items.append(done)
+
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+
+        self.distanceInputTextField.inputAccessoryView = doneToolbar
+    }
+
+
+    func doneButtonAction() {
+        self.distanceInputTextField.resignFirstResponder()
+    }
+
+
+    func setUpSegmentedControl() {
+        setImagesForSegmentedControl()
+        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(longPressFunction))
+        unitsSegmentedControl.addGestureRecognizer(lpgr)
+        lpgr.minimumPressDuration = 1
+    }
+
+
+    func setImagesForSegmentedControl() {
+        let image1 = UIImage(named: "parsecs.png")?.withRenderingMode(.alwaysOriginal)
+        self.unitsSegmentedControl.setImage(image1, forSegmentAt: 0)
+        let image2 = UIImage(named: "kilometres.png")?.withRenderingMode(.alwaysOriginal)
+        self.unitsSegmentedControl.setImage(image2, forSegmentAt: 1)
+        let image3 = UIImage(named: "astronomical units.png")?.withRenderingMode(.alwaysOriginal)
+        self.unitsSegmentedControl.setImage(image3, forSegmentAt: 2)
+        let image4 = UIImage(named: "light years.png")?.withRenderingMode(.alwaysOriginal)
+        self.unitsSegmentedControl.setImage(image4, forSegmentAt: 3)
     }
 
 
@@ -154,17 +199,30 @@ class ViewController: UIViewController {
     }
 
 
-    func setImagesForSegmentedControl() {
-        let image1 = UIImage(named: "parsecs.png")?.withRenderingMode(.alwaysOriginal)
-        self.unitsSegmentedControl.setImage(image1, forSegmentAt: 0)
-        let image2 = UIImage(named: "kilometres.png")?.withRenderingMode(.alwaysOriginal)
-        self.unitsSegmentedControl.setImage(image2, forSegmentAt: 1)
-        let image3 = UIImage(named: "astronomical units.png")?.withRenderingMode(.alwaysOriginal)
-        self.unitsSegmentedControl.setImage(image3, forSegmentAt: 2)
-        let image4 = UIImage(named: "light years.png")?.withRenderingMode(.alwaysOriginal)
-        self.unitsSegmentedControl.setImage(image4, forSegmentAt: 3)
+    func setUpSwipeGestureRecognizers() {
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture(_:)))
+        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        self.backgroundImageView.addGestureRecognizer(swipeRight)
+
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture(_:)))
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
+        self.backgroundImageView.addGestureRecognizer(swipeLeft)
     }
 
+
+    func respondToSwipeGesture(_ gesture: UIGestureRecognizer) {
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizerDirection.right:
+                print("Swiped right")
+            case UISwipeGestureRecognizerDirection.left:
+                print("Swiped left")
+            default:
+                break
+            }
+        }
+    }
+    
 
     func convertToScientific(distance: Double) -> String {
         let distanceNSNumber = NSNumber(value: Double(distance))
@@ -217,7 +275,7 @@ class ViewController: UIViewController {
 
 
     func displayDistance(distance: String, unit: String) {
-        let alert = UIAlertController(title: "Distance", message: "The distance is \(distance) \(unit)", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Distance", message: "That is \(distance) \(unit)", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
@@ -230,28 +288,6 @@ class ViewController: UIViewController {
         unit2OutputLabel.text = convertToScientific(distance: distanceResult2)
         distanceResult3 = Double(distanceInputTextField.text!)! * conversionFactors[unit3Label.text!]!
         unit3OutputLabel.text = convertToScientific(distance: distanceResult3)
-    }
-
-
-    func addDoneButtonOnKeyboard() {
-        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
-        doneToolbar.barStyle       = UIBarStyle.default
-        let flexSpace              = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        let done: UIBarButtonItem  = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(ViewController.doneButtonAction))
-
-        var items = [UIBarButtonItem]()
-        items.append(flexSpace)
-        items.append(done)
-
-        doneToolbar.items = items
-        doneToolbar.sizeToFit()
-
-        self.distanceInputTextField.inputAccessoryView = doneToolbar
-    }
-
-
-    func doneButtonAction() {
-        self.distanceInputTextField.resignFirstResponder()
     }
 
 

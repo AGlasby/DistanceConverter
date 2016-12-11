@@ -20,6 +20,7 @@
 		E7558DBA1DF2BC9800093962 /* AstroTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7558DB91DF2BC9800093962 /* AstroTextField.swift */; };
 		E7558DBC1DF467CB00093962 /* AGTapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7558DBB1DF467CB00093962 /* AGTapGestureRecognizer.swift */; };
 		E765359B1DFCA9370020497B /* WikiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E765359A1DFCA9370020497B /* WikiViewController.swift */; };
+		E7E088951DFDC7EC00221174 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E088941DFDC7EC00221174 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		E7558DB91DF2BC9800093962 /* AstroTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AstroTextField.swift; sourceTree = "<group>"; };
 		E7558DBB1DF467CB00093962 /* AGTapGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGTapGestureRecognizer.swift; sourceTree = "<group>"; };
 		E765359A1DFCA9370020497B /* WikiViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WikiViewController.swift; sourceTree = "<group>"; };
+		E7E088941DFDC7EC00221174 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,8 +111,11 @@
 		E7558D841DEF6B1300093962 /* DistanceConverter */ = {
 			isa = PBXGroup;
 			children = (
+				E7E088941DFDC7EC00221174 /* Constants.swift */,
+				E7E088931DFD5F4900221174 /* Model */,
+				E7E088921DFD5F3E00221174 /* View */,
+				E7E088911DFD5F2F00221174 /* Controller */,
 				E7558D851DEF6B1300093962 /* AppDelegate.swift */,
-				E7558D871DEF6B1300093962 /* ViewController.swift */,
 				E7558D891DEF6B1400093962 /* Main.storyboard */,
 				E7558D8C1DEF6B1400093962 /* Assets.xcassets */,
 				E7558D8E1DEF6B1400093962 /* LaunchScreen.storyboard */,
@@ -120,7 +125,6 @@
 				E7558DB71DF2BC6D00093962 /* AstroSegmentedControl.swift */,
 				E7558DB91DF2BC9800093962 /* AstroTextField.swift */,
 				E7558DBB1DF467CB00093962 /* AGTapGestureRecognizer.swift */,
-				E765359A1DFCA9370020497B /* WikiViewController.swift */,
 			);
 			path = DistanceConverter;
 			sourceTree = "<group>";
@@ -141,6 +145,29 @@
 				E7558DA71DEF6B1500093962 /* Info.plist */,
 			);
 			path = DistanceConverterUITests;
+			sourceTree = "<group>";
+		};
+		E7E088911DFD5F2F00221174 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E7558D871DEF6B1300093962 /* ViewController.swift */,
+				E765359A1DFCA9370020497B /* WikiViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		E7E088921DFD5F3E00221174 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		E7E088931DFD5F4900221174 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,6 +315,7 @@
 				E7558D861DEF6B1300093962 /* AppDelegate.swift in Sources */,
 				E765359B1DFCA9370020497B /* WikiViewController.swift in Sources */,
 				E7558DB41DF2BC1000093962 /* AstroLabel.swift in Sources */,
+				E7E088951DFDC7EC00221174 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
