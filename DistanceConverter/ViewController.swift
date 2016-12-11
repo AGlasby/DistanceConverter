@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var unitsSegemnentedControl: UISegmentedControl!
+    @IBOutlet weak var unitsSegmentedControl: UISegmentedControl!
 
     @IBOutlet weak var distanceInputTextField: UITextField!
     @IBOutlet weak var inputUnitLabel: UILabel!
@@ -48,6 +48,13 @@ class ViewController: UIViewController {
     var distanceResult1:Double!
     var distanceResult2:Double!
     var distanceResult3:Double!
+
+    var url:String = ""
+    let BASEURL = "https://en.m.wikipedia.org/wiki/"
+    let PARSEC = "parsec"
+    let KILOMETRE = "Kilometre"
+    let ASTRONOMICALUNIT = "Astronomical_unit"
+    let LIGHTYEAR = "Light-year"
 
 
     override func viewDidLoad() {
@@ -96,6 +103,11 @@ class ViewController: UIViewController {
 
         addDoneButtonOnKeyboard()
         distanceInputTextField.becomeFirstResponder()
+
+        setImagesForSegmentedControl()
+        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(longPressFunction))
+        unitsSegmentedControl.addGestureRecognizer(lpgr)
+        lpgr.minimumPressDuration = 1
     }
 
 
@@ -112,6 +124,45 @@ class ViewController: UIViewController {
             let unitStr = convertToDecimalString(distance: distanceResult3)
             displayDistance(distance: unitStr, unit: unit3Label.text!)
         }
+    }
+
+
+    func longPressFunction(gestureRecognizer: UILongPressGestureRecognizer) {
+        if gestureRecognizer.state != UIGestureRecognizerState.ended {
+            return
+        }
+        var p = CGPoint()
+        p = gestureRecognizer.location(in: unitsSegmentedControl)
+        let r = unitsSegmentedControl.frame.width
+        let index = Int(ceil(p.x/(r/4))) - 1
+        switch index {
+        case 0:
+            url = BASEURL + PARSEC
+            performSegue(withIdentifier: "showWikiPage", sender: self)
+        case 1:
+            url = BASEURL + KILOMETRE
+            performSegue(withIdentifier: "showWikiPage", sender: self)
+        case 2:
+            url = BASEURL + ASTRONOMICALUNIT
+            performSegue(withIdentifier: "showWikiPage", sender: self)
+        default:
+            url = BASEURL + LIGHTYEAR
+            performSegue(withIdentifier: "showWikiPage", sender: self)
+        }
+
+        return
+    }
+
+
+    func setImagesForSegmentedControl() {
+        let image1 = UIImage(named: "parsecs.png")?.withRenderingMode(.alwaysOriginal)
+        self.unitsSegmentedControl.setImage(image1, forSegmentAt: 0)
+        let image2 = UIImage(named: "kilometres.png")?.withRenderingMode(.alwaysOriginal)
+        self.unitsSegmentedControl.setImage(image2, forSegmentAt: 1)
+        let image3 = UIImage(named: "astronomical units.png")?.withRenderingMode(.alwaysOriginal)
+        self.unitsSegmentedControl.setImage(image3, forSegmentAt: 2)
+        let image4 = UIImage(named: "light years.png")?.withRenderingMode(.alwaysOriginal)
+        self.unitsSegmentedControl.setImage(image4, forSegmentAt: 3)
     }
 
 
@@ -198,6 +249,7 @@ class ViewController: UIViewController {
         self.distanceInputTextField.inputAccessoryView = doneToolbar
     }
 
+
     func doneButtonAction() {
         self.distanceInputTextField.resignFirstResponder()
     }
@@ -205,7 +257,7 @@ class ViewController: UIViewController {
 
     @IBAction func unitsSegmentedControl(_ sender: Any) {
         
-        switch unitsSegemnentedControl.selectedSegmentIndex {
+        switch unitsSegmentedControl.selectedSegmentIndex {
         case 0:
             inputUnitLabel.text = "parsecs"
             unit1Label.text = "kilometres"
@@ -260,6 +312,13 @@ class ViewController: UIViewController {
             let alert = UIAlertController(title: "Incorrect input", message: "Distance entered must be a non-negative number.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
+        }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showWikiPage" {
+            let destinationVC = segue.destination as? WikiViewController
+            destinationVC?.url = url
         }
     }
 }

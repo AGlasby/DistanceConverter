@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="CxJ-Zi-Mll">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -26,16 +26,16 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="b9h-F3-TWy" userLabel="DistanceIn">
-                                <rect key="frame" x="143" y="95" width="128" height="30"/>
+                                <rect key="frame" x="143" y="139" width="128" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="128" id="Se6-5m-52A"/>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="continue" enablesReturnKeyAutomatically="YES"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Parsecs" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V3z-j2-QQV" userLabel="InputUnits">
-                                <rect key="frame" x="127" y="133" width="160" height="20"/>
+                                <rect key="frame" x="127" y="177" width="160" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="160" id="bGV-gA-y7T"/>
                                 </constraints>
@@ -44,7 +44,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r0U-xp-kMp" userLabel="Convert" customClass="AstroButton" customModule="DistanceConverter" customModuleProvider="target">
-                                <rect key="frame" x="175" y="185" width="64" height="30"/>
+                                <rect key="frame" x="175" y="229" width="64" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="64" id="W0e-iT-UFd"/>
@@ -55,7 +55,7 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="myJ-iA-zUS">
-                                <rect key="frame" x="44" y="279" width="326" height="109"/>
+                                <rect key="frame" x="44" y="323" width="326" height="109"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="EPb-3z-AhB">
                                         <rect key="frame" x="0.0" y="0.0" width="326" height="20.333333333333314"/>
@@ -140,15 +140,17 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iI5-lO-e2j">
-                                <rect key="frame" x="36" y="36" width="342" height="29"/>
+                            <segmentedControl autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iI5-lO-e2j">
+                                <rect key="frame" x="36" y="80" width="342" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="D6O-jk-6Tn"/>
+                                </constraints>
                                 <segments>
-                                    <segment title="parsecs"/>
-                                    <segment title="kilometres"/>
-                                    <segment title="astronomical units"/>
-                                    <segment title="light years"/>
+                                    <segment title=""/>
+                                    <segment title=""/>
+                                    <segment title=""/>
+                                    <segment title=""/>
                                 </segments>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <action selector="unitsSegmentedControl:" destination="BYZ-38-t0r" eventType="valueChanged" id="fuh-zr-rj8"/>
                                 </connections>
@@ -175,6 +177,7 @@
                             <constraint firstItem="r0U-xp-kMp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="wyc-rq-ECZ"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="c7o-Nw-cfm"/>
                     <connections>
                         <outlet property="convertButton" destination="r0U-xp-kMp" id="2OQ-a9-YXo"/>
                         <outlet property="distanceInputTextField" destination="b9h-F3-TWy" id="JAj-Bf-av2"/>
@@ -185,12 +188,64 @@
                         <outlet property="unit2OutputLabel" destination="53o-SE-iq8" id="dn3-gy-swj"/>
                         <outlet property="unit3Label" destination="mrx-PD-nqW" id="Iba-Xp-uOQ"/>
                         <outlet property="unit3OutputLabel" destination="O8v-cb-cRH" id="sb2-wq-DRy"/>
-                        <outlet property="unitsSegemnentedControl" destination="iI5-lO-e2j" id="wyO-o6-fJV"/>
+                        <outlet property="unitsSegmentedControl" destination="iI5-lO-e2j" id="fLM-Mj-rEd"/>
+                        <segue destination="WTt-rr-fWX" kind="show" identifier="showWikiPage" id="IjQ-8Y-sMT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137.68115942028987" y="136.95652173913044"/>
+            <point key="canvasLocation" x="1107.2463768115942" y="129.61956521739131"/>
+        </scene>
+        <!--Wiki View Controller-->
+        <scene sceneID="SIG-fO-aBs">
+            <objects>
+                <viewController id="WTt-rr-fWX" customClass="WikiViewController" customModule="DistanceConverter" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VKR-p8-h92"/>
+                        <viewControllerLayoutGuide type="bottom" id="imb-Pk-WH1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="XmZ-Qm-gLT">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2od-XG-hWJ">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="2od-XG-hWJ" secondAttribute="trailing" id="WI2-k6-0pj"/>
+                            <constraint firstItem="imb-Pk-WH1" firstAttribute="top" secondItem="2od-XG-hWJ" secondAttribute="bottom" id="ds8-zy-jYU"/>
+                            <constraint firstItem="2od-XG-hWJ" firstAttribute="top" secondItem="XmZ-Qm-gLT" secondAttribute="top" id="m2i-jL-CM7"/>
+                            <constraint firstItem="2od-XG-hWJ" firstAttribute="leading" secondItem="XmZ-Qm-gLT" secondAttribute="leading" id="zwe-SG-jIV"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="wikiWebView" destination="2od-XG-hWJ" id="p3O-rZ-WOb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rRk-fS-qWq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1828.985507246377" y="136.95652173913044"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="tUb-uU-Qs0">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="CxJ-Zi-Mll" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kLl-5t-Opx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Yny-2n-z5d"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mEc-HY-GlJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="200.00000000000003" y="129.61956521739131"/>
         </scene>
     </scenes>
     <resources>
