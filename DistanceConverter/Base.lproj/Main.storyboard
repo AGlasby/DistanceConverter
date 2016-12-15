@@ -25,7 +25,7 @@
                             <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="universe3small" translatesAutoresizingMaskIntoConstraints="NO" id="syD-KB-JzP">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="b9h-F3-TWy" userLabel="DistanceIn">
+                            <textField opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="b9h-F3-TWy" userLabel="DistanceIn" customClass="AstroTextField" customModule="DistanceConverter" customModuleProvider="target">
                                 <rect key="frame" x="143" y="139" width="128" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="128" id="Se6-5m-52A"/>
@@ -140,7 +140,7 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <segmentedControl autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iI5-lO-e2j">
+                            <segmentedControl autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iI5-lO-e2j" customClass="AstroSegmentedControl" customModule="DistanceConverter" customModuleProvider="target">
                                 <rect key="frame" x="36" y="80" width="342" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="D6O-jk-6Tn"/>
@@ -190,7 +190,7 @@
                         <outlet property="unit3Label" destination="mrx-PD-nqW" id="Iba-Xp-uOQ"/>
                         <outlet property="unit3OutputLabel" destination="O8v-cb-cRH" id="sb2-wq-DRy"/>
                         <outlet property="unitsSegmentedControl" destination="iI5-lO-e2j" id="fLM-Mj-rEd"/>
-                        <segue destination="WTt-rr-fWX" kind="show" identifier="showWikiPage" id="IjQ-8Y-sMT"/>
+                        <segue destination="WTt-rr-fWX" kind="show" identifier="showWikiPage" id="szv-4e-ghY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -11,9 +11,9 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var backgroundImageView: UIImageView!
-    @IBOutlet weak var unitsSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var unitsSegmentedControl: AstroSegmentedControl!
 
-    @IBOutlet weak var distanceInputTextField: UITextField!
+    @IBOutlet weak var distanceInputTextField: AstroTextField!
     @IBOutlet weak var inputUnitLabel: UILabel!
 
     @IBOutlet weak var convertButton: AstroButton!
@@ -27,148 +27,35 @@ class ViewController: UIViewController {
     @IBOutlet weak var unit3OutputLabel: UILabel!
     @IBOutlet weak var unit3Label: UILabel!
 
-//  From parsecs
-    let kmParsecConversionFactor = 3.08567758149137e13 //per parsec
-    let auParsecConversionFactor = 2.0626481e5 //per parsec
-    let lyParsecConversionFactor = 3.2615638 //per parsec
-
-    var parsecKmConversionFactor:Double!
-    var auKmConversionFactor:Double!
-    var lyKmConversionFactor:Double!
-
-    var parsecAuConversionFactor:Double!
-    var kmAuConversionFactor:Double!
-    var lyAuConversionFactor:Double!
-
-    var parsecLyConversionFactor:Double!
-    var kmLyConversionFactor:Double!
-    var auLyConversionFactor:Double!
-
-    var conversionFactors = [String: Double]()
-
-    var distanceResult1:Double!
-    var distanceResult2:Double!
-    var distanceResult3:Double!
+    var distanceResults = [Double]()
 
     var url:String = ""
+    var labelSetUp = [[String: String]]()
+    var outputLabels = [UILabel]()
+
+    var astroConverter = AstroDistance()
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpConversionFactors()
-
-        distanceInputTextField.text = "0"
-        inputUnitLabel.text = "parsecs"
-        unit1Label.text = "kilometres"
-        unit2Label.text = "astronomical units"
-        unit3Label.text = "light years"
-
-        setUpTapGestures()
-
-        addDoneButtonOnKeyboard()
-        distanceInputTextField.becomeFirstResponder()
 
         setUpSegmentedControl()
+        setUpLabels()
+        changeLabels(selectedSegment: 0)
+
+        distanceInputTextField.text = "0"
+        distanceInputTextField.addDoneButtonOnKeyboard(textField: distanceInputTextField)
+        distanceInputTextField.becomeFirstResponder()
+
         setUpSwipeGestureRecognizers()
     }
 
 
-    func setUpConversionFactors() {
-        //  From kilometres
-        parsecKmConversionFactor = 1 / kmParsecConversionFactor
-        auKmConversionFactor = parsecKmConversionFactor * auParsecConversionFactor
-        lyKmConversionFactor = parsecKmConversionFactor * lyParsecConversionFactor
-
-        // From astronomical units
-        parsecAuConversionFactor = 1 / auParsecConversionFactor
-        kmAuConversionFactor = parsecAuConversionFactor * kmParsecConversionFactor
-        lyAuConversionFactor = parsecAuConversionFactor * lyParsecConversionFactor
-
-        // From light years
-        parsecLyConversionFactor = 1 / lyParsecConversionFactor
-        kmLyConversionFactor = parsecLyConversionFactor * kmParsecConversionFactor
-        auLyConversionFactor = parsecLyConversionFactor * auParsecConversionFactor
-
-        conversionFactors["parsecs"] = 1.0
-        conversionFactors["kilometres"] = kmParsecConversionFactor
-        conversionFactors["astronomical units"] = auParsecConversionFactor
-        conversionFactors["light years"] = lyParsecConversionFactor
-    }
-
-
-    func setUpTapGestures() {
-        let tap1 = AGTapGestureRecognizer(target: self, action: #selector(tapFunction))
-        tap1.label = 1
-        unit1OutputLabel.isUserInteractionEnabled = true
-        unit1OutputLabel.addGestureRecognizer(tap1)
-
-        let tap2 = AGTapGestureRecognizer(target: self, action: #selector(tapFunction))
-        tap2.label = 2
-        unit2OutputLabel.isUserInteractionEnabled = true
-        unit2OutputLabel.addGestureRecognizer(tap2)
-
-        let tap3 = AGTapGestureRecognizer(target: self, action: #selector(tapFunction))
-        tap3.label = 3
-        unit3OutputLabel.isUserInteractionEnabled = true
-        unit3OutputLabel.addGestureRecognizer(tap3)
-    }
-
-
-    func tapFunction(sender:AGTapGestureRecognizer) {
-        let tap = sender.label! as Int
-        switch tap {
-        case 1:
-            let unitStr = convertToDecimalString(distance: distanceResult1)
-            displayDistance(distance: unitStr, unit: unit1Label.text!)
-        case 2:
-            let unitStr = convertToDecimalString(distance: distanceResult2)
-            displayDistance(distance: unitStr, unit: unit2Label.text!)
-        default:
-            let unitStr = convertToDecimalString(distance: distanceResult3)
-            displayDistance(distance: unitStr, unit: unit3Label.text!)
-        }
-    }
-
-
-    func addDoneButtonOnKeyboard() {
-        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
-        doneToolbar.barStyle       = UIBarStyle.default
-        let flexSpace              = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        let done: UIBarButtonItem  = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(ViewController.doneButtonAction))
-
-        var items = [UIBarButtonItem]()
-        items.append(flexSpace)
-        items.append(done)
-
-        doneToolbar.items = items
-        doneToolbar.sizeToFit()
-
-        self.distanceInputTextField.inputAccessoryView = doneToolbar
-    }
-
-
-    func doneButtonAction() {
-        self.distanceInputTextField.resignFirstResponder()
-    }
-
-
     func setUpSegmentedControl() {
-        setImagesForSegmentedControl()
+        unitsSegmentedControl.setImagesForSegmentedControl()
         let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(longPressFunction))
         unitsSegmentedControl.addGestureRecognizer(lpgr)
         lpgr.minimumPressDuration = 1
-    }
-
-
-    func setImagesForSegmentedControl() {
-        let image1 = UIImage(named: "parsecs.png")?.withRenderingMode(.alwaysOriginal)
-        self.unitsSegmentedControl.setImage(image1, forSegmentAt: 0)
-        let image2 = UIImage(named: "kilometres.png")?.withRenderingMode(.alwaysOriginal)
-        self.unitsSegmentedControl.setImage(image2, forSegmentAt: 1)
-        let image3 = UIImage(named: "astronomical units.png")?.withRenderingMode(.alwaysOriginal)
-        self.unitsSegmentedControl.setImage(image3, forSegmentAt: 2)
-        let image4 = UIImage(named: "light years.png")?.withRenderingMode(.alwaysOriginal)
-        self.unitsSegmentedControl.setImage(image4, forSegmentAt: 3)
     }
 
 
@@ -183,19 +70,87 @@ class ViewController: UIViewController {
         switch index {
         case 0:
             url = BASEURL + PARSEC
-            performSegue(withIdentifier: "showWikiPage", sender: self)
         case 1:
             url = BASEURL + KILOMETRE
-            performSegue(withIdentifier: "showWikiPage", sender: self)
         case 2:
             url = BASEURL + ASTRONOMICALUNIT
-            performSegue(withIdentifier: "showWikiPage", sender: self)
         default:
             url = BASEURL + LIGHTYEAR
-            performSegue(withIdentifier: "showWikiPage", sender: self)
         }
-
+        performSegue(withIdentifier: "showWikiPage", sender: self)
         return
+    }
+    
+
+    func setUpLabels() {
+
+        var labels = [String: String]()
+        labels["inputUnitLabel"] = "parsecs"
+        labels["unit1Label"] = "kilometres"
+        labels["unit2Label"] = "astronomical units"
+        labels["unit3Label"] = "light years"
+        labelSetUp.append(labels)
+
+        labels.removeAll()
+        labels["inputUnitLabel"] = "kilometres"
+        labels["unit1Label"] = "parsecs"
+        labels["unit2Label"] = "astronomical units"
+        labels["unit3Label"] = "light years"
+        labelSetUp.append(labels)
+
+        labels.removeAll()
+        labels["inputUnitLabel"] = "astronomical units"
+        labels["unit1Label"] = "parsecs"
+        labels["unit2Label"] = "kilometres"
+        labels["unit3Label"] = "light years"
+        labelSetUp.append(labels)
+
+        labels.removeAll()
+        labels["inputUnitLabel"] = "light years"
+        labels["unit1Label"] = "parsecs"
+        labels["unit2Label"] = "kilometres"
+        labels["unit3Label"] = "astronomical units"
+        labelSetUp.append(labels)
+
+        outputLabels.append(unit1OutputLabel)
+        outputLabels.append(unit2OutputLabel)
+        outputLabels.append(unit3OutputLabel)
+        
+        setUpTapGestures()
+    }
+
+
+    func setUpTapGestures() {
+        var taps = [AGTapGestureRecognizer]()
+        taps.append(AGTapGestureRecognizer(target: self, action: #selector(tapFunction)))
+        taps.append(AGTapGestureRecognizer(target: self, action: #selector(tapFunction)))
+        taps.append(AGTapGestureRecognizer(target: self, action: #selector(tapFunction)))
+        setTapGestures(tap: taps)
+    }
+
+
+    func setTapGestures(tap: [AGTapGestureRecognizer]) {
+        for t in 0 ..< tap.count {
+            tap[t].label = t + 1
+            outputLabels[t].isUserInteractionEnabled = true
+            outputLabels[t].addGestureRecognizer(tap[t])
+        }
+    }
+
+
+    func tapFunction(sender:AGTapGestureRecognizer) {
+        let tap = sender.label! as Int
+        switch tap {
+        case 1:
+            let unitStr = convertToDecimalString(distance: distanceResults[0])
+            displayDistance(distance: unitStr, unit: unit1Label.text!)
+        case 2:
+            let unitStr = convertToDecimalString(distance: distanceResults[1])
+            displayDistance(distance: unitStr, unit: unit2Label.text!)
+        default:
+            let unitStr = convertToDecimalString(distance: distanceResults[2])
+            displayDistance(distance: unitStr, unit: unit3Label.text!)
+        }
     }
 
 
@@ -224,56 +179,6 @@ class ViewController: UIViewController {
     }
     
 
-    func convertToScientific(distance: Double) -> String {
-        let distanceNSNumber = NSNumber(value: Double(distance))
-        let formatter = NumberFormatter()
-        formatter.numberStyle = NumberFormatter.Style.scientific
-        formatter.positiveFormat = "0.#####E+0"
-        formatter.exponentSymbol = "e"
-        if let stringFromNumber = formatter.string(from: distanceNSNumber) {
-            return stringFromNumber
-        } else {
-            return "Error"
-        }
-    }
-
-
-    func convertToDecimalString(distance: Double) -> String {
-        var stringFromNumber:String = ""
-        let formatter = NumberFormatter()
-        formatter.numberStyle = NumberFormatter.Style.decimal
-
-        if distance >= 100 {
-            formatter.maximumFractionDigits = 0
-            formatter.minimumFractionDigits = 0
-            stringFromNumber = formatter.string(from: NSNumber(value: distance))!
-            return stringFromNumber
-        }
-
-        if distance >= 1 && distance < 100 {
-            formatter.maximumFractionDigits = 3
-            formatter.minimumFractionDigits = 3
-            stringFromNumber = formatter.string(from: NSNumber(value: distance))!
-            return stringFromNumber
-        }
-
-        if distance < 1 {
-            var check = distance
-            var loopCount = 0
-            while check < 1 {
-                check = check * 10
-                loopCount += 1
-            }
-            print(loopCount)
-            formatter.maximumFractionDigits = loopCount + 3
-            formatter.minimumFractionDigits = loopCount + 3
-            stringFromNumber = formatter.string(from: NSNumber(value: distance))!
-            return stringFromNumber
-        }
-        return stringFromNumber
-    }
-
-
     func displayDistance(distance: String, unit: String) {
         let alert = UIAlertController(title: "Distance", message: "That is \(distance) \(unit)", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -282,56 +187,54 @@ class ViewController: UIViewController {
 
 
     func updateOutput() {
-        distanceResult1 = Double(distanceInputTextField.text!)! * conversionFactors[unit1Label.text!]!
-        unit1OutputLabel.text = convertToScientific(distance: distanceResult1)
-        distanceResult2 = Double(distanceInputTextField.text!)! * conversionFactors[unit2Label.text!]!
-        unit2OutputLabel.text = convertToScientific(distance: distanceResult2)
-        distanceResult3 = Double(distanceInputTextField.text!)! * conversionFactors[unit3Label.text!]!
-        unit3OutputLabel.text = convertToScientific(distance: distanceResult3)
+        let sourceUnitIndex = unitsSegmentedControl.selectedSegmentIndex
+        var results = [Double]()
+
+        switch sourceUnitIndex {
+        case 0:
+            results = astroConverter.fromParsecs(distance: Double(distanceInputTextField.text!)!)
+        case 1:
+            results = astroConverter.fromKilometres(distance: Double(distanceInputTextField.text!)!)
+        case 2:
+            results = astroConverter.fromAstronomicalUnits(distance: Double(distanceInputTextField.text!)!)
+        case 3:
+            results = astroConverter.fromLightYears(distance: Double(distanceInputTextField.text!)!)
+        default:
+            break
+        }
+        
+        distanceResults.removeAll()
+        for r in 0 ..< results.count {
+            distanceResults.append(results[r])
+            outputLabels[r].text = convertToScientific(distance: distanceResults[r])
+        }
     }
 
 
     @IBAction func unitsSegmentedControl(_ sender: Any) {
-        
-        switch unitsSegmentedControl.selectedSegmentIndex {
+
+        let segment = unitsSegmentedControl.selectedSegmentIndex
+        switch segment {
         case 0:
-            inputUnitLabel.text = "parsecs"
-            unit1Label.text = "kilometres"
-            unit2Label.text = "astronomical units"
-            unit3Label.text = "light years"
-            conversionFactors["parsecs"] = 1.0
-            conversionFactors["kilometres"] = kmParsecConversionFactor
-            conversionFactors["astronomical units"] = auParsecConversionFactor
-            conversionFactors["light years"] = lyParsecConversionFactor
+            changeLabels(selectedSegment: segment)
         case 1:
-            inputUnitLabel.text = "kilometres"
-            unit1Label.text = "parsecs"
-            unit2Label.text = "astronomical units"
-            unit3Label.text = "light years"
-            conversionFactors["parsecs"] = parsecKmConversionFactor
-            conversionFactors["kilometres"] = 1.0
-            conversionFactors["astronomical units"] = auKmConversionFactor
-            conversionFactors["light years"] = lyKmConversionFactor
+            changeLabels(selectedSegment: segment)
         case 2:
-            inputUnitLabel.text = "astronomical units"
-            unit1Label.text = "parsecs"
-            unit2Label.text = "kilometres"
-            unit3Label.text = "light years"
-            conversionFactors["parsecs"] = parsecAuConversionFactor
-            conversionFactors["kilometres"] = kmAuConversionFactor
-            conversionFactors["astronomical units"] = 1.0
-            conversionFactors["light years"] = lyAuConversionFactor
-        default:
-            inputUnitLabel.text = "light years"
-            unit1Label.text = "parsecs"
-            unit2Label.text = "kilometres"
-            unit3Label.text = "astronomical units"
-            conversionFactors["parsecs"] = parsecLyConversionFactor
-            conversionFactors["kilometres"] = kmLyConversionFactor
-            conversionFactors["astronomical units"] = auLyConversionFactor
-            conversionFactors["light years"] = 1.0
+            changeLabels(selectedSegment: segment)
+        case 3:
+            changeLabels(selectedSegment: segment)
+        default: break
+
         }
         updateOutput()
+    }
+
+
+    func changeLabels(selectedSegment: Int) {
+        inputUnitLabel.text = labelSetUp[selectedSegment]["inputUnitLabel"]
+        unit1Label.text = labelSetUp[selectedSegment]["unit1Label"]
+        unit2Label.text = labelSetUp[selectedSegment]["unit2Label"]
+        unit3Label.text = labelSetUp[selectedSegment]["unit3Label"]
     }
 
 

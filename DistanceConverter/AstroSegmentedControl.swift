@@ -18,4 +18,14 @@ class AstroSegmentedControl: UISegmentedControl {
     }
     */
 
+    func setImagesForSegmentedControl() {
+        let image1 = UIImage(named: "parsecs.png")?.withRenderingMode(.alwaysOriginal)
+        self.setImage(image1, forSegmentAt: 0)
+        let image2 = UIImage(named: "kilometres.png")?.withRenderingMode(.alwaysOriginal)
+        self.setImage(image2, forSegmentAt: 1)
+        let image3 = UIImage(named: "astronomical units.png")?.withRenderingMode(.alwaysOriginal)
+        self.setImage(image3, forSegmentAt: 2)
+        let image4 = UIImage(named: "light years.png")?.withRenderingMode(.alwaysOriginal)
+        self.setImage(image4, forSegmentAt: 3)
+    }
 }
