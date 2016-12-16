@@ -28,12 +28,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var unit3Label: UILabel!
 
     var distanceResults = [Double]()
-
     var url:String = ""
     var labelSetUp = [[String: String]]()
     var outputLabels = [UILabel]()
-
     var astroConverter = AstroDistance()
+    var selectedBackground = Int()
+    var backgrounds = [UIImage]()
 
 
     override func viewDidLoad() {
@@ -47,7 +47,19 @@ class ViewController: UIViewController {
         distanceInputTextField.addDoneButtonOnKeyboard(textField: distanceInputTextField)
         distanceInputTextField.becomeFirstResponder()
 
+        selectedBackground = Int(arc4random_uniform(3))
+        setUpImages()
+        print(selectedBackground)
+        backgroundImageView.image = backgrounds[selectedBackground]
+
         setUpSwipeGestureRecognizers()
+    }
+
+    func setUpImages() {
+        backgrounds.append(#imageLiteral(resourceName: "universe1small"))
+        backgrounds.append(#imageLiteral(resourceName: "universe2small"))
+        backgrounds.append(#imageLiteral(resourceName: "universe3small"))
+        backgrounds.append(#imageLiteral(resourceName: "universe4small"))
     }
 
 
@@ -169,20 +181,28 @@ class ViewController: UIViewController {
         if let swipeGesture = gesture as? UISwipeGestureRecognizer {
             switch swipeGesture.direction {
             case UISwipeGestureRecognizerDirection.right:
-                print("Swiped right")
+                if selectedBackground == 3 {
+                    selectedBackground = 0
+                } else {
+                    selectedBackground += 1
+                }
             case UISwipeGestureRecognizerDirection.left:
-                print("Swiped left")
+                if selectedBackground == 0 {
+                    selectedBackground = 3
+                } else {
+                    selectedBackground -= 1
+                }
             default:
                 break
             }
         }
+        backgroundImageView.image = backgrounds[selectedBackground]
+        setUpSwipeGestureRecognizers()
     }
     
 
     func displayDistance(distance: String, unit: String) {
-        let alert = UIAlertController(title: "Distance", message: "That is \(distance) \(unit)", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+        showAlert(title: "Distance", message: "That is \(distance) \(unit)")
     }
 
 
@@ -243,15 +263,17 @@ class ViewController: UIViewController {
             if distanceInput >= 0 {
                 updateOutput()
             } else {
-                let alert = UIAlertController(title: "Incorrect input", message: "Distance entered must be 0 or greater.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
+                showAlert(title: "Incorrect input", message: "Distance entered must be 0 or greater.")
             }
         } else {
-            let alert = UIAlertController(title: "Incorrect input", message: "Distance entered must be a non-negative number.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            showAlert(title: "Incorrect input", message: "Distance entered must be a non-negative number.")
         }
+    }
+
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
