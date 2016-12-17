@@ -41,6 +41,13 @@ func convertToDecimalString(distance: Double) -> String {
         return stringFromNumber
     }
 
+    if distance == 0 {
+        formatter.maximumFractionDigits = 0
+        formatter.minimumFractionDigits = 0
+        stringFromNumber = formatter.string(from: NSNumber(value: distance))!
+        return stringFromNumber
+    }
+
     if distance < 1 {
         var check = distance
         var loopCount = 0

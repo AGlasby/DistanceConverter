@@ -44,16 +44,11 @@ class ViewController: UIViewController {
         setUpSegmentedControl()
         setUpLabels()
         changeLabels(selectedSegment: 0)
-
         distanceInputTextField.text = "0"
         distanceInputTextField.addDoneButtonOnKeyboard(textField: distanceInputTextField)
         distanceInputTextField.becomeFirstResponder()
-
-        selectedBackground = Int(arc4random_uniform(3))
         setUpBackgroundImages()
-        print(selectedBackground)
-        backgroundImageView.image = backgrounds[selectedBackground]
-        setUpSwipeGestureRecognizers()
+        updateOutput()
     }
 
 
@@ -210,8 +205,12 @@ class ViewController: UIViewController {
         backgrounds.append(#imageLiteral(resourceName: "universe2small"))
         backgrounds.append(#imageLiteral(resourceName: "universe3small"))
         backgrounds.append(#imageLiteral(resourceName: "universe4small"))
+        selectedBackground = Int(arc4random_uniform(3))
+        backgroundImageView.image = backgrounds[selectedBackground]
+        setUpSwipeGestureRecognizers()
     }
 
+    
     func animateBackgroundChange(direction: String) {
         UIView.animate(withDuration: 0.7, delay: 0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseInOut, animations: {
             if direction == "Right"{
