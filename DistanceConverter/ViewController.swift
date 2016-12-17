@@ -247,24 +247,28 @@ class ViewController: UIViewController {
     func updateOutput() {
         let sourceUnitIndex = unitsSegmentedControl.selectedSegmentIndex
         var results = [Double]()
-
-        switch sourceUnitIndex {
-        case 0:
-            results = astroConverter.fromParsecs(distance: Double(distanceInputTextField.text!)!)
-        case 1:
-            results = astroConverter.fromKilometres(distance: Double(distanceInputTextField.text!)!)
-        case 2:
-            results = astroConverter.fromAstronomicalUnits(distance: Double(distanceInputTextField.text!)!)
-        case 3:
-            results = astroConverter.fromLightYears(distance: Double(distanceInputTextField.text!)!)
-        default:
-            break
+        if let distanceInput = distanceInputTextField.text{
+            if distanceInput != "" {
+                switch sourceUnitIndex {
+                case 0:
+                    results = astroConverter.fromParsecs(distance: Double(distanceInput)!)
+                case 1:
+                    results = astroConverter.fromKilometres(distance: Double(distanceInput)!)
+                case 2:
+                    results = astroConverter.fromAstronomicalUnits(distance: Double(distanceInput)!)
+                case 3:
+                    results = astroConverter.fromLightYears(distance: Double(distanceInput)!)
+                default:
+                    break
+                }
+                distanceResults.removeAll()
+                for r in 0 ..< results.count {
+                    distanceResults.append(results[r])
+                    outputLabels[r].text = convertToScientific(distance: distanceResults[r])
+                }
+            return
         }
-        
-        distanceResults.removeAll()
-        for r in 0 ..< results.count {
-            distanceResults.append(results[r])
-            outputLabels[r].text = convertToScientific(distance: distanceResults[r])
+            showAlert(title: "Error", message: "Distance input field is not valid. Please enter non-negative number and try again.")
         }
     }
 
@@ -299,12 +303,13 @@ class ViewController: UIViewController {
     @IBAction func convertDistanceTapped(_ sender: Any) {
         if let distanceInput = Double(distanceInputTextField.text!) {
             if distanceInput >= 0 {
+                distanceInputTextField.resignFirstResponder()
                 updateOutput()
             } else {
                 showAlert(title: "Incorrect input", message: "Distance entered must be 0 or greater.")
             }
         } else {
-            showAlert(title: "Incorrect input", message: "Distance entered must be a non-negative number.")
+            showAlert(title: "Incorrect input", message: "Distance input field is not valid. Please enter non-negative number and try again.")
         }
     }
 
