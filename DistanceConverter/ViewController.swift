@@ -11,6 +11,8 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var backgroundImageView: UIImageView!
+    @IBOutlet weak var backgroundImageViewTop: UIImageView!
+    
     @IBOutlet weak var unitsSegmentedControl: AstroSegmentedControl!
 
     @IBOutlet weak var distanceInputTextField: AstroTextField!
@@ -48,18 +50,10 @@ class ViewController: UIViewController {
         distanceInputTextField.becomeFirstResponder()
 
         selectedBackground = Int(arc4random_uniform(3))
-        setUpImages()
+        setUpBackgroundImages()
         print(selectedBackground)
         backgroundImageView.image = backgrounds[selectedBackground]
-
         setUpSwipeGestureRecognizers()
-    }
-
-    func setUpImages() {
-        backgrounds.append(#imageLiteral(resourceName: "universe1small"))
-        backgrounds.append(#imageLiteral(resourceName: "universe2small"))
-        backgrounds.append(#imageLiteral(resourceName: "universe3small"))
-        backgrounds.append(#imageLiteral(resourceName: "universe4small"))
     }
 
 
@@ -169,37 +163,81 @@ class ViewController: UIViewController {
     func setUpSwipeGestureRecognizers() {
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture(_:)))
         swipeRight.direction = UISwipeGestureRecognizerDirection.right
-        self.backgroundImageView.addGestureRecognizer(swipeRight)
+        self.backgroundImageViewTop.addGestureRecognizer(swipeRight)
 
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture(_:)))
         swipeLeft.direction = UISwipeGestureRecognizerDirection.left
-        self.backgroundImageView.addGestureRecognizer(swipeLeft)
+        self.backgroundImageViewTop.addGestureRecognizer(swipeLeft)
     }
 
 
     func respondToSwipeGesture(_ gesture: UIGestureRecognizer) {
+        var direction = String()
         if let swipeGesture = gesture as? UISwipeGestureRecognizer {
             switch swipeGesture.direction {
             case UISwipeGestureRecognizerDirection.right:
+                direction = "Right"
                 if selectedBackground == 3 {
                     selectedBackground = 0
                 } else {
                     selectedBackground += 1
                 }
+                    backgroundImageViewTop.frame.origin.x -= backgroundImageViewTop.frame.width
             case UISwipeGestureRecognizerDirection.left:
+                direction = "Left"
                 if selectedBackground == 0 {
                     selectedBackground = 3
                 } else {
                     selectedBackground -= 1
                 }
+                    backgroundImageViewTop.frame.origin.x += backgroundImageViewTop.frame.width
             default:
                 break
             }
         }
-        backgroundImageView.image = backgrounds[selectedBackground]
+        backgroundImageViewTop.image = backgrounds[selectedBackground]
+        if direction == "Right" {
+            animateBackgroundChange(direction: "Right")
+        } else {
+            animateBackgroundChange(direction: "Left")
+        }
         setUpSwipeGestureRecognizers()
     }
-    
+
+
+    func setUpBackgroundImages() {
+        backgrounds.append(#imageLiteral(resourceName: "universe1small"))
+        backgrounds.append(#imageLiteral(resourceName: "universe2small"))
+        backgrounds.append(#imageLiteral(resourceName: "universe3small"))
+        backgrounds.append(#imageLiteral(resourceName: "universe4small"))
+    }
+
+    func animateBackgroundChange(direction: String) {
+        UIView.animate(withDuration: 0.7, delay: 0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseInOut, animations: {
+            if direction == "Right"{
+                var backgroundLeftFrame = self.backgroundImageViewTop.frame
+                backgroundLeftFrame.origin.x -= backgroundLeftFrame.size.width
+
+                var backgroundRightFrame = self.backgroundImageViewTop.frame
+                backgroundRightFrame.origin.x += backgroundRightFrame.size.width
+
+                self.backgroundImageViewTop.frame = backgroundLeftFrame
+                self.backgroundImageViewTop.frame = backgroundRightFrame
+            } else {
+                var backgroundRightFrame = self.backgroundImageViewTop.frame
+                backgroundRightFrame.origin.x += backgroundRightFrame.size.width * 2
+
+                var backgroundLeftFrame = self.backgroundImageViewTop.frame
+                backgroundLeftFrame.origin.x -= backgroundLeftFrame.size.width
+
+                self.backgroundImageViewTop.frame = backgroundRightFrame
+                self.backgroundImageViewTop.frame = backgroundLeftFrame
+            }
+        }, completion: { finished in
+            self.backgroundImageView.image = self.backgroundImageViewTop.image
+        })
+    }
+
 
     func displayDistance(distance: String, unit: String) {
         showAlert(title: "Distance", message: "That is \(distance) \(unit)")
