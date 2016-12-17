@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import WebKit
 
-class WikiViewController: UIViewController {
+class WikiViewController: UIViewController, UIWebViewDelegate {
     @IBOutlet weak var wikiWebView: UIWebView!
 
     var url:String = ""
@@ -22,4 +23,6 @@ class WikiViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
+
+    
 }
