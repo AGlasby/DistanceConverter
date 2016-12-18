@@ -20,6 +20,7 @@
 		E7558DBA1DF2BC9800093962 /* AstroTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7558DB91DF2BC9800093962 /* AstroTextField.swift */; };
 		E7558DBC1DF467CB00093962 /* AGTapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7558DBB1DF467CB00093962 /* AGTapGestureRecognizer.swift */; };
 		E765359B1DFCA9370020497B /* WikiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E765359A1DFCA9370020497B /* WikiViewController.swift */; };
+		E767AFE31E068B24004E64F1 /* FadeInAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E767AFE21E068B24004E64F1 /* FadeInAnimator.swift */; };
 		E7E088951DFDC7EC00221174 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E088941DFDC7EC00221174 /* Constants.swift */; };
 		E7E0889E1E0093BA00221174 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0889D1E0093BA00221174 /* HelperFunctions.swift */; };
 		E7E088A01E009B9400221174 /* AstroDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0889F1E009B9400221174 /* AstroDistance.swift */; };
@@ -62,6 +63,7 @@
 		E7558DB91DF2BC9800093962 /* AstroTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AstroTextField.swift; sourceTree = "<group>"; };
 		E7558DBB1DF467CB00093962 /* AGTapGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGTapGestureRecognizer.swift; sourceTree = "<group>"; };
 		E765359A1DFCA9370020497B /* WikiViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WikiViewController.swift; sourceTree = "<group>"; };
+		E767AFE21E068B24004E64F1 /* FadeInAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FadeInAnimator.swift; sourceTree = "<group>"; };
 		E7E088941DFDC7EC00221174 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E7E0889D1E0093BA00221174 /* HelperFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
 		E7E0889F1E009B9400221174 /* AstroDistance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AstroDistance.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				E7558DB71DF2BC6D00093962 /* AstroSegmentedControl.swift */,
 				E7558DB91DF2BC9800093962 /* AstroTextField.swift */,
 				E7558DBB1DF467CB00093962 /* AGTapGestureRecognizer.swift */,
+				E767AFE21E068B24004E64F1 /* FadeInAnimator.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -328,6 +331,7 @@
 				E7E0889E1E0093BA00221174 /* HelperFunctions.swift in Sources */,
 				E7558DB61DF2BC3600093962 /* AstroButton.swift in Sources */,
 				E7558DB81DF2BC6D00093962 /* AstroSegmentedControl.swift in Sources */,
+				E767AFE31E068B24004E64F1 /* FadeInAnimator.swift in Sources */,
 				E7558D861DEF6B1300093962 /* AppDelegate.swift in Sources */,
 				E765359B1DFCA9370020497B /* WikiViewController.swift in Sources */,
 				E7558DB41DF2BC1000093962 /* AstroLabel.swift in Sources */,

@@ -36,19 +36,21 @@ class ViewController: UIViewController {
     var astroConverter = AstroDistance()
     var selectedBackground = Int()
     var backgrounds = [UIImage]()
+    private let fadeInAnimator = FadeInAnimator()
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setUpSegmentedControl()
         setUpLabels()
-        changeLabels(selectedSegment: 0)
-        distanceInputTextField.text = "0"
-        distanceInputTextField.addDoneButtonOnKeyboard(textField: distanceInputTextField)
-        distanceInputTextField.becomeFirstResponder()
+        setUpTextField()
         setUpBackgroundImages()
         updateOutput()
+    }
+
+
+    override func viewWillAppear(_ animated: Bool) {
+        navigationItem.title = "AstroDistance"
     }
 
 
@@ -81,10 +83,9 @@ class ViewController: UIViewController {
         performSegue(withIdentifier: "showWikiPage", sender: self)
         return
     }
-    
+
 
     func setUpLabels() {
-
         var labels = [String: String]()
         labels["inputUnitLabel"] = "parsecs"
         labels["unit1Label"] = "kilometres"
@@ -118,28 +119,25 @@ class ViewController: UIViewController {
         outputLabels.append(unit3OutputLabel)
         
         setUpTapGestures()
+        changeLabels(selectedSegment: 0)
     }
 
 
     func setUpTapGestures() {
         var taps = [AGTapGestureRecognizer]()
-        taps.append(AGTapGestureRecognizer(target: self, action: #selector(tapFunction)))
-        taps.append(AGTapGestureRecognizer(target: self, action: #selector(tapFunction)))
-        taps.append(AGTapGestureRecognizer(target: self, action: #selector(tapFunction)))
-        setTapGestures(tap: taps)
-    }
-
-
-    func setTapGestures(tap: [AGTapGestureRecognizer]) {
-        for t in 0 ..< tap.count {
-            tap[t].label = t + 1
+        taps.append(AGTapGestureRecognizer(target: self, action: #selector(tapGestureFunction)))
+        taps.append(AGTapGestureRecognizer(target: self, action: #selector(tapGestureFunction)))
+        taps.append(AGTapGestureRecognizer(target: self, action: #selector(tapGestureFunction)))
+        for t in 0 ..< taps.count{
+            taps[t].label = t + 1
             outputLabels[t].isUserInteractionEnabled = true
-            outputLabels[t].addGestureRecognizer(tap[t])
+            outputLabels[t].addGestureRecognizer(taps[t])
         }
     }
 
 
-    func tapFunction(sender:AGTapGestureRecognizer) {
+    func tapGestureFunction(sender:AGTapGestureRecognizer) {
+        updateOutput()
         let tap = sender.label! as Int
         switch tap {
         case 1:
@@ -155,6 +153,51 @@ class ViewController: UIViewController {
     }
 
 
+    func setUpTextField() {
+        distanceInputTextField.text = "0"
+        distanceInputTextField.addDoneButtonOnKeyboard(textField: distanceInputTextField)
+        distanceInputTextField.becomeFirstResponder()
+    }
+
+
+    func setUpBackgroundImages() {
+        backgrounds.append(#imageLiteral(resourceName: "universe1small"))
+        backgrounds.append(#imageLiteral(resourceName: "universe2small"))
+        backgrounds.append(#imageLiteral(resourceName: "universe3small"))
+        backgrounds.append(#imageLiteral(resourceName: "universe4small"))
+        selectedBackground = Int(arc4random_uniform(3))
+        backgroundImageView.image = backgrounds[selectedBackground]
+        setUpSwipeGestureRecognizers()
+    }
+
+
+    func animateBackgroundChange(direction: String) {
+        UIView.animate(withDuration: 0.7, delay: 0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseInOut, animations: {
+            if direction == "Right"{
+                var backgroundLeftFrame = self.backgroundImageViewTop.frame
+                backgroundLeftFrame.origin.x -= backgroundLeftFrame.size.width
+
+                var backgroundRightFrame = self.backgroundImageViewTop.frame
+                backgroundRightFrame.origin.x += backgroundRightFrame.size.width
+
+                self.backgroundImageViewTop.frame = backgroundLeftFrame
+                self.backgroundImageViewTop.frame = backgroundRightFrame
+            } else {
+                var backgroundRightFrame = self.backgroundImageViewTop.frame
+                backgroundRightFrame.origin.x += backgroundRightFrame.size.width * 2
+
+                var backgroundLeftFrame = self.backgroundImageViewTop.frame
+                backgroundLeftFrame.origin.x -= backgroundLeftFrame.size.width
+
+                self.backgroundImageViewTop.frame = backgroundRightFrame
+                self.backgroundImageViewTop.frame = backgroundLeftFrame
+            }
+        }, completion: { finished in
+            self.backgroundImageView.image = self.backgroundImageViewTop.image
+        })
+    }
+
+    
     func setUpSwipeGestureRecognizers() {
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture(_:)))
         swipeRight.direction = UISwipeGestureRecognizerDirection.right
@@ -200,44 +243,6 @@ class ViewController: UIViewController {
     }
 
 
-    func setUpBackgroundImages() {
-        backgrounds.append(#imageLiteral(resourceName: "universe1small"))
-        backgrounds.append(#imageLiteral(resourceName: "universe2small"))
-        backgrounds.append(#imageLiteral(resourceName: "universe3small"))
-        backgrounds.append(#imageLiteral(resourceName: "universe4small"))
-        selectedBackground = Int(arc4random_uniform(3))
-        backgroundImageView.image = backgrounds[selectedBackground]
-        setUpSwipeGestureRecognizers()
-    }
-
-    
-    func animateBackgroundChange(direction: String) {
-        UIView.animate(withDuration: 0.7, delay: 0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseInOut, animations: {
-            if direction == "Right"{
-                var backgroundLeftFrame = self.backgroundImageViewTop.frame
-                backgroundLeftFrame.origin.x -= backgroundLeftFrame.size.width
-
-                var backgroundRightFrame = self.backgroundImageViewTop.frame
-                backgroundRightFrame.origin.x += backgroundRightFrame.size.width
-
-                self.backgroundImageViewTop.frame = backgroundLeftFrame
-                self.backgroundImageViewTop.frame = backgroundRightFrame
-            } else {
-                var backgroundRightFrame = self.backgroundImageViewTop.frame
-                backgroundRightFrame.origin.x += backgroundRightFrame.size.width * 2
-
-                var backgroundLeftFrame = self.backgroundImageViewTop.frame
-                backgroundLeftFrame.origin.x -= backgroundLeftFrame.size.width
-
-                self.backgroundImageViewTop.frame = backgroundRightFrame
-                self.backgroundImageViewTop.frame = backgroundLeftFrame
-            }
-        }, completion: { finished in
-            self.backgroundImageView.image = self.backgroundImageViewTop.image
-        })
-    }
-
-
     func displayDistance(distance: String, unit: String) {
         showAlert(title: "Distance", message: "That is \(distance) \(unit)")
     }
@@ -250,13 +255,21 @@ class ViewController: UIViewController {
             if distanceInput != "" {
                 switch sourceUnitIndex {
                 case 0:
-                    results = astroConverter.fromParsecs(distance: Double(distanceInput)!)
+                    if let distance = Double(distanceInput) {
+                        results = astroConverter.fromParsecs(distance: distance)
+                    }
                 case 1:
-                    results = astroConverter.fromKilometres(distance: Double(distanceInput)!)
+                    if let distance = Double(distanceInput) {
+                        results = astroConverter.fromKilometres(distance: distance)
+                    }
                 case 2:
-                    results = astroConverter.fromAstronomicalUnits(distance: Double(distanceInput)!)
+                    if let distance = Double(distanceInput) {
+                        results = astroConverter.fromAstronomicalUnits(distance: distance)
+                    }
                 case 3:
-                    results = astroConverter.fromLightYears(distance: Double(distanceInput)!)
+                    if let distance = Double(distanceInput) {
+                        results = astroConverter.fromLightYears(distance: distance)
+                    }
                 default:
                     break
                 }
@@ -300,17 +313,20 @@ class ViewController: UIViewController {
 
 
     @IBAction func convertDistanceTapped(_ sender: Any) {
-        if let distanceInput = Double(distanceInputTextField.text!) {
-            if distanceInput >= 0 {
-                distanceInputTextField.resignFirstResponder()
-                updateOutput()
+        if let inputDistance = distanceInputTextField.text {
+            if let distanceInput = Double(inputDistance) {
+                if distanceInput >= 0 {
+                    distanceInputTextField.resignFirstResponder()
+                    updateOutput()
+                } else {
+                    showAlert(title: "Incorrect input", message: "Distance entered must be 0 or greater.")
+                }
             } else {
-                showAlert(title: "Incorrect input", message: "Distance entered must be 0 or greater.")
+                showAlert(title: "Incorrect input", message: "Distance input field is not valid. Please enter non-negative number and try again.")
             }
-        } else {
-            showAlert(title: "Incorrect input", message: "Distance input field is not valid. Please enter non-negative number and try again.")
         }
     }
+
 
     func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -318,11 +334,24 @@ class ViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
 
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showWikiPage" {
             let destinationVC = segue.destination as? WikiViewController
             destinationVC?.url = url
+            destinationVC?.transitioningDelegate = self
         }
+    }
+
+    @IBAction func returnSegue(unwindSegue:UIStoryboardSegue) {
+    
+    }
+}
+
+
+extension ViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return FadeInAnimator()
     }
 }
 

@@ -15,6 +15,7 @@ class WikiViewController: UIViewController, UIWebViewDelegate {
     @IBOutlet weak var wikiWebView: UIWebView!
 
     var url:String = ""
+    private let fadeInAnimator = FadeInAnimator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,5 +44,18 @@ class WikiViewController: UIViewController, UIWebViewDelegate {
 
     func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
         spinnerActivityIndicatorView.stopAnimating()
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "returnFromWiki" {
+            let destinationVC = segue.destination as? ViewController
+            destinationVC?.transitioningDelegate = self
+        }
+    }
+}
+
+extension WikiViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return FadeInAnimator()
     }
 }
