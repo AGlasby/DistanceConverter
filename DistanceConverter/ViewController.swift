@@ -50,7 +50,7 @@ class ViewController: UIViewController {
 
 
     override func viewWillAppear(_ animated: Bool) {
-        navigationItem.title = "AstroDistance"
+        distanceInputTextField.resignFirstResponder()
     }
 
 
@@ -341,10 +341,6 @@ class ViewController: UIViewController {
             destinationVC?.url = url
             destinationVC?.transitioningDelegate = self
         }
-    }
-
-    @IBAction func returnSegue(unwindSegue:UIStoryboardSegue) {
-    
     }
 }
 

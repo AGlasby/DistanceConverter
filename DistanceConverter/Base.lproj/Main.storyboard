@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="syD-KB-JzP">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="692"/>
                             </imageView>
                             <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tSR-7D-MPp" userLabel="Background Image View Top">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -59,84 +59,78 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="myJ-iA-zUS">
-                                <rect key="frame" x="44" y="255" width="326" height="109"/>
+                                <rect key="frame" x="24" y="255" width="366" height="106"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="EPb-3z-AhB">
-                                        <rect key="frame" x="0.0" y="0.0" width="326" height="20.333333333333314"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="EPb-3z-AhB">
+                                        <rect key="frame" x="0.0" y="0.0" width="366" height="19.333333333333314"/>
                                         <subviews>
                                             <label opaque="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zco-GA-kh3" userLabel="DistanceOutA" customClass="AstroLabel" customModule="DistanceConverter" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="128" height="20.333333333333314"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="104" height="19.333333333333314"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="128" id="eYe-Ta-InF"/>
+                                                    <constraint firstAttribute="width" constant="104" id="eYe-Ta-InF"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sWl-e1-ZSY" userLabel="DistanceOutAUnits" customClass="AstroLabel" customModule="DistanceConverter" customModuleProvider="target">
-                                                <rect key="frame" x="166" y="0.0" width="160" height="20.333333333333314"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="kilometres" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sWl-e1-ZSY" userLabel="DistanceOutAUnits" customClass="AstroLabel" customModule="DistanceConverter" customModuleProvider="target">
+                                                <rect key="frame" x="218" y="0.0" width="148" height="19.333333333333314"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="160" id="f4e-7s-F7y"/>
+                                                    <constraint firstAttribute="width" constant="148" id="f4e-7s-F7y"/>
                                                 </constraints>
-                                                <attributedString key="attributedText">
-                                                    <fragment content="kilometres">
-                                                        <attributes>
-                                                            <font key="NSFont" metaFont="system" size="17"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                </attributedString>
+                                                <fontDescription key="fontDescription" name=".SFNSText" family=".SF NS Text" pointSize="16"/>
+                                                <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="SOG-F7-vs8">
-                                        <rect key="frame" x="0.0" y="44.333333333333314" width="326" height="20.333333333333371"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="SOG-F7-vs8">
+                                        <rect key="frame" x="0.0" y="43.333333333333314" width="366" height="19.333333333333371"/>
                                         <subviews>
                                             <label opaque="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="53o-SE-iq8" userLabel="DistanceOutB" customClass="AstroLabel" customModule="DistanceConverter" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="128" height="20.333333333333371"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="104" height="19.333333333333371"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="128" id="UCn-Zx-UpD"/>
+                                                    <constraint firstAttribute="width" constant="104" id="UCn-Zx-UpD"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Astronomical Units" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VdH-G5-nLf" userLabel="DistanceOutBUnits" customClass="AstroLabel" customModule="DistanceConverter" customModuleProvider="target">
-                                                <rect key="frame" x="166" y="0.0" width="160" height="20.333333333333371"/>
+                                                <rect key="frame" x="218" y="0.0" width="148" height="19.333333333333371"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="160" id="BIo-4C-IeF"/>
+                                                    <constraint firstAttribute="width" constant="148" id="BIo-4C-IeF"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="seD-zd-qPq">
-                                        <rect key="frame" x="0.0" y="88.666666666666686" width="326" height="20.333333333333314"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="seD-zd-qPq">
+                                        <rect key="frame" x="0.0" y="86.666666666666686" width="366" height="19.333333333333314"/>
                                         <subviews>
                                             <label opaque="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O8v-cb-cRH" userLabel="DistanceOutC" customClass="AstroLabel" customModule="DistanceConverter" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="128" height="20.333333333333314"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="104" height="19.333333333333314"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="128" id="vo2-j1-SV5"/>
+                                                    <constraint firstAttribute="width" constant="104" id="vo2-j1-SV5"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Light Years" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mrx-PD-nqW" userLabel="DistanceOutCUnits" customClass="AstroLabel" customModule="DistanceConverter" customModuleProvider="target">
-                                                <rect key="frame" x="166" y="0.0" width="160" height="20.333333333333314"/>
+                                                <rect key="frame" x="218" y="0.0" width="148" height="19.333333333333314"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="160" id="xV7-Z7-YV4"/>
+                                                    <constraint firstAttribute="width" constant="148" id="xV7-Z7-YV4"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -172,12 +166,12 @@
                             <constraint firstItem="myJ-iA-zUS" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Q5N-mQ-HIo"/>
                             <constraint firstItem="iI5-lO-e2j" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="24" id="VIn-Za-LK3"/>
                             <constraint firstItem="b9h-F3-TWy" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="75" id="YTr-Sd-65J"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="myJ-iA-zUS" secondAttribute="trailing" constant="24" id="a28-KA-X8S"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="myJ-iA-zUS" secondAttribute="trailing" constant="4" id="a28-KA-X8S"/>
                             <constraint firstItem="b9h-F3-TWy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="c73-pw-Ryp"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="syD-KB-JzP" secondAttribute="bottom" id="clo-4F-MPC"/>
                             <constraint firstItem="iI5-lO-e2j" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="16" id="fha-P2-3h3"/>
                             <constraint firstAttribute="trailingMargin" secondItem="iI5-lO-e2j" secondAttribute="trailing" constant="16" id="gC4-uU-oTn"/>
-                            <constraint firstItem="myJ-iA-zUS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="24" id="oIn-nd-0lk"/>
+                            <constraint firstItem="myJ-iA-zUS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="4" id="oIn-nd-0lk"/>
                             <constraint firstItem="r0U-xp-kMp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="wyc-rq-ECZ"/>
                         </constraints>
                     </view>

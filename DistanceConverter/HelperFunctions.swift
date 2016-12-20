@@ -12,7 +12,7 @@ func convertToScientific(distance: Double) -> String {
     let distanceNSNumber = NSNumber(value: Double(distance))
     let formatter = NumberFormatter()
     formatter.numberStyle = NumberFormatter.Style.scientific
-    formatter.positiveFormat = "0.#####E+0"
+    formatter.positiveFormat = "0.####E+0"
     formatter.exponentSymbol = "e"
     if let stringFromNumber = formatter.string(from: distanceNSNumber) {
         return stringFromNumber

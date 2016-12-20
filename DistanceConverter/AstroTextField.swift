@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AstroTextField: UITextField {
+class AstroTextField: UITextField, UITextFieldDelegate {
 
     /*
     // Only override draw() if you perform custom drawing.
@@ -33,7 +33,6 @@ class AstroTextField: UITextField {
 
         textField.inputAccessoryView = doneToolbar
     }
-
 
 
     func doneButtonAction() {
