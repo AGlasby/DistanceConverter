@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FadeInAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+class AFGFadeInAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 1.0

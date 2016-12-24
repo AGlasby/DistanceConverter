@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AGTapGestureRecognizer: UITapGestureRecognizer {
+class AFGTapGestureRecognizer: UITapGestureRecognizer {
     var label: Int?
 
 }

@@ -8,8 +8,13 @@
 
 import Foundation
 
-let BASEURL = "https://en.m.wikipedia.org/wiki/"
-let PARSEC = "parsec"
-let KILOMETRE = "Kilometre"
-let ASTRONOMICALUNIT = "Astronomical_unit"
-let LIGHTYEAR = "Light-year"
+let PROTOCOL = "https://"
+let WIKIURL = ".m.wikipedia.org/wiki/"
+let PARSECen = "parsec"
+let KILOMETREen = "Kilometre"
+let ASTRONOMICALUNITen = "Astronomical_unit"
+let LIGHTYEARen = "Light-year"
+let PARSECde = "Parsec"
+let KILOMETREde = "Meter"
+let ASTRONOMICALUNITde = "Astronomische_Einheit"
+let LIGHTYEARde = "Lichtjahr"

@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var backgroundImageView: UIImageView!
-    @IBOutlet weak var backgroundImageViewTop: UIImageView!
+    @IBOutlet weak var backgroundImageViewTop: backgroundImageView!
     
     @IBOutlet weak var unitsSegmentedControl: AstroSegmentedControl!
 
@@ -34,9 +34,9 @@ class ViewController: UIViewController {
     var labelSetUp = [[String: String]]()
     var outputLabels = [UILabel]()
     var astroConverter = AstroDistance()
-    var selectedBackground = Int()
-    var backgrounds = [UIImage]()
-    private let fadeInAnimator = FadeInAnimator()
+    var selectedLanguage:String = ""
+    var languageForUrls = LanguageStruct()
+    var wikiUrls: wikiPageUrlsForLanguage!
 
 
     override func viewDidLoad() {
@@ -44,13 +44,24 @@ class ViewController: UIViewController {
         setUpSegmentedControl()
         setUpLabels()
         setUpTextField()
-        setUpBackgroundImages()
+        setUpUrlsForWikiLinks()
+        backgroundImageViewTop.setUpBackgroundImages(bottomImage: backgroundImageView)
         updateOutput()
     }
 
 
     override func viewWillAppear(_ animated: Bool) {
         distanceInputTextField.resignFirstResponder()
+    }
+
+
+    func setUpUrlsForWikiLinks() {
+        if let userLanguage = languageForUrls.getLanguage() {
+            selectedLanguage = userLanguage
+        } else {
+            selectedLanguage = "en"
+        }
+        wikiUrls = languageForUrls.buildUrlForLanguage(languageISOCode: selectedLanguage)
     }
 
 
@@ -66,22 +77,24 @@ class ViewController: UIViewController {
         if gestureRecognizer.state != UIGestureRecognizerState.ended {
             return
         }
+
         var p = CGPoint()
         p = gestureRecognizer.location(in: unitsSegmentedControl)
         let r = unitsSegmentedControl.frame.width
         let index = Int(ceil(p.x/(r/4))) - 1
+
         switch index {
         case 0:
-            url = BASEURL + PARSEC
+            url = wikiUrls.parsecUrl
         case 1:
-            url = BASEURL + KILOMETRE
+            url = wikiUrls.kilometreUrl
         case 2:
-            url = BASEURL + ASTRONOMICALUNIT
+            url = wikiUrls.astronomicalUnitUrl
         default:
-            url = BASEURL + LIGHTYEAR
+            url = wikiUrls.lightYearsUrl
         }
+
         performSegue(withIdentifier: "showWikiPage", sender: self)
-        return
     }
 
 
@@ -124,10 +137,10 @@ class ViewController: UIViewController {
 
 
     func setUpTapGestures() {
-        var taps = [AGTapGestureRecognizer]()
-        taps.append(AGTapGestureRecognizer(target: self, action: #selector(tapGestureFunction)))
-        taps.append(AGTapGestureRecognizer(target: self, action: #selector(tapGestureFunction)))
-        taps.append(AGTapGestureRecognizer(target: self, action: #selector(tapGestureFunction)))
+        var taps = [AFGTapGestureRecognizer]()
+        taps.append(AFGTapGestureRecognizer(target: self, action: #selector(tapGestureFunction)))
+        taps.append(AFGTapGestureRecognizer(target: self, action: #selector(tapGestureFunction)))
+        taps.append(AFGTapGestureRecognizer(target: self, action: #selector(tapGestureFunction)))
         for t in 0 ..< taps.count{
             taps[t].label = t + 1
             outputLabels[t].isUserInteractionEnabled = true
@@ -136,7 +149,7 @@ class ViewController: UIViewController {
     }
 
 
-    func tapGestureFunction(sender:AGTapGestureRecognizer) {
+    func tapGestureFunction(sender:AFGTapGestureRecognizer) {
         updateOutput()
         let tap = sender.label! as Int
         switch tap {
@@ -160,116 +173,26 @@ class ViewController: UIViewController {
     }
 
 
-    func setUpBackgroundImages() {
-        backgrounds.append(#imageLiteral(resourceName: "universe1small"))
-        backgrounds.append(#imageLiteral(resourceName: "universe2small"))
-        backgrounds.append(#imageLiteral(resourceName: "universe3small"))
-        backgrounds.append(#imageLiteral(resourceName: "universe4small"))
-        selectedBackground = Int(arc4random_uniform(3))
-        backgroundImageView.image = backgrounds[selectedBackground]
-        setUpSwipeGestureRecognizers()
-    }
-
-
-    func animateBackgroundChange(direction: String) {
-        UIView.animate(withDuration: 0.7, delay: 0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseInOut, animations: {
-            if direction == "Right"{
-                var backgroundLeftFrame = self.backgroundImageViewTop.frame
-                backgroundLeftFrame.origin.x -= backgroundLeftFrame.size.width
-
-                var backgroundRightFrame = self.backgroundImageViewTop.frame
-                backgroundRightFrame.origin.x += backgroundRightFrame.size.width
-
-                self.backgroundImageViewTop.frame = backgroundLeftFrame
-                self.backgroundImageViewTop.frame = backgroundRightFrame
-            } else {
-                var backgroundRightFrame = self.backgroundImageViewTop.frame
-                backgroundRightFrame.origin.x += backgroundRightFrame.size.width * 2
-
-                var backgroundLeftFrame = self.backgroundImageViewTop.frame
-                backgroundLeftFrame.origin.x -= backgroundLeftFrame.size.width
-
-                self.backgroundImageViewTop.frame = backgroundRightFrame
-                self.backgroundImageViewTop.frame = backgroundLeftFrame
-            }
-        }, completion: { finished in
-            self.backgroundImageView.image = self.backgroundImageViewTop.image
-        })
-    }
-
-    
-    func setUpSwipeGestureRecognizers() {
-        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture(_:)))
-        swipeRight.direction = UISwipeGestureRecognizerDirection.right
-        self.backgroundImageViewTop.addGestureRecognizer(swipeRight)
-
-        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture(_:)))
-        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
-        self.backgroundImageViewTop.addGestureRecognizer(swipeLeft)
-    }
-
-
-    func respondToSwipeGesture(_ gesture: UIGestureRecognizer) {
-        var direction = String()
-        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
-            switch swipeGesture.direction {
-            case UISwipeGestureRecognizerDirection.right:
-                direction = "Right"
-                if selectedBackground == 3 {
-                    selectedBackground = 0
-                } else {
-                    selectedBackground += 1
-                }
-                    backgroundImageViewTop.frame.origin.x -= backgroundImageViewTop.frame.width
-            case UISwipeGestureRecognizerDirection.left:
-                direction = "Left"
-                if selectedBackground == 0 {
-                    selectedBackground = 3
-                } else {
-                    selectedBackground -= 1
-                }
-                    backgroundImageViewTop.frame.origin.x += backgroundImageViewTop.frame.width
-            default:
-                break
-            }
-        }
-        backgroundImageViewTop.image = backgrounds[selectedBackground]
-        if direction == "Right" {
-            animateBackgroundChange(direction: "Right")
-        } else {
-            animateBackgroundChange(direction: "Left")
-        }
-        setUpSwipeGestureRecognizers()
-    }
-
-
     func displayDistance(distance: String, unit: String) {
-        showAlert(title: "Distance", message: "That is \(distance) \(unit)")
+        showAlert(title: "Distance", message: "That is \(distance) \(unit)", viewController: self)
     }
 
 
     func updateOutput() {
         let sourceUnitIndex = unitsSegmentedControl.selectedSegmentIndex
         var results = [Double]()
-        if let distanceInput = distanceInputTextField.text{
-            if distanceInput != "" {
+        let distanceInput = convertToDouble(inputText: distanceInputTextField.text!)
+            if distanceInput > 0 {
                 switch sourceUnitIndex {
                 case 0:
-                    if let distance = Double(distanceInput) {
-                        results = astroConverter.fromParsecs(distance: distance)
-                    }
+                        results = astroConverter.fromParsecs(distance: distanceInput)
                 case 1:
-                    if let distance = Double(distanceInput) {
-                        results = astroConverter.fromKilometres(distance: distance)
-                    }
+                        results = astroConverter.fromKilometres(distance: distanceInput)
+
                 case 2:
-                    if let distance = Double(distanceInput) {
-                        results = astroConverter.fromAstronomicalUnits(distance: distance)
-                    }
+                        results = astroConverter.fromAstronomicalUnits(distance: distanceInput)
                 case 3:
-                    if let distance = Double(distanceInput) {
-                        results = astroConverter.fromLightYears(distance: distance)
-                    }
+                        results = astroConverter.fromLightYears(distance: distanceInput)
                 default:
                     break
                 }
@@ -280,13 +203,11 @@ class ViewController: UIViewController {
                 }
             return
         }
-            showAlert(title: "Error", message: "Distance input field is not valid. Please enter non-negative number and try again.")
+            showAlert(title: "Error", message: "Distance input field is not valid. Please enter non-zero number and try again.", viewController: self)
         }
-    }
 
 
     @IBAction func unitsSegmentedControl(_ sender: Any) {
-
         let segment = unitsSegmentedControl.selectedSegmentIndex
         switch segment {
         case 0:
@@ -298,7 +219,6 @@ class ViewController: UIViewController {
         case 3:
             changeLabels(selectedSegment: segment)
         default: break
-
         }
         updateOutput()
     }
@@ -314,24 +234,14 @@ class ViewController: UIViewController {
 
     @IBAction func convertDistanceTapped(_ sender: Any) {
         if let inputDistance = distanceInputTextField.text {
-            if let distanceInput = Double(inputDistance) {
-                if distanceInput >= 0 {
-                    distanceInputTextField.resignFirstResponder()
-                    updateOutput()
-                } else {
-                    showAlert(title: "Incorrect input", message: "Distance entered must be 0 or greater.")
-                }
-            } else {
-                showAlert(title: "Incorrect input", message: "Distance input field is not valid. Please enter non-negative number and try again.")
+            let distanceInput = convertToDouble(inputText: inputDistance)
+            if distanceInput > 0 {
+                distanceInputTextField.resignFirstResponder()
+                updateOutput()
+                return
             }
         }
-    }
-
-
-    func showAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+        showAlert(title: "Incorrect input", message: "Distance input field is not valid. Please enter non-zero number and try again.", viewController: self)
     }
 
     
@@ -347,7 +257,7 @@ class ViewController: UIViewController {
 
 extension ViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return FadeInAnimator()
+        return AFGFadeInAnimator()
     }
 }
 

@@ -18,9 +18,11 @@
 		E7558DB61DF2BC3600093962 /* AstroButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7558DB51DF2BC3600093962 /* AstroButton.swift */; };
 		E7558DB81DF2BC6D00093962 /* AstroSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7558DB71DF2BC6D00093962 /* AstroSegmentedControl.swift */; };
 		E7558DBA1DF2BC9800093962 /* AstroTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7558DB91DF2BC9800093962 /* AstroTextField.swift */; };
-		E7558DBC1DF467CB00093962 /* AGTapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7558DBB1DF467CB00093962 /* AGTapGestureRecognizer.swift */; };
+		E7558DBC1DF467CB00093962 /* AFGTapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7558DBB1DF467CB00093962 /* AFGTapGestureRecognizer.swift */; };
 		E765359B1DFCA9370020497B /* WikiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E765359A1DFCA9370020497B /* WikiViewController.swift */; };
-		E767AFE31E068B24004E64F1 /* FadeInAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E767AFE21E068B24004E64F1 /* FadeInAnimator.swift */; };
+		E767AFE31E068B24004E64F1 /* AFGFadeInAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E767AFE21E068B24004E64F1 /* AFGFadeInAnimator.swift */; };
+		E78AFBAD1E0A5ED800BC7569 /* backgroundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78AFBAC1E0A5ED800BC7569 /* backgroundImageView.swift */; };
+		E78AFBAF1E0E765D00BC7569 /* LanguageStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78AFBAE1E0E765D00BC7569 /* LanguageStruct.swift */; };
 		E7E088951DFDC7EC00221174 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E088941DFDC7EC00221174 /* Constants.swift */; };
 		E7E0889E1E0093BA00221174 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0889D1E0093BA00221174 /* HelperFunctions.swift */; };
 		E7E088A01E009B9400221174 /* AstroDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0889F1E009B9400221174 /* AstroDistance.swift */; };
@@ -61,9 +63,11 @@
 		E7558DB51DF2BC3600093962 /* AstroButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AstroButton.swift; sourceTree = "<group>"; };
 		E7558DB71DF2BC6D00093962 /* AstroSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AstroSegmentedControl.swift; sourceTree = "<group>"; };
 		E7558DB91DF2BC9800093962 /* AstroTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AstroTextField.swift; sourceTree = "<group>"; };
-		E7558DBB1DF467CB00093962 /* AGTapGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGTapGestureRecognizer.swift; sourceTree = "<group>"; };
+		E7558DBB1DF467CB00093962 /* AFGTapGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AFGTapGestureRecognizer.swift; sourceTree = "<group>"; };
 		E765359A1DFCA9370020497B /* WikiViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WikiViewController.swift; sourceTree = "<group>"; };
-		E767AFE21E068B24004E64F1 /* FadeInAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FadeInAnimator.swift; sourceTree = "<group>"; };
+		E767AFE21E068B24004E64F1 /* AFGFadeInAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AFGFadeInAnimator.swift; sourceTree = "<group>"; };
+		E78AFBAC1E0A5ED800BC7569 /* backgroundImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = backgroundImageView.swift; sourceTree = "<group>"; };
+		E78AFBAE1E0E765D00BC7569 /* LanguageStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageStruct.swift; sourceTree = "<group>"; };
 		E7E088941DFDC7EC00221174 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E7E0889D1E0093BA00221174 /* HelperFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
 		E7E0889F1E009B9400221174 /* AstroDistance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AstroDistance.swift; sourceTree = "<group>"; };
@@ -164,8 +168,7 @@
 				E7558DB51DF2BC3600093962 /* AstroButton.swift */,
 				E7558DB71DF2BC6D00093962 /* AstroSegmentedControl.swift */,
 				E7558DB91DF2BC9800093962 /* AstroTextField.swift */,
-				E7558DBB1DF467CB00093962 /* AGTapGestureRecognizer.swift */,
-				E767AFE21E068B24004E64F1 /* FadeInAnimator.swift */,
+				E78AFBAC1E0A5ED800BC7569 /* backgroundImageView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -174,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				E7E0889F1E009B9400221174 /* AstroDistance.swift */,
+				E78AFBAE1E0E765D00BC7569 /* LanguageStruct.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -183,6 +187,8 @@
 			children = (
 				E7E088941DFDC7EC00221174 /* Constants.swift */,
 				E7E0889D1E0093BA00221174 /* HelperFunctions.swift */,
+				E767AFE21E068B24004E64F1 /* AFGFadeInAnimator.swift */,
+				E7558DBB1DF467CB00093962 /* AFGTapGestureRecognizer.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -324,16 +330,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E7558DBC1DF467CB00093962 /* AGTapGestureRecognizer.swift in Sources */,
+				E7558DBC1DF467CB00093962 /* AFGTapGestureRecognizer.swift in Sources */,
 				E7558D881DEF6B1300093962 /* ViewController.swift in Sources */,
 				E7558DBA1DF2BC9800093962 /* AstroTextField.swift in Sources */,
 				E7E088A01E009B9400221174 /* AstroDistance.swift in Sources */,
 				E7E0889E1E0093BA00221174 /* HelperFunctions.swift in Sources */,
 				E7558DB61DF2BC3600093962 /* AstroButton.swift in Sources */,
 				E7558DB81DF2BC6D00093962 /* AstroSegmentedControl.swift in Sources */,
-				E767AFE31E068B24004E64F1 /* FadeInAnimator.swift in Sources */,
+				E767AFE31E068B24004E64F1 /* AFGFadeInAnimator.swift in Sources */,
+				E78AFBAF1E0E765D00BC7569 /* LanguageStruct.swift in Sources */,
 				E7558D861DEF6B1300093962 /* AppDelegate.swift in Sources */,
 				E765359B1DFCA9370020497B /* WikiViewController.swift in Sources */,
+				E78AFBAD1E0A5ED800BC7569 /* backgroundImageView.swift in Sources */,
 				E7558DB41DF2BC1000093962 /* AstroLabel.swift in Sources */,
 				E7E088951DFDC7EC00221174 /* Constants.swift in Sources */,
 			);

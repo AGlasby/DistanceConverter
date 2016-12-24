@@ -15,7 +15,7 @@ class WikiViewController: UIViewController, UIWebViewDelegate {
     @IBOutlet weak var wikiWebView: UIWebView!
 
     var url:String = ""
-    private let fadeInAnimator = FadeInAnimator()
+    private let fadeInAnimator = AFGFadeInAnimator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +56,6 @@ class WikiViewController: UIViewController, UIWebViewDelegate {
 
 extension WikiViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return FadeInAnimator()
+        return AFGFadeInAnimator()
     }
 }
