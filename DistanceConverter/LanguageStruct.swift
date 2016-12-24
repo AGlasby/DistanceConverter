@@ -29,8 +29,10 @@ struct LanguageStruct {
     init() {
         let en: wikiPages = wikiPages(parsecName: PARSECen, kilometreName: KILOMETREen, astronomicalUnitName: ASTRONOMICALUNITen, lightYearsName: LIGHTYEARen)
         let de: wikiPages = wikiPages(parsecName: PARSECde, kilometreName: KILOMETREde, astronomicalUnitName: ASTRONOMICALUNITde, lightYearsName: LIGHTYEARde)
+        let fr: wikiPages = wikiPages(parsecName: PARSECfr, kilometreName: KILOMETREfr, astronomicalUnitName: ASTRONOMICALUNITfr, lightYearsName: LIGHTYEARfr)
         languageDict["en"] = en
         languageDict["de"] = de
+        languageDict["fr"] = fr
     }
 
 
@@ -53,22 +55,30 @@ struct LanguageStruct {
 
     func getPagesForLanguage(languageISOCode: String) -> wikiPages? {
         if checkForLanguage(languageISOCode: languageISOCode) {
-            let languageWikiPages = languageDict[languageISOCode]
+            if let languageWikiPages = languageDict[languageISOCode] {
             return languageWikiPages
+            }
         } else {
-            return nil
+            if let languageWikiPages = languageDict["en"] {
+            return languageWikiPages
+            }
         }
+        return nil
     }
 
     func buildUrlForLanguage(languageISOCode: String) -> wikiPageUrlsForLanguage {
-        let BASEURL = PROTOCOL + languageISOCode + WIKIURL
-        var urls = wikiPageUrlsForLanguage(parsecUrl: "", kilometreUrl: "", astronomicalUnitUrl: "", lightYearsUrl: "")
-        if let urlsForLanguage = getPagesForLanguage(languageISOCode: languageISOCode) {
-            urls.parsecUrl = BASEURL + urlsForLanguage.parsecName
-            urls.kilometreUrl = BASEURL + urlsForLanguage.kilometreName
-            urls.astronomicalUnitUrl = BASEURL + urlsForLanguage.astronomicalUnitName
-            urls.lightYearsUrl = BASEURL + urlsForLanguage.lightYearsName
+        var BASEURL = ""
+        if checkForLanguage(languageISOCode: languageISOCode) {
+            BASEURL = PROTOCOL + languageISOCode + WIKIURL
+        } else {
+            BASEURL = PROTOCOL + "en" + WIKIURL
         }
+        var urls = wikiPageUrlsForLanguage(parsecUrl: "", kilometreUrl: "", astronomicalUnitUrl: "", lightYearsUrl: "")
+        let urlsForLanguage = getPagesForLanguage(languageISOCode: languageISOCode)
+            urls.parsecUrl = BASEURL + (urlsForLanguage?.parsecName)!
+            urls.kilometreUrl = BASEURL + (urlsForLanguage?.kilometreName)!
+            urls.astronomicalUnitUrl = BASEURL + (urlsForLanguage?.astronomicalUnitName)!
+            urls.lightYearsUrl = BASEURL + (urlsForLanguage?.lightYearsName)!
         return urls
     }
 }

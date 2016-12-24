@@ -26,9 +26,13 @@ class WikiViewController: UIViewController, UIWebViewDelegate {
         self.view.addSubview(spinnerActivityIndicatorView)
         spinnerActivityIndicatorView.hidesWhenStopped = true
 
-        let wikiUrl = NSURL(string: url)
-        let wikiLoadRequest = NSURLRequest(url: wikiUrl! as URL)
-        wikiWebView.loadRequest(wikiLoadRequest as URLRequest)
+        if let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) {
+            let wikiUrl = URL(string: encodedUrl)
+            let wikiLoadRequest = NSURLRequest(url: wikiUrl! as URL)
+            wikiWebView.loadRequest(wikiLoadRequest as URLRequest)
+        } else {
+            showAlert(title: "Failed url conversion", message: "Failed to convert url to correct format. Please notify developer through developer's website.", viewController: self)
+        }
     }
 
 
