@@ -101,7 +101,7 @@
 		E7558D791DEF6B1300093962 = {
 			isa = PBXGroup;
 			children = (
-				E7558D841DEF6B1300093962 /* DistanceConverter */,
+				E7558D841DEF6B1300093962 /* 12parsecs */,
 				E7558D991DEF6B1500093962 /* DistanceConverterTests */,
 				E7558DA41DEF6B1500093962 /* DistanceConverterUITests */,
 				E7558D831DEF6B1300093962 /* Products */,
@@ -118,7 +118,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E7558D841DEF6B1300093962 /* DistanceConverter */ = {
+		E7558D841DEF6B1300093962 /* 12parsecs */ = {
 			isa = PBXGroup;
 			children = (
 				E7E0889C1E00938D00221174 /* Helpers */,
@@ -131,6 +131,7 @@
 				E7558D8E1DEF6B1400093962 /* LaunchScreen.storyboard */,
 				E7558D911DEF6B1400093962 /* Info.plist */,
 			);
+			name = 12parsecs;
 			path = DistanceConverter;
 			sourceTree = "<group>";
 		};
