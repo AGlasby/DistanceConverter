@@ -45,8 +45,12 @@ class ViewController: UIViewController {
         setUpLabels()
         setUpTextField()
         setUpUrlsForWikiLinks()
-        backgroundImageViewTop.setUpBackgroundImages(bottomImage: backgroundImageView)
+        setUpBackground()
         updateOutput()
+    }
+
+    func setUpBackground() {
+        backgroundImageViewTop.setUpBackgroundImages(bottomImage: backgroundImageView)
     }
 
 
@@ -61,7 +65,7 @@ class ViewController: UIViewController {
         } else {
             selectedLanguage = "en"
         }
-        wikiUrls = languageForUrls.buildUrlForLanguage(languageISOCode: selectedLanguage)
+        wikiUrls = languageForUrls.buildUrlsForLanguage(languageISOCode: selectedLanguage)
     }
 
 
@@ -167,7 +171,7 @@ class ViewController: UIViewController {
 
 
     func setUpTextField() {
-        distanceInputTextField.text = "0"
+        distanceInputTextField.text = "12"
         distanceInputTextField.addDoneButtonOnKeyboard(textField: distanceInputTextField)
         distanceInputTextField.becomeFirstResponder()
     }
@@ -182,7 +186,7 @@ class ViewController: UIViewController {
         let sourceUnitIndex = unitsSegmentedControl.selectedSegmentIndex
         var results = [Double]()
         let distanceInput = convertToDouble(inputText: distanceInputTextField.text!)
-            if distanceInput > 0 {
+            if distanceInput >= 0 {
                 switch sourceUnitIndex {
                 case 0:
                         results = astroConverter.fromParsecs(distance: distanceInput)
@@ -203,23 +207,13 @@ class ViewController: UIViewController {
                 }
             return
         }
-            showAlert(title: "Error", message: "Distance input field is not valid. Please enter non-zero number and try again.", viewController: self)
-        }
+        showAlert(title: "Error", message: "Distance input field is not valid. Please enter non-zero number and try again.", viewController: self)
+    }
 
 
     @IBAction func unitsSegmentedControl(_ sender: Any) {
         let segment = unitsSegmentedControl.selectedSegmentIndex
-        switch segment {
-        case 0:
-            changeLabels(selectedSegment: segment)
-        case 1:
-            changeLabels(selectedSegment: segment)
-        case 2:
-            changeLabels(selectedSegment: segment)
-        case 3:
-            changeLabels(selectedSegment: segment)
-        default: break
-        }
+        changeLabels(selectedSegment: segment)
         updateOutput()
     }
 

@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--AstroDistance-->
+        <!--12pc-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="AstroDistance" id="BYZ-38-t0r" customClass="ViewController" customModule="DistanceConverter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="12pc" id="BYZ-38-t0r" customClass="ViewController" customModule="DistanceConverter" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -25,12 +25,26 @@
                             <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="syD-KB-JzP">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="692"/>
                             </imageView>
-                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tSR-7D-MPp" userLabel="Background Image View Top" customClass="backgroundImageView" customModule="DistanceConverter" customModuleProvider="target">
+                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tSR-7D-MPp" userLabel="Background Image View Top" customClass="backgroundImageView" customModule="DistanceConverter" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <segmentedControl autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iI5-lO-e2j" customClass="AstroSegmentedControl" customModule="DistanceConverter" customModuleProvider="target">
+                                <rect key="frame" x="36" y="84" width="342" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="D6O-jk-6Tn"/>
+                                </constraints>
+                                <segments>
+                                    <segment title=""/>
+                                    <segment title=""/>
+                                    <segment title=""/>
+                                    <segment title=""/>
+                                </segments>
+                                <connections>
+                                    <action selector="unitsSegmentedControl:" destination="BYZ-38-t0r" eventType="valueChanged" id="fuh-zr-rj8"/>
+                                </connections>
+                            </segmentedControl>
                             <textField opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="b9h-F3-TWy" userLabel="DistanceIn" customClass="AstroTextField" customModule="DistanceConverter" customModuleProvider="target">
-                                <rect key="frame" x="127" y="95" width="160" height="30"/>
+                                <rect key="frame" x="127" y="134" width="160" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="160" id="Se6-5m-52A"/>
                                 </constraints>
@@ -39,7 +53,7 @@
                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Parsecs" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V3z-j2-QQV" userLabel="InputUnits">
-                                <rect key="frame" x="127" y="133" width="160" height="20"/>
+                                <rect key="frame" x="127" y="172" width="160" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="160" id="bGV-gA-y7T"/>
                                 </constraints>
@@ -48,7 +62,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r0U-xp-kMp" userLabel="Convert" customClass="AstroButton" customModule="DistanceConverter" customModuleProvider="target">
-                                <rect key="frame" x="175" y="185" width="64" height="30"/>
+                                <rect key="frame" x="175" y="216" width="64" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="64" id="W0e-iT-UFd"/>
@@ -59,7 +73,7 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="myJ-iA-zUS">
-                                <rect key="frame" x="24" y="255" width="366" height="106"/>
+                                <rect key="frame" x="24" y="278" width="366" height="106"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="EPb-3z-AhB">
                                         <rect key="frame" x="0.0" y="0.0" width="366" height="19.333333333333314"/>
@@ -138,44 +152,42 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <segmentedControl autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iI5-lO-e2j" customClass="AstroSegmentedControl" customModule="DistanceConverter" customModuleProvider="target">
-                                <rect key="frame" x="36" y="44" width="342" height="35"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="12pc" translatesAutoresizingMaskIntoConstraints="NO" id="BYR-wH-zcr">
+                                <rect key="frame" x="170" y="20" width="75" height="32"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="34" id="D6O-jk-6Tn"/>
+                                    <constraint firstAttribute="width" constant="75" id="8c7-gp-sQX"/>
+                                    <constraint firstAttribute="height" constant="32" id="Lq8-t3-RRk"/>
                                 </constraints>
-                                <segments>
-                                    <segment title=""/>
-                                    <segment title=""/>
-                                    <segment title=""/>
-                                    <segment title=""/>
-                                </segments>
-                                <connections>
-                                    <action selector="unitsSegmentedControl:" destination="BYZ-38-t0r" eventType="valueChanged" id="fuh-zr-rj8"/>
-                                </connections>
-                            </segmentedControl>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="myJ-iA-zUS" firstAttribute="top" secondItem="r0U-xp-kMp" secondAttribute="bottom" constant="40" id="1aB-lc-l7u"/>
+                            <constraint firstItem="myJ-iA-zUS" firstAttribute="top" secondItem="r0U-xp-kMp" secondAttribute="bottom" constant="32" id="1aB-lc-l7u"/>
                             <constraint firstAttribute="trailing" secondItem="syD-KB-JzP" secondAttribute="trailing" id="3fx-qB-50m"/>
-                            <constraint firstItem="syD-KB-JzP" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="8WX-ap-6Wj"/>
+                            <constraint firstItem="tSR-7D-MPp" firstAttribute="trailing" secondItem="syD-KB-JzP" secondAttribute="trailing" id="67Q-U8-PBp"/>
+                            <constraint firstItem="b9h-F3-TWy" firstAttribute="top" secondItem="iI5-lO-e2j" secondAttribute="bottom" constant="16" id="7cZ-B8-uV8"/>
                             <constraint firstItem="V3z-j2-QQV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Coa-id-k1q"/>
-                            <constraint firstItem="r0U-xp-kMp" firstAttribute="top" secondItem="V3z-j2-QQV" secondAttribute="bottom" constant="32" id="Dzc-jF-oZR"/>
+                            <constraint firstItem="r0U-xp-kMp" firstAttribute="top" secondItem="V3z-j2-QQV" secondAttribute="bottom" constant="24" id="Dzc-jF-oZR"/>
                             <constraint firstItem="syD-KB-JzP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Eqq-CL-HMR"/>
+                            <constraint firstItem="BYR-wH-zcr" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="20" id="Ijo-0h-CSm"/>
                             <constraint firstItem="V3z-j2-QQV" firstAttribute="top" secondItem="b9h-F3-TWy" secondAttribute="bottom" constant="8" id="Osl-KN-0hI"/>
                             <constraint firstItem="myJ-iA-zUS" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Q5N-mQ-HIo"/>
-                            <constraint firstItem="iI5-lO-e2j" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="24" id="VIn-Za-LK3"/>
-                            <constraint firstItem="b9h-F3-TWy" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="75" id="YTr-Sd-65J"/>
+                            <constraint firstItem="syD-KB-JzP" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="QPn-CO-pgl"/>
+                            <constraint firstItem="tSR-7D-MPp" firstAttribute="leading" secondItem="syD-KB-JzP" secondAttribute="leading" id="WMa-54-hUk"/>
                             <constraint firstAttribute="trailingMargin" secondItem="myJ-iA-zUS" secondAttribute="trailing" constant="4" id="a28-KA-X8S"/>
                             <constraint firstItem="b9h-F3-TWy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="c73-pw-Ryp"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="syD-KB-JzP" secondAttribute="bottom" id="clo-4F-MPC"/>
+                            <constraint firstItem="BYR-wH-zcr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="f8i-Mx-CWl"/>
                             <constraint firstItem="iI5-lO-e2j" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="16" id="fha-P2-3h3"/>
                             <constraint firstAttribute="trailingMargin" secondItem="iI5-lO-e2j" secondAttribute="trailing" constant="16" id="gC4-uU-oTn"/>
+                            <constraint firstAttribute="bottom" secondItem="tSR-7D-MPp" secondAttribute="bottom" id="jWs-kj-OOH"/>
+                            <constraint firstItem="iI5-lO-e2j" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="64" id="nYT-LB-vzO"/>
                             <constraint firstItem="myJ-iA-zUS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="4" id="oIn-nd-0lk"/>
+                            <constraint firstItem="tSR-7D-MPp" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="syw-sQ-CBO"/>
                             <constraint firstItem="r0U-xp-kMp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="wyc-rq-ECZ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="c7o-Nw-cfm"/>
+                    <navigationItem key="navigationItem" id="c7o-Nw-cfm" userLabel="navigation item"/>
                     <connections>
                         <outlet property="backgroundImageView" destination="syD-KB-JzP" id="aP8-pf-UNW"/>
                         <outlet property="backgroundImageViewTop" destination="tSR-7D-MPp" id="41j-tG-bbB"/>
@@ -194,7 +206,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1107.2463768115942" y="129.61956521739131"/>
+            <point key="canvasLocation" x="2073.913043478261" y="129.61956521739131"/>
         </scene>
         <!--AstroWiki-->
         <scene sceneID="SIG-fO-aBs">
@@ -209,7 +221,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="2od-XG-hWJ">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="692"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="672"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </webView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="kaj-dv-Muy">
@@ -223,7 +235,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="7Up-Cg-b5u"/>
                                     <barButtonItem systemItem="done" id="rQT-nS-WoK">
                                         <connections>
-                                            <segue destination="BYZ-38-t0r" kind="show" identifier="returnFromWiki" id="Lv6-7l-wvR"/>
+                                            <segue destination="BYZ-38-t0r" kind="show" identifier="returnFromWiki" id="VO0-8B-2UB"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="pPp-ot-udA"/>
@@ -234,7 +246,7 @@
                         <constraints>
                             <constraint firstItem="imb-Pk-WH1" firstAttribute="top" secondItem="2od-XG-hWJ" secondAttribute="bottom" id="QDz-EN-Z8i"/>
                             <constraint firstAttribute="trailing" secondItem="2od-XG-hWJ" secondAttribute="trailing" id="WI2-k6-0pj"/>
-                            <constraint firstItem="2od-XG-hWJ" firstAttribute="top" secondItem="XmZ-Qm-gLT" secondAttribute="top" id="m2i-jL-CM7"/>
+                            <constraint firstItem="2od-XG-hWJ" firstAttribute="top" secondItem="VKR-p8-h92" secondAttribute="bottom" id="w84-Dd-jiM"/>
                             <constraint firstItem="2od-XG-hWJ" firstAttribute="leading" secondItem="XmZ-Qm-gLT" secondAttribute="leading" id="zwe-SG-jIV"/>
                         </constraints>
                     </view>
@@ -247,7 +259,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rRk-fS-qWq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1991" y="130"/>
+            <point key="canvasLocation" x="2897.1014492753625" y="129.61956521739131"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="12pc" width="170" height="75"/>
+    </resources>
 </document>
