@@ -278,7 +278,7 @@
 					};
 				};
 			};
-			buildConfigurationList = E7558D7D1DEF6B1300093962 /* Build configuration list for PBXProject "DistanceConverter" */;
+			buildConfigurationList = E7558D7D1DEF6B1300093962 /* Build configuration list for PBXProject "12parsecs" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -498,7 +498,7 @@
 				DEVELOPMENT_TEAM = UBF9PWHB8L;
 				INFOPLIST_FILE = DistanceConverter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = glasby.DistanceConverter;
+				PRODUCT_BUNDLE_IDENTIFIER = glasby.12parsecs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -511,7 +511,7 @@
 				DEVELOPMENT_TEAM = UBF9PWHB8L;
 				INFOPLIST_FILE = DistanceConverter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = glasby.DistanceConverter;
+				PRODUCT_BUNDLE_IDENTIFIER = glasby.12parsecs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -578,7 +578,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E7558D7D1DEF6B1300093962 /* Build configuration list for PBXProject "DistanceConverter" */ = {
+		E7558D7D1DEF6B1300093962 /* Build configuration list for PBXProject "12parsecs" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E7558DA81DEF6B1500093962 /* Debug */,

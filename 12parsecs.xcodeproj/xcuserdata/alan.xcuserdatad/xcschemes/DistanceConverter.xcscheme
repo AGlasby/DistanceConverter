@@ -17,7 +17,7 @@
                BlueprintIdentifier = "E7558D811DEF6B1300093962"
                BuildableName = "DistanceConverter.app"
                BlueprintName = "DistanceConverter"
-               ReferencedContainer = "container:DistanceConverter.xcodeproj">
+               ReferencedContainer = "container:12parsecs.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
                BlueprintIdentifier = "E7558D951DEF6B1500093962"
                BuildableName = "DistanceConverterTests.xctest"
                BlueprintName = "DistanceConverterTests"
-               ReferencedContainer = "container:DistanceConverter.xcodeproj">
+               ReferencedContainer = "container:12parsecs.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -45,7 +45,7 @@
                BlueprintIdentifier = "E7558DA01DEF6B1500093962"
                BuildableName = "DistanceConverterUITests.xctest"
                BlueprintName = "DistanceConverterUITests"
-               ReferencedContainer = "container:DistanceConverter.xcodeproj">
+               ReferencedContainer = "container:12parsecs.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,7 +55,7 @@
             BlueprintIdentifier = "E7558D811DEF6B1300093962"
             BuildableName = "DistanceConverter.app"
             BlueprintName = "DistanceConverter"
-            ReferencedContainer = "container:DistanceConverter.xcodeproj">
+            ReferencedContainer = "container:12parsecs.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -78,7 +78,7 @@
             BlueprintIdentifier = "E7558D811DEF6B1300093962"
             BuildableName = "DistanceConverter.app"
             BlueprintName = "DistanceConverter"
-            ReferencedContainer = "container:DistanceConverter.xcodeproj">
+            ReferencedContainer = "container:12parsecs.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -97,7 +97,7 @@
             BlueprintIdentifier = "E7558D811DEF6B1300093962"
             BuildableName = "DistanceConverter.app"
             BlueprintName = "DistanceConverter"
-            ReferencedContainer = "container:DistanceConverter.xcodeproj">
+            ReferencedContainer = "container:12parsecs.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
