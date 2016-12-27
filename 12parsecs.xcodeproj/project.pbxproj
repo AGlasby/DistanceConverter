@@ -19,6 +19,7 @@
 		E7558DB81DF2BC6D00093962 /* AstroSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7558DB71DF2BC6D00093962 /* AstroSegmentedControl.swift */; };
 		E7558DBA1DF2BC9800093962 /* AstroTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7558DB91DF2BC9800093962 /* AstroTextField.swift */; };
 		E7558DBC1DF467CB00093962 /* AFGTapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7558DBB1DF467CB00093962 /* AFGTapGestureRecognizer.swift */; };
+		E7581C7A1E118666002C2DE7 /* StarBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7581C791E118666002C2DE7 /* StarBase.swift */; };
 		E765359B1DFCA9370020497B /* WikiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E765359A1DFCA9370020497B /* WikiViewController.swift */; };
 		E767AFE31E068B24004E64F1 /* AFGFadeInAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E767AFE21E068B24004E64F1 /* AFGFadeInAnimator.swift */; };
 		E78AFBAD1E0A5ED800BC7569 /* backgroundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78AFBAC1E0A5ED800BC7569 /* backgroundImageView.swift */; };
@@ -46,7 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		E7558D821DEF6B1300093962 /* DistanceConverter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DistanceConverter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7558D821DEF6B1300093962 /* 12parsecs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 12parsecs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7558D851DEF6B1300093962 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7558D871DEF6B1300093962 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E7558D8A1DEF6B1400093962 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -64,6 +65,7 @@
 		E7558DB71DF2BC6D00093962 /* AstroSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AstroSegmentedControl.swift; sourceTree = "<group>"; };
 		E7558DB91DF2BC9800093962 /* AstroTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AstroTextField.swift; sourceTree = "<group>"; };
 		E7558DBB1DF467CB00093962 /* AFGTapGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AFGTapGestureRecognizer.swift; sourceTree = "<group>"; };
+		E7581C791E118666002C2DE7 /* StarBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarBase.swift; sourceTree = "<group>"; };
 		E765359A1DFCA9370020497B /* WikiViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WikiViewController.swift; sourceTree = "<group>"; };
 		E767AFE21E068B24004E64F1 /* AFGFadeInAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AFGFadeInAnimator.swift; sourceTree = "<group>"; };
 		E78AFBAC1E0A5ED800BC7569 /* backgroundImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = backgroundImageView.swift; sourceTree = "<group>"; };
@@ -111,7 +113,7 @@
 		E7558D831DEF6B1300093962 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E7558D821DEF6B1300093962 /* DistanceConverter.app */,
+				E7558D821DEF6B1300093962 /* 12parsecs.app */,
 				E7558D961DEF6B1500093962 /* DistanceConverterTests.xctest */,
 				E7558DA11DEF6B1500093962 /* DistanceConverterUITests.xctest */,
 			);
@@ -179,6 +181,7 @@
 			children = (
 				E7E0889F1E009B9400221174 /* AstroDistance.swift */,
 				E78AFBAE1E0E765D00BC7569 /* LanguageStruct.swift */,
+				E7581C791E118666002C2DE7 /* StarBase.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -197,9 +200,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E7558D811DEF6B1300093962 /* DistanceConverter */ = {
+		E7558D811DEF6B1300093962 /* 12parsecs */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E7558DAA1DEF6B1500093962 /* Build configuration list for PBXNativeTarget "DistanceConverter" */;
+			buildConfigurationList = E7558DAA1DEF6B1500093962 /* Build configuration list for PBXNativeTarget "12parsecs" */;
 			buildPhases = (
 				E7558D7E1DEF6B1300093962 /* Sources */,
 				E7558D7F1DEF6B1300093962 /* Frameworks */,
@@ -209,9 +212,9 @@
 			);
 			dependencies = (
 			);
-			name = DistanceConverter;
+			name = 12parsecs;
 			productName = DistanceConverter;
-			productReference = E7558D821DEF6B1300093962 /* DistanceConverter.app */;
+			productReference = E7558D821DEF6B1300093962 /* 12parsecs.app */;
 			productType = "com.apple.product-type.application";
 		};
 		E7558D951DEF6B1500093962 /* DistanceConverterTests */ = {
@@ -292,7 +295,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E7558D811DEF6B1300093962 /* DistanceConverter */,
+				E7558D811DEF6B1300093962 /* 12parsecs */,
 				E7558D951DEF6B1500093962 /* DistanceConverterTests */,
 				E7558DA01DEF6B1500093962 /* DistanceConverterUITests */,
 			);
@@ -331,6 +334,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7581C7A1E118666002C2DE7 /* StarBase.swift in Sources */,
 				E7558DBC1DF467CB00093962 /* AFGTapGestureRecognizer.swift in Sources */,
 				E7558D881DEF6B1300093962 /* ViewController.swift in Sources */,
 				E7558DBA1DF2BC9800093962 /* AstroTextField.swift in Sources */,
@@ -369,12 +373,12 @@
 /* Begin PBXTargetDependency section */
 		E7558D981DEF6B1500093962 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = E7558D811DEF6B1300093962 /* DistanceConverter */;
+			target = E7558D811DEF6B1300093962 /* 12parsecs */;
 			targetProxy = E7558D971DEF6B1500093962 /* PBXContainerItemProxy */;
 		};
 		E7558DA31DEF6B1500093962 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = E7558D811DEF6B1300093962 /* DistanceConverter */;
+			target = E7558D811DEF6B1300093962 /* 12parsecs */;
 			targetProxy = E7558DA21DEF6B1500093962 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -588,7 +592,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E7558DAA1DEF6B1500093962 /* Build configuration list for PBXNativeTarget "DistanceConverter" */ = {
+		E7558DAA1DEF6B1500093962 /* Build configuration list for PBXNativeTarget "12parsecs" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E7558DAB1DEF6B1500093962 /* Debug */,

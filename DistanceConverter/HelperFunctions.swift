@@ -81,4 +81,28 @@ func showAlert(title: String, message: String, viewController: UIViewController)
     viewController.present(alert, animated: true, completion: nil)
 }
 
+extension Array {
+    func rotate(directionAndDistance:Int) -> Array {
+// if directionAndDistance is a +ve integer array rotates up
+// if directionAndDistance is a -ve integer array rotates down
+
+        var array = Array()
+        if (self.count > 0) {
+            array = self
+            if (directionAndDistance > 0) {
+                for _ in 1...directionAndDistance {
+                    array.append(array.remove(at: 0))
+                }
+            }
+            else if (directionAndDistance < 0) {
+                for _ in 1...abs(directionAndDistance) {
+                    array.insert(array.remove(at: array.count-1),at:0)
+                }
+            }
+        }
+        return array
+    }
+}
+
+
 
