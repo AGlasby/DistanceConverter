@@ -37,6 +37,7 @@ class ViewController: UIViewController {
     var selectedLanguage:String = ""
     var languageForUrls = LanguageStruct()
     var wikiUrls: wikiPageUrlsForLanguage!
+    var stars = StarBase()
 
 
     override func viewDidLoad() {
@@ -46,11 +47,8 @@ class ViewController: UIViewController {
         setUpTextField()
         setUpUrlsForWikiLinks()
         setUpBackground()
+        setUpStarDatabase()
         updateOutput()
-    }
-
-    func setUpBackground() {
-        backgroundImageViewTop.setUpBackgroundImages(bottomImage: backgroundImageView)
     }
 
 
@@ -59,13 +57,12 @@ class ViewController: UIViewController {
     }
 
 
-    func setUpUrlsForWikiLinks() {
-        if let userLanguage = languageForUrls.getLanguage() {
-            selectedLanguage = userLanguage
-        } else {
-            selectedLanguage = "en"
-        }
-        wikiUrls = languageForUrls.buildUrlsForLanguage(languageISOCode: selectedLanguage)
+    func setUpStarDatabase() {
+        stars.buildDatabase()
+        let starDetails = stars.getStar(distance: 12.0)
+        print(starDetails.nameOfStar)
+        print(starDetails.spectralType)
+        print(starDetails.magnitude)
     }
 
 
@@ -85,9 +82,9 @@ class ViewController: UIViewController {
         var p = CGPoint()
         p = gestureRecognizer.location(in: unitsSegmentedControl)
         let r = unitsSegmentedControl.frame.width
-        let index = Int(ceil(p.x/(r/4))) - 1
+        let selectedDistanceUnit = Int(ceil(p.x/(r/4))) - 1
 
-        switch index {
+        switch selectedDistanceUnit {
         case 0:
             url = wikiUrls.parsecUrl
         case 1:
@@ -104,32 +101,16 @@ class ViewController: UIViewController {
 
     func setUpLabels() {
         var labels = [String: String]()
-        labels["inputUnitLabel"] = "parsecs"
-        labels["unit1Label"] = "kilometres"
-        labels["unit2Label"] = "astronomical units"
-        labels["unit3Label"] = "light years"
-        labelSetUp.append(labels)
+        var labelStrings = ["parsecs", "kilometres", "astronomical units", "light years"]
 
-        labels.removeAll()
-        labels["inputUnitLabel"] = "kilometres"
-        labels["unit1Label"] = "parsecs"
-        labels["unit2Label"] = "astronomical units"
-        labels["unit3Label"] = "light years"
-        labelSetUp.append(labels)
-
-        labels.removeAll()
-        labels["inputUnitLabel"] = "astronomical units"
-        labels["unit1Label"] = "parsecs"
-        labels["unit2Label"] = "kilometres"
-        labels["unit3Label"] = "light years"
-        labelSetUp.append(labels)
-
-        labels.removeAll()
-        labels["inputUnitLabel"] = "light years"
-        labels["unit1Label"] = "parsecs"
-        labels["unit2Label"] = "kilometres"
-        labels["unit3Label"] = "astronomical units"
-        labelSetUp.append(labels)
+        for _ in labelStrings {
+            labels.updateValue(labelStrings[0], forKey: "inputUnitLabel")
+            labels.updateValue(labelStrings[1], forKey: "unit1Label")
+            labels.updateValue(labelStrings[2], forKey: "unit2Label")
+            labels.updateValue(labelStrings[3], forKey: "unit3Label")
+            labelSetUp.append(labels)
+            labelStrings = labelStrings.rotate(directionAndDistance: +1)
+        }
 
         outputLabels.append(unit1OutputLabel)
         outputLabels.append(unit2OutputLabel)
@@ -181,6 +162,21 @@ class ViewController: UIViewController {
         showAlert(title: "Distance", message: "That is \(distance) \(unit)", viewController: self)
     }
 
+
+    func setUpBackground() {
+        backgroundImageViewTop.setUpBackgroundImages(bottomImage: backgroundImageView)
+    }
+
+
+    func setUpUrlsForWikiLinks() {
+        if let userLanguage = languageForUrls.getLanguage() {
+            selectedLanguage = userLanguage
+        } else {
+            selectedLanguage = "en"
+        }
+        wikiUrls = languageForUrls.buildUrlsForLanguage(languageISOCode: selectedLanguage)
+    }
+        
 
     func updateOutput() {
         let sourceUnitIndex = unitsSegmentedControl.selectedSegmentIndex

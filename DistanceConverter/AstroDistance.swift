@@ -58,23 +58,23 @@ struct AstroDistance {
 
     func fromKilometres(distance: Double) -> [Double] {
         var conversions = [Double]()
-        let parsecs = distance * kilometresToParsecs
-        conversions.append(parsecs)
         let astrononmicalUnits = distance * kilometresToAstronomicalUnits
         conversions.append(astrononmicalUnits)
         let lightYears = distance * kilometresToLightYears
         conversions.append(lightYears)
+        let parsecs = distance * kilometresToParsecs
+        conversions.append(parsecs)
         return conversions
     }
 
     func fromAstronomicalUnits(distance: Double) -> [Double] {
         var conversions = [Double]()
+        let lightYears = distance * astronomicalUnitsToLightYears
+        conversions.append(lightYears)
         let parsecs = distance * astronomicalUnitsToParsecs
         conversions.append(parsecs)
         let kilometres = distance * astronomicalUnitsToKilometres
         conversions.append(kilometres)
-        let lightYears = distance * astronomicalUnitsToLightYears
-        conversions.append(lightYears)
         return conversions
     }
 
