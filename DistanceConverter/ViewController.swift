@@ -59,10 +59,6 @@ class ViewController: UIViewController {
 
     func setUpStarDatabase() {
         stars.buildDatabase()
-        let starDetails = stars.getStar(distance: 12.0)
-        print(starDetails.nameOfStar)
-        print(starDetails.spectralType)
-        print(starDetails.magnitude)
     }
 
 
@@ -159,7 +155,15 @@ class ViewController: UIViewController {
 
 
     func displayDistance(distance: String, unit: String) {
-        showAlert(title: "Distance", message: "That is \(distance) \(unit)", viewController: self)
+        if distanceInputTextField.text == "12" {
+            let starDetails = stars.getStar(distance: 12.0)
+            print(starDetails.nameOfStar)
+            print(starDetails.spectralType)
+            print(starDetails.magnitude)
+            showAlert(title: "Distance", message: "That is \(distance) \(unit). \(starDetails.nameOfStar) is a \(starDetails.magnitude) absolute magnitude \(starDetails.spectralType) class star at that distance from the earth", viewController: self)
+        } else {
+            showAlert(title: "Distance", message: "That is \(distance) \(unit)", viewController: self)
+        }
     }
 
 

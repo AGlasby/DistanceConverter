@@ -15,32 +15,35 @@ struct  StarStruct {
 }
 
 enum SpectralTypes {
-    case M2, M3, DA6, DA, g, dM4, DC9, dM5, m, M4VE, M4 }
+    case O, B, A, F, G, K, M, R, N, S, D, m}
+
+// O, B, A, F, G, K, M, R, N, S
+// 0 - 9
 
 struct StarBase {
 
     var starDatabase = [StarStruct]()
 
-    var star: StarStruct = StarStruct(nameOfStar: "", spectralType: SpectralTypes.m, magnitude: 0.00)
+    var star: StarStruct = StarStruct(nameOfStar: "", spectralType: SpectralTypes.O, magnitude: 0.00)
 
     mutating func buildDatabase() {
         star.nameOfStar = "NN3331"
-        star.spectralType = SpectralTypes.M2
+        star.spectralType = SpectralTypes.M
         star.magnitude = 9.885390462
         starDatabase.append(star)
 
         star.nameOfStar = "NN3332B"
-        star.spectralType = SpectralTypes.M3
+        star.spectralType = SpectralTypes.M
         star.magnitude = 11.25539046
         starDatabase.append(star)
 
         star.nameOfStar = "GL1140"
-        star.spectralType = SpectralTypes.DA6
+        star.spectralType = SpectralTypes.D
         star.magnitude = 13.91322501
         starDatabase.append(star)
 
         star.nameOfStar = "NN3727"
-        star.spectralType = SpectralTypes.M2
+        star.spectralType = SpectralTypes.M
         star.magnitude = 10.55539046
         starDatabase.append(star)
 
