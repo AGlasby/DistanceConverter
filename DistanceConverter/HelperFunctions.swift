@@ -65,7 +65,6 @@ func convertToDecimalString(distance: Double) -> String {
             check = check * 10
             loopCount += 1
         }
-        print(loopCount)
         formatter.maximumFractionDigits = loopCount + 3
         formatter.minimumFractionDigits = loopCount + 3
         stringFromNumber = formatter.string(from: NSNumber(value: distance))!
