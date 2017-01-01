@@ -17,8 +17,8 @@ struct  StarStruct {
 enum SpectralTypes {
     case O, B, A, F, G, K, M, R, N, S, D, m}
 
-// O, B, A, F, G, K, M, R, N, S
-// 0 - 9
+var spectralTypesA: Set = ["B", "G", "K", "D"]
+var spectralTypesAn: Set = ["O", "A", "F", "M", "N", "S", "m"]
 
 struct StarBase {
 
