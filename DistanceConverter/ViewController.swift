@@ -155,7 +155,7 @@ class ViewController: UIViewController {
 
 
     func displayDistance(distance: String, unit: String) {
-        if distanceInputTextField.text == "12" {
+        if distanceInputTextField.text == "12" && unitsSegmentedControl.selectedSegmentIndex == 0 {
             let starDetails = stars.getStar(distance: 12.0)
             if spectralTypesA.contains(String(describing: starDetails.spectralType)) {
                 showAlert(title: "Distance", message: "That is \(distance) \(unit). \(starDetails.nameOfStar) is the same distance from earth. It has an absolute magnitude of \(starDetails.magnitude) and is a \(starDetails.spectralType) class star.", viewController: self)

@@ -47,9 +47,9 @@ struct StarBase {
         star.magnitude = 10.55539046
         starDatabase.append(star)
 
-        star.nameOfStar = "GJ1223"
-        star.spectralType = SpectralTypes.m
-        star.magnitude = 14.45843238
+        star.nameOfStar = "GJ1179 B"
+        star.spectralType = SpectralTypes.D
+        star.magnitude = 15.25583025
         starDatabase.append(star)
 
     }
