@@ -25,3 +25,17 @@ let PARSECfr = "Parsec"
 let KILOMETREfr = "Kilomètre"
 let ASTRONOMICALUNITfr = "Unité_astronomique"
 let LIGHTYEARfr = "Année-lumière"
+
+enum wordpressAction {
+    case posts
+    case users
+    case tags
+    case categories
+    case media
+}
+
+let WORDPRESSADDRESS = "http://192.168.1.15:8888/wp-json/wp/v2/"
+let WORDPRESSUSERNAME = "alan"
+let WORDPRESSPASSWORD = "admin"
+
+

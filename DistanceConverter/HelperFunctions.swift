@@ -9,6 +9,20 @@
 import Foundation
 import UIKit
 
+
+extension String {
+    func htmlAttributedString() -> NSAttributedString? {
+        guard let data = self.data(using: String.Encoding.utf16, allowLossyConversion: false) else { return nil }
+        guard let html = try? NSMutableAttributedString(
+            data: data,
+            options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
+            documentAttributes: nil) else { return nil }
+        return html
+    }
+}
+
+
+
 func convertToScientific(distance: Double) -> String {
     let distanceNSNumber = NSNumber(value: Double(distance))
     let formatter = NumberFormatter()
@@ -82,6 +96,7 @@ func showAlert(title: String, message: String, viewController: UIViewController)
 
 extension Array {
     func rotate(directionAndDistance:Int) -> Array {
+// rotates the contents of an array
 // if directionAndDistance is a +ve integer array rotates up
 // if directionAndDistance is a -ve integer array rotates down
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B68D4A99D51C38AF1B62720 /* Pods_12parsecs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D872ED52BAEC9CFEA8FCE0DE /* Pods_12parsecs.framework */; };
 		E7558D861DEF6B1300093962 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7558D851DEF6B1300093962 /* AppDelegate.swift */; };
 		E7558D881DEF6B1300093962 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7558D871DEF6B1300093962 /* ViewController.swift */; };
 		E7558D8B1DEF6B1400093962 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7558D891DEF6B1400093962 /* Main.storyboard */; };
@@ -20,6 +21,14 @@
 		E7581C7A1E118666002C2DE7 /* StarBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7581C791E118666002C2DE7 /* StarBase.swift */; };
 		E765359B1DFCA9370020497B /* WikiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E765359A1DFCA9370020497B /* WikiViewController.swift */; };
 		E767AFE31E068B24004E64F1 /* AFGFadeInAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E767AFE21E068B24004E64F1 /* AFGFadeInAnimator.swift */; };
+		E76FB1401E30161400B10858 /* BlogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76FB13F1E30161400B10858 /* BlogViewController.swift */; };
+		E76FB1421E301DE700B10858 /* BlogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76FB1411E301DE700B10858 /* BlogTableViewCell.swift */; };
+		E76FB1441E31656E00B10858 /* blogDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76FB1431E31656E00B10858 /* blogDetailViewController.swift */; };
+		E76FB1461E32898A00B10858 /* blogPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76FB1451E32898A00B10858 /* blogPost.swift */; };
+		E76FB14C1E39270800B10858 /* blogUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76FB14B1E39270800B10858 /* blogUser.swift */; };
+		E76FB14E1E39275400B10858 /* blogTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76FB14D1E39275400B10858 /* blogTags.swift */; };
+		E76FB1501E39277E00B10858 /* blogCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76FB14F1E39277E00B10858 /* blogCategories.swift */; };
+		E76FB1521E3A26CC00B10858 /* mediaDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76FB1511E3A26CC00B10858 /* mediaDetails.swift */; };
 		E78AFBAD1E0A5ED800BC7569 /* backgroundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78AFBAC1E0A5ED800BC7569 /* backgroundImageView.swift */; };
 		E78AFBAF1E0E765D00BC7569 /* LanguageStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78AFBAE1E0E765D00BC7569 /* LanguageStruct.swift */; };
 		E7E088951DFDC7EC00221174 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E088941DFDC7EC00221174 /* Constants.swift */; };
@@ -28,6 +37,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AA1EBF86AC58145BF976574A /* Pods-12parsecs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-12parsecs.release.xcconfig"; path = "Pods/Target Support Files/Pods-12parsecs/Pods-12parsecs.release.xcconfig"; sourceTree = "<group>"; };
+		D872ED52BAEC9CFEA8FCE0DE /* Pods_12parsecs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_12parsecs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7558D821DEF6B1300093962 /* 12parsecs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 12parsecs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7558D851DEF6B1300093962 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7558D871DEF6B1300093962 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -43,11 +54,20 @@
 		E7581C791E118666002C2DE7 /* StarBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarBase.swift; sourceTree = "<group>"; };
 		E765359A1DFCA9370020497B /* WikiViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WikiViewController.swift; sourceTree = "<group>"; };
 		E767AFE21E068B24004E64F1 /* AFGFadeInAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AFGFadeInAnimator.swift; sourceTree = "<group>"; };
+		E76FB13F1E30161400B10858 /* BlogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogViewController.swift; sourceTree = "<group>"; };
+		E76FB1411E301DE700B10858 /* BlogTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogTableViewCell.swift; sourceTree = "<group>"; };
+		E76FB1431E31656E00B10858 /* blogDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = blogDetailViewController.swift; sourceTree = "<group>"; };
+		E76FB1451E32898A00B10858 /* blogPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = blogPost.swift; sourceTree = "<group>"; };
+		E76FB14B1E39270800B10858 /* blogUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = blogUser.swift; sourceTree = "<group>"; };
+		E76FB14D1E39275400B10858 /* blogTags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = blogTags.swift; sourceTree = "<group>"; };
+		E76FB14F1E39277E00B10858 /* blogCategories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = blogCategories.swift; sourceTree = "<group>"; };
+		E76FB1511E3A26CC00B10858 /* mediaDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mediaDetails.swift; sourceTree = "<group>"; };
 		E78AFBAC1E0A5ED800BC7569 /* backgroundImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = backgroundImageView.swift; sourceTree = "<group>"; };
 		E78AFBAE1E0E765D00BC7569 /* LanguageStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageStruct.swift; sourceTree = "<group>"; };
 		E7E088941DFDC7EC00221174 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E7E0889D1E0093BA00221174 /* HelperFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
 		E7E0889F1E009B9400221174 /* AstroDistance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AstroDistance.swift; sourceTree = "<group>"; };
+		F4FDDDA01EE9A6BF8CE48E3F /* Pods-12parsecs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-12parsecs.debug.xcconfig"; path = "Pods/Target Support Files/Pods-12parsecs/Pods-12parsecs.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,17 +75,67 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B68D4A99D51C38AF1B62720 /* Pods_12parsecs.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6536C3413E61E435E1040193 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F4FDDDA01EE9A6BF8CE48E3F /* Pods-12parsecs.debug.xcconfig */,
+				AA1EBF86AC58145BF976574A /* Pods-12parsecs.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		A58F83731C19442B0ACAB540 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D872ED52BAEC9CFEA8FCE0DE /* Pods_12parsecs.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E704CEBC1E42887A00C25A7A /* Converter */ = {
+			isa = PBXGroup;
+			children = (
+				E78AFBAE1E0E765D00BC7569 /* LanguageStruct.swift */,
+				E7E0889F1E009B9400221174 /* AstroDistance.swift */,
+			);
+			name = Converter;
+			sourceTree = "<group>";
+		};
+		E704CEBD1E42889200C25A7A /* Blog */ = {
+			isa = PBXGroup;
+			children = (
+				E76FB1411E301DE700B10858 /* BlogTableViewCell.swift */,
+				E76FB1451E32898A00B10858 /* blogPost.swift */,
+				E76FB14B1E39270800B10858 /* blogUser.swift */,
+				E76FB14D1E39275400B10858 /* blogTags.swift */,
+				E76FB14F1E39277E00B10858 /* blogCategories.swift */,
+				E76FB1511E3A26CC00B10858 /* mediaDetails.swift */,
+			);
+			name = Blog;
+			sourceTree = "<group>";
+		};
+		E704CEBE1E4288EB00C25A7A /* Starbase */ = {
+			isa = PBXGroup;
+			children = (
+				E7581C791E118666002C2DE7 /* StarBase.swift */,
+			);
+			name = Starbase;
+			sourceTree = "<group>";
+		};
 		E7558D791DEF6B1300093962 = {
 			isa = PBXGroup;
 			children = (
 				E7558D841DEF6B1300093962 /* 12parsecs */,
 				E7558D831DEF6B1300093962 /* Products */,
+				6536C3413E61E435E1040193 /* Pods */,
+				A58F83731C19442B0ACAB540 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,6 +169,8 @@
 			children = (
 				E7558D871DEF6B1300093962 /* ViewController.swift */,
 				E765359A1DFCA9370020497B /* WikiViewController.swift */,
+				E76FB13F1E30161400B10858 /* BlogViewController.swift */,
+				E76FB1431E31656E00B10858 /* blogDetailViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -118,9 +190,9 @@
 		E7E088931DFD5F4900221174 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E7E0889F1E009B9400221174 /* AstroDistance.swift */,
-				E78AFBAE1E0E765D00BC7569 /* LanguageStruct.swift */,
-				E7581C791E118666002C2DE7 /* StarBase.swift */,
+				E704CEBE1E4288EB00C25A7A /* Starbase */,
+				E704CEBD1E42889200C25A7A /* Blog */,
+				E704CEBC1E42887A00C25A7A /* Converter */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -143,9 +215,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E7558DAA1DEF6B1500093962 /* Build configuration list for PBXNativeTarget "12parsecs" */;
 			buildPhases = (
+				33D03C897139A513E04EF1A3 /* [CP] Check Pods Manifest.lock */,
 				E7558D7E1DEF6B1300093962 /* Sources */,
 				E7558D7F1DEF6B1300093962 /* Frameworks */,
 				E7558D801DEF6B1300093962 /* Resources */,
+				9FDAA2A554F47ED0BC47B646 /* [CP] Embed Pods Frameworks */,
+				E54F4ADC216F5EE667061AF2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -204,17 +279,71 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		33D03C897139A513E04EF1A3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		9FDAA2A554F47ED0BC47B646 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-12parsecs/Pods-12parsecs-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E54F4ADC216F5EE667061AF2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-12parsecs/Pods-12parsecs-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E7558D7E1DEF6B1300093962 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				E7581C7A1E118666002C2DE7 /* StarBase.swift in Sources */,
+				E76FB1421E301DE700B10858 /* BlogTableViewCell.swift in Sources */,
 				E7558DBC1DF467CB00093962 /* AFGTapGestureRecognizer.swift in Sources */,
 				E7558D881DEF6B1300093962 /* ViewController.swift in Sources */,
+				E76FB14C1E39270800B10858 /* blogUser.swift in Sources */,
 				E7558DBA1DF2BC9800093962 /* AstroTextField.swift in Sources */,
+				E76FB1521E3A26CC00B10858 /* mediaDetails.swift in Sources */,
+				E76FB14E1E39275400B10858 /* blogTags.swift in Sources */,
 				E7E088A01E009B9400221174 /* AstroDistance.swift in Sources */,
 				E7E0889E1E0093BA00221174 /* HelperFunctions.swift in Sources */,
+				E76FB1461E32898A00B10858 /* blogPost.swift in Sources */,
+				E76FB1401E30161400B10858 /* BlogViewController.swift in Sources */,
 				E7558DB61DF2BC3600093962 /* AstroButton.swift in Sources */,
 				E7558DB81DF2BC6D00093962 /* AstroSegmentedControl.swift in Sources */,
 				E767AFE31E068B24004E64F1 /* AFGFadeInAnimator.swift in Sources */,
@@ -222,6 +351,8 @@
 				E7558D861DEF6B1300093962 /* AppDelegate.swift in Sources */,
 				E765359B1DFCA9370020497B /* WikiViewController.swift in Sources */,
 				E78AFBAD1E0A5ED800BC7569 /* backgroundImageView.swift in Sources */,
+				E76FB1441E31656E00B10858 /* blogDetailViewController.swift in Sources */,
+				E76FB1501E39277E00B10858 /* blogCategories.swift in Sources */,
 				E7558DB41DF2BC1000093962 /* AstroLabel.swift in Sources */,
 				E7E088951DFDC7EC00221174 /* Constants.swift in Sources */,
 			);
@@ -344,7 +475,9 @@
 		};
 		E7558DAB1DEF6B1500093962 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4FDDDA01EE9A6BF8CE48E3F /* Pods-12parsecs.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = UBF9PWHB8L;
 				INFOPLIST_FILE = DistanceConverter/Info.plist;
@@ -358,7 +491,9 @@
 		};
 		E7558DAC1DEF6B1500093962 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA1EBF86AC58145BF976574A /* Pods-12parsecs.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = UBF9PWHB8L;
 				INFOPLIST_FILE = DistanceConverter/Info.plist;

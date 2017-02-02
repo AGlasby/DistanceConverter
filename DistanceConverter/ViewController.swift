@@ -239,12 +239,19 @@ class ViewController: UIViewController {
         showAlert(title: "Incorrect input", message: "Distance input field is not valid. Please enter non-zero number and try again.", viewController: self)
     }
 
+
+    @IBAction func backFromModal(segue: UIStoryboardSegue) {
+        setUpTextField()
+        self.tabBarController?.selectedIndex = 1
+    }
+
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showWikiPage" {
-            let destinationVC = segue.destination as? WikiViewController
-            destinationVC?.url = url
-            destinationVC?.transitioningDelegate = self
+            let nc = segue.destination as! UINavigationController
+            let destinationVC = nc.topViewController as! WikiViewController
+            destinationVC.url = url
+            destinationVC.transitioningDelegate = self
         }
     }
 }
