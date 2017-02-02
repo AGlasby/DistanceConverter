@@ -1,0 +1,6 @@
+framework module Pods_12parsecs {
+  umbrella header "Pods-12parsecs-umbrella.h"
+
+  export *
+  module * { export * }
+}
