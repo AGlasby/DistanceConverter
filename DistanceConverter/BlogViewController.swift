@@ -87,7 +87,7 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
                                 posts.append(post)
                                 break
                             } else {
-                                // Handle error
+                                self.handleErrorDeserialisingJSON(action: wordpressAction.posts)
                                 break
                             }
                         case wordpressAction.tags:
@@ -95,7 +95,7 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
                                 tags.append(tag)
                                 break
                             } else {
-                                // Handle error
+                                self.handleErrorDeserialisingJSON(action: wordpressAction.tags)
                                 break
                             }
                         case wordpressAction.users:
@@ -103,7 +103,7 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
                                 users.append(user)
                                 break
                             } else {
-                                // Handle error
+                                self.handleErrorDeserialisingJSON(action: wordpressAction.users)
                                 break
                             }
                         case wordpressAction.categories:
@@ -111,7 +111,7 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
                                 categories.append(category)
                                 break
                             } else {
-                                // Handle error
+                                self.handleErrorDeserialisingJSON(action: wordpressAction.categories)
                                 break
                             }
                         case wordpressAction.media:
@@ -119,7 +119,7 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
                                 mediaInfo.append(media)
                                 break
                             } else {
-                                // Handle error
+                                self.handleErrorDeserialisingJSON(action: wordpressAction.media)
                                 break
                             }
                         }
@@ -129,6 +129,9 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
 
+    func handleErrorDeserialisingJSON(action: wordpressAction) {
+        showAlert(title: "Error handling data from blog site", message: "There was an error handling the \(action) data from the blog site. Please try again. If the problem persists please contact the developer at: www.thisnow.software/contact/.", viewController: self)
+    }
 
 // MARK: Segue Methods
 

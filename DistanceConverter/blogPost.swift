@@ -97,6 +97,8 @@ struct BlogPost {
             else {
                 return nil
             }
+
+//          Need to improve handling of following few lines to ensure errors are handled
             var date_gmt = "0000-01-01"
             if let range = date_gmt_tmp.range(of: "T") {
                 date_gmt = date_gmt_tmp.substring(to: range.lowerBound)
@@ -118,7 +120,7 @@ struct BlogPost {
             _link = link
         }
 
-
+//  The following fields in the json data re not currently handled
 //    private var _date: Date!
 //    private var _guid: [String: Any]!
 //    private var _modified: String!
