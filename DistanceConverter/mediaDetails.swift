@@ -42,6 +42,25 @@ struct MediaDetails {
         _mediaDescription = desc
         _mediaThumbUrl = thumbUrl
     }
+
+    init?(json: [String: Any]) {
+        guard let mediaId = json["id"] as? Int,
+            let mediaLink = json["link"] as? String,
+            let mediaDetails = json["media_details"] as? Dictionary<String, Any>,
+            let mediaSizes = mediaDetails["sizes"] as? Dictionary<String, Any>,
+            let mediaThumb = mediaSizes["thumbnail"] as? Dictionary<String, Any>,
+            let mediaThumbUrl = mediaThumb["source_url"] as? String,
+            let mediaCaption = "" as? String,
+            let mediaDescription = "" as? String
+        else {
+            return nil
+        }
+            _mediaId = mediaId
+            _mediaLink = mediaLink
+            _mediaCaption = mediaCaption
+            _mediaDescription = mediaDescription
+            _mediaThumbUrl = mediaThumbUrl
+    }
 }
 
 extension MediaDetails: Equatable {}
@@ -53,5 +72,4 @@ func == (lhs: MediaDetails, rhs: MediaDetails) -> Bool {
     lhs.mediaThumbUrl == rhs.mediaThumbUrl
     return areEqual
 }
-
 

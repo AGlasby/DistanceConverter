@@ -66,7 +66,7 @@ struct BlogPost {
         return _link
     }
 
-    init(date_gmt: String, id: Int, slug: String, title: String, content: String, author: Int, excerpt: String, featured_media: Int, categories: [Int], tags: [Int], link: String) {
+    init(date_gmt: String, id: Int, slug: String, title: String, content: String, author: Int, excerpt: String, featuredMedia: Int, categories: [Int], tags: [Int], link: String) {
         _date_gmt = date_gmt
         _id = id
         _slug = slug
@@ -74,11 +74,49 @@ struct BlogPost {
         _content = content
         _author = author
         _excerpt = excerpt
-        _featured_media = featured_media
+        _featured_media = featuredMedia
         _categories = categories
         _tags = tags
         _link = link
     }
+
+    init?(json: [String: Any]) {
+        guard let date_gmt_tmp = json["date_gmt"] as? String,
+            let id = json["id"] as? Int,
+            let slug = json["slug"] as? String,
+            let titleTemp = json["title"] as? [String: Any],
+            let contentTemp = json["content"] as? [String: Any],
+
+            let author = json["author"] as? Int,
+            let excerptTemp = json["excerpt"] as? [String: Any],
+
+            let featuredMedia = json["featured_media"] as? Int,
+            let categories = json["categories"] as? [Int],
+            let tags = json["tags"] as? [Int],
+            let link = json["link"] as? String
+            else {
+                return nil
+            }
+            var date_gmt = "0000-01-01"
+            if let range = date_gmt_tmp.range(of: "T") {
+                date_gmt = date_gmt_tmp.substring(to: range.lowerBound)
+            }
+            let title = titleTemp["rendered"] as? String
+            let content = contentTemp["rendered"] as? String
+            let excerpt = excerptTemp["rendered"] as? String
+
+            _date_gmt = date_gmt
+            _id = id
+            _slug = slug
+            _title = title
+            _content = content
+            _author = author
+            _excerpt = excerpt
+            _featured_media = featuredMedia
+            _categories = categories
+            _tags = tags
+            _link = link
+        }
 
 
 //    private var _date: Date!

@@ -25,4 +25,13 @@ struct BlogTag {
         _tagName = tagName
     }
 
+    init?(json: [String: Any]) {
+        guard let tagId = json["id"] as? Int,
+        let tagName = json["name"] as? String
+            else {
+                return nil
+        }
+        _tagId = tagId
+        _tagName = tagName
+    }
 }

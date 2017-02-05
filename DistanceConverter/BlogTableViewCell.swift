@@ -11,7 +11,6 @@ import Alamofire
 import AlamofireImage
 
 class BlogTableViewCell: UITableViewCell {
-
     @IBOutlet weak var featuredImageImageView: UIImageView!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var authorTextField: UITextField!

@@ -16,7 +16,7 @@ class WikiViewController: UIViewController, UIWebViewDelegate {
 
     var url:String = ""
     private let fadeInAnimator = AFGFadeInAnimator()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         wikiWebView.delegate = self
@@ -26,12 +26,12 @@ class WikiViewController: UIViewController, UIWebViewDelegate {
         self.view.addSubview(spinnerActivityIndicatorView)
         spinnerActivityIndicatorView.hidesWhenStopped = true
 
-        if let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) {
-            let wikiUrl = URL(string: encodedUrl)
-            let wikiLoadRequest = NSURLRequest(url: wikiUrl! as URL)
+        if let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed),
+            let wikiUrl = URL(string: encodedUrl) {
+            let wikiLoadRequest = URLRequest(url: wikiUrl)
             wikiWebView.loadRequest(wikiLoadRequest as URLRequest)
         } else {
-            showAlert(title: "Failed url conversion", message: "Failed to convert url to correct format. Please notify developer through developer's website.", viewController: self)
+            showAlert(title: "Failed to correctly set web page address", message: "Unfortunately there was an error when setting the address of the web page. Please notify developer through developer's website - https://thisnow.software/contact/ ", viewController: self)
         }
     }
 

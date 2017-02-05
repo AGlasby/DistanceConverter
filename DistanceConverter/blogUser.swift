@@ -24,4 +24,15 @@ struct BlogUser {
         _userId = userId
         _userName = userName
     }
+
+    init?(json: [String: Any]) {
+        guard let userId = json["id"] as? Int,
+            let userName = json["name"] as? String
+            else {
+                return nil
+        }
+        _userId = userId
+        _userName = userName
+    }
 }
+

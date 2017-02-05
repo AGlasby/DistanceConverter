@@ -251,15 +251,8 @@ class ViewController: UIViewController {
             let nc = segue.destination as! UINavigationController
             let destinationVC = nc.topViewController as! WikiViewController
             destinationVC.url = url
-            destinationVC.transitioningDelegate = self
         }
     }
 }
 
-
-extension ViewController: UIViewControllerTransitioningDelegate {
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return AFGFadeInAnimator()
-    }
-}
 

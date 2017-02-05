@@ -25,4 +25,15 @@ struct BlogCategory {
         _categoryId = categoryId
         _categoryName = categoryName
     }
+
+    init?(json: [String: Any]) {
+        guard let categoryId = json["id"] as? Int,
+        let categoryName = json["name"] as? String
+            else {
+                return nil
+        }
+        _categoryId = categoryId
+        _categoryName = categoryName
+    }
 }
+

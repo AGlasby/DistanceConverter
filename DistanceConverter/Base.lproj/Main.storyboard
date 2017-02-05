@@ -40,7 +40,6 @@
                                 </segments>
                                 <connections>
                                     <action selector="unitsSegmentedControl:" destination="BYZ-38-t0r" eventType="valueChanged" id="fuh-zr-rj8"/>
-                                    <segue destination="a6A-hr-FTV" kind="presentation" identifier="showWikiPage" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="MsG-xt-woY"/>
                                 </connections>
                             </segmentedControl>
                             <textField opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="b9h-F3-TWy" userLabel="DistanceIn" customClass="AstroTextField" customModule="_2parsecs" customModuleProvider="target">
@@ -203,6 +202,7 @@
                         <outlet property="unit3Label" destination="mrx-PD-nqW" id="Iba-Xp-uOQ"/>
                         <outlet property="unit3OutputLabel" destination="O8v-cb-cRH" id="sb2-wq-DRy"/>
                         <outlet property="unitsSegmentedControl" destination="iI5-lO-e2j" id="fLM-Mj-rEd"/>
+                        <segue destination="a6A-hr-FTV" kind="presentation" identifier="showWikiPage" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="0iS-C3-47J"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -401,7 +401,7 @@
                                             <outlet property="featuredImageImageView" destination="bam-Pr-QwU" id="h7u-ou-rKG"/>
                                             <outlet property="tagLabel" destination="ZZE-G3-lKq" id="Ya5-xF-46L"/>
                                             <outlet property="titleTextField" destination="zud-GU-Xqn" id="hZn-wQ-IEX"/>
-                                            <segue destination="Jxd-av-bGl" kind="show" id="mkv-n9-EYR"/>
+                                            <segue destination="Jxd-av-bGl" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="mkv-n9-EYR"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
