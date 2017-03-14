@@ -33,7 +33,7 @@ class blogDetailViewController: UIViewController, UIWebViewDelegate, NSURLConnec
     }
 
     func connection(_ connection: NSURLConnection, willSendRequestFor challenge: URLAuthenticationChallenge) {
-        let defaultCredentials: URLCredential = URLCredential(user: WORDPRESSUSERNAME, password: WORDPRESSPASSWORD, persistence:URLCredential.Persistence.forSession)
+        let defaultCredentials: URLCredential = URLCredential(user: "alan", password: "admin", persistence:URLCredential.Persistence.forSession)
         challenge.sender!.use(defaultCredentials, for: challenge)
     }
 

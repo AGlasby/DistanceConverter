@@ -34,8 +34,10 @@ enum wordpressAction {
     case media
 }
 
-let WORDPRESSADDRESS = "http://192.168.1.15:8888/wp-json/wp/v2/"
-let WORDPRESSUSERNAME = "alan"
-let WORDPRESSPASSWORD = "admin"
+let WORDPRESSADDRESS = "https://thisnow.software/wp-json/wp/v2/"
+//let WORDPRESSADDRESS = "http://192.168.1.15:8888/wp-json/wp/v2/"
+let WORDPRESSPAGESIZE = 10
+
+
 
 

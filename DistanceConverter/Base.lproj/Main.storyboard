@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="GfQ-F7-JmH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="GfQ-F7-JmH">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -301,66 +302,31 @@
                                         <rect key="frame" x="0.0" y="28" width="374" height="182"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sEY-bN-Il4" id="sWi-Yh-bZK">
-                                            <rect key="frame" x="0.0" y="0.0" width="374" height="181"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="181.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="12pc@1x" translatesAutoresizingMaskIntoConstraints="NO" id="bam-Pr-QwU">
-                                                    <rect key="frame" x="8" y="8" width="92" height="92"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="92" id="9Wg-TR-KuM"/>
-                                                        <constraint firstAttribute="width" constant="92" id="OKA-Ed-8u1"/>
-                                                    </constraints>
-                                                </imageView>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Title" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zud-GU-Xqn" customClass="AstroTextField" customModule="_2parsecs" customModuleProvider="target">
-                                                    <rect key="frame" x="108" y="8" width="258" height="30"/>
+                                                    <rect key="frame" x="8" y="8" width="358" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="oNp-ls-Za7"/>
-                                                    </constraints>
-                                                    <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Author" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gja-lC-4h3" customClass="AstroTextField" customModule="_2parsecs" customModuleProvider="target">
-                                                    <rect key="frame" x="8" y="108" width="92" height="30"/>
-                                                    <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="16/1/2017" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S2l-5E-C1d" customClass="AstroTextField" customModule="_2parsecs" customModuleProvider="target">
-                                                    <rect key="frame" x="8" y="144" width="92" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="foA-Je-jmE"/>
-                                                        <constraint firstAttribute="width" constant="92" id="lBS-Y1-wIp"/>
                                                     </constraints>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="g8k-GV-ux4">
-                                                    <rect key="frame" x="280" y="46" width="86" height="127.66666666666666"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tag, Tag, Tag" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZE-G3-lKq" customClass="AstroLabel" customModule="_2parsecs" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="86" height="60"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Category" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Eis-jW-SlO" customClass="AstroTextField" customModule="_2parsecs" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="68" width="86" height="59.666666666666657"/>
-                                                            <nil key="textColor"/>
-                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                                            <textInputTraits key="textInputTraits"/>
-                                                        </textField>
-                                                    </subviews>
-                                                </stackView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5xr-8H-dBw" customClass="AstroLabel" customModule="_2parsecs" customModuleProvider="target">
-                                                    <rect key="frame" x="108" y="46" width="164" height="128"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="16/1/2017" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S2l-5E-C1d" customClass="AstroTextField" customModule="_2parsecs" customModuleProvider="target">
+                                                    <rect key="frame" x="8" y="146" width="92" height="30"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="164" id="WvE-jr-AcG"/>
+                                                        <constraint firstAttribute="height" constant="30" id="foA-Je-jmE"/>
+                                                        <constraint firstAttribute="width" constant="92" id="lBS-Y1-wIp"/>
                                                     </constraints>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="10"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5xr-8H-dBw" customClass="AstroLabel" customModule="_2parsecs" customModuleProvider="target">
+                                                    <rect key="frame" x="108" y="46" width="258" height="14"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <attributedString key="attributedText">
                                                         <fragment content="Extract of blog">
                                                             <attributes>
@@ -370,36 +336,36 @@
                                                     </attributedString>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="12pc@1x" translatesAutoresizingMaskIntoConstraints="NO" id="bam-Pr-QwU">
+                                                    <rect key="frame" x="8" y="46" width="92" height="92"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="92" id="9Wg-TR-KuM"/>
+                                                        <constraint firstAttribute="width" constant="92" id="OKA-Ed-8u1"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.66666666669999997" alpha="0.74601348460000005" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstItem="Gja-lC-4h3" firstAttribute="trailing" secondItem="bam-Pr-QwU" secondAttribute="trailing" id="5aJ-wJ-h2s"/>
-                                                <constraint firstItem="Gja-lC-4h3" firstAttribute="leading" secondItem="sWi-Yh-bZK" secondAttribute="leadingMargin" id="5wc-p4-dvz"/>
                                                 <constraint firstItem="zud-GU-Xqn" firstAttribute="top" secondItem="sWi-Yh-bZK" secondAttribute="topMargin" id="5xq-GI-EJt"/>
-                                                <constraint firstItem="g8k-GV-ux4" firstAttribute="leading" secondItem="5xr-8H-dBw" secondAttribute="trailing" constant="8" id="7gb-g2-Tk5"/>
                                                 <constraint firstItem="5xr-8H-dBw" firstAttribute="leading" secondItem="bam-Pr-QwU" secondAttribute="trailing" constant="8" id="BIr-hJ-VOc"/>
-                                                <constraint firstItem="bam-Pr-QwU" firstAttribute="top" secondItem="sWi-Yh-bZK" secondAttribute="top" constant="8" id="EX7-Lk-d6k"/>
+                                                <constraint firstItem="S2l-5E-C1d" firstAttribute="top" secondItem="bam-Pr-QwU" secondAttribute="bottom" constant="8" id="ETk-mx-sNm"/>
                                                 <constraint firstItem="bam-Pr-QwU" firstAttribute="leading" secondItem="sWi-Yh-bZK" secondAttribute="leading" constant="8" id="Eev-SL-SvD"/>
-                                                <constraint firstAttribute="bottom" secondItem="g8k-GV-ux4" secondAttribute="bottom" constant="8" id="SGS-2q-ioR"/>
                                                 <constraint firstAttribute="trailing" secondItem="zud-GU-Xqn" secondAttribute="trailing" constant="8" id="WQN-te-MmI"/>
-                                                <constraint firstItem="zud-GU-Xqn" firstAttribute="leading" secondItem="bam-Pr-QwU" secondAttribute="trailing" constant="8" id="YKn-dw-Xol"/>
-                                                <constraint firstAttribute="trailing" secondItem="g8k-GV-ux4" secondAttribute="trailing" constant="8" id="aXl-aS-Jlh"/>
-                                                <constraint firstItem="Gja-lC-4h3" firstAttribute="top" secondItem="bam-Pr-QwU" secondAttribute="bottom" constant="8" id="cA6-sS-dGM"/>
                                                 <constraint firstItem="S2l-5E-C1d" firstAttribute="leading" secondItem="sWi-Yh-bZK" secondAttribute="leading" constant="8" id="dA9-LF-qIK"/>
                                                 <constraint firstItem="S2l-5E-C1d" firstAttribute="bottom" secondItem="sWi-Yh-bZK" secondAttribute="bottomMargin" id="feD-cB-Q1a"/>
-                                                <constraint firstItem="g8k-GV-ux4" firstAttribute="top" secondItem="zud-GU-Xqn" secondAttribute="bottom" constant="8" id="jrr-qG-cqP"/>
+                                                <constraint firstAttribute="trailing" secondItem="5xr-8H-dBw" secondAttribute="trailing" constant="8" id="gDq-ds-Cx6"/>
+                                                <constraint firstItem="zud-GU-Xqn" firstAttribute="leading" secondItem="sWi-Yh-bZK" secondAttribute="leading" constant="8" id="lta-Ib-0JF"/>
                                                 <constraint firstAttribute="bottom" secondItem="5xr-8H-dBw" secondAttribute="bottom" constant="8" id="vzU-Z3-Aif"/>
+                                                <constraint firstItem="bam-Pr-QwU" firstAttribute="top" secondItem="zud-GU-Xqn" secondAttribute="bottom" constant="8" id="wsE-QP-zJD"/>
                                                 <constraint firstItem="5xr-8H-dBw" firstAttribute="top" secondItem="zud-GU-Xqn" secondAttribute="bottom" constant="8" id="yNz-UK-L0Y"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="0.74601348460000005" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <outlet property="authorTextField" destination="Gja-lC-4h3" id="vEr-OS-6Pa"/>
-                                            <outlet property="categoryTextField" destination="Eis-jW-SlO" id="EI0-e2-pHw"/>
                                             <outlet property="dateTextField" destination="S2l-5E-C1d" id="4NI-LV-2Iw"/>
                                             <outlet property="extractLabel" destination="5xr-8H-dBw" id="qKI-Ni-pcL"/>
                                             <outlet property="featuredImageImageView" destination="bam-Pr-QwU" id="h7u-ou-rKG"/>
-                                            <outlet property="tagLabel" destination="ZZE-G3-lKq" id="Ya5-xF-46L"/>
                                             <outlet property="titleTextField" destination="zud-GU-Xqn" id="hZn-wQ-IEX"/>
                                             <segue destination="Jxd-av-bGl" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="mkv-n9-EYR"/>
                                         </connections>

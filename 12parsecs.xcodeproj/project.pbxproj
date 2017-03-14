@@ -24,16 +24,22 @@
 		E76FB1401E30161400B10858 /* BlogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76FB13F1E30161400B10858 /* BlogViewController.swift */; };
 		E76FB1421E301DE700B10858 /* BlogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76FB1411E301DE700B10858 /* BlogTableViewCell.swift */; };
 		E76FB1441E31656E00B10858 /* blogDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76FB1431E31656E00B10858 /* blogDetailViewController.swift */; };
-		E76FB1461E32898A00B10858 /* blogPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76FB1451E32898A00B10858 /* blogPost.swift */; };
-		E76FB14C1E39270800B10858 /* blogUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76FB14B1E39270800B10858 /* blogUser.swift */; };
-		E76FB14E1E39275400B10858 /* blogTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76FB14D1E39275400B10858 /* blogTags.swift */; };
-		E76FB1501E39277E00B10858 /* blogCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76FB14F1E39277E00B10858 /* blogCategories.swift */; };
-		E76FB1521E3A26CC00B10858 /* mediaDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76FB1511E3A26CC00B10858 /* mediaDetails.swift */; };
 		E78AFBAD1E0A5ED800BC7569 /* backgroundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78AFBAC1E0A5ED800BC7569 /* backgroundImageView.swift */; };
 		E78AFBAF1E0E765D00BC7569 /* LanguageStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78AFBAE1E0E765D00BC7569 /* LanguageStruct.swift */; };
+		E7C5B9E91E6C20CD0013D1AC /* BlogModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E7C5B9E71E6C20CD0013D1AC /* BlogModel.xcdatamodeld */; };
 		E7E088951DFDC7EC00221174 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E088941DFDC7EC00221174 /* Constants.swift */; };
 		E7E0889E1E0093BA00221174 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0889D1E0093BA00221174 /* HelperFunctions.swift */; };
 		E7E088A01E009B9400221174 /* AstroDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0889F1E009B9400221174 /* AstroDistance.swift */; };
+		E7E302251E6C6314008D6B35 /* BlogPost+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E3021B1E6C6314008D6B35 /* BlogPost+CoreDataClass.swift */; };
+		E7E302261E6C6314008D6B35 /* BlogPost+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E3021C1E6C6314008D6B35 /* BlogPost+CoreDataProperties.swift */; };
+		E7E302271E6C6314008D6B35 /* BlogUsers+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E3021D1E6C6314008D6B35 /* BlogUsers+CoreDataClass.swift */; };
+		E7E302281E6C6314008D6B35 /* BlogUsers+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E3021E1E6C6314008D6B35 /* BlogUsers+CoreDataProperties.swift */; };
+		E7E302291E6C6314008D6B35 /* BlogCategories+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E3021F1E6C6314008D6B35 /* BlogCategories+CoreDataClass.swift */; };
+		E7E3022A1E6C6314008D6B35 /* BlogCategories+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E302201E6C6314008D6B35 /* BlogCategories+CoreDataProperties.swift */; };
+		E7E3022B1E6C6314008D6B35 /* BlogTags+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E302211E6C6314008D6B35 /* BlogTags+CoreDataClass.swift */; };
+		E7E3022D1E6C6314008D6B35 /* MediaDetails+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E302231E6C6314008D6B35 /* MediaDetails+CoreDataClass.swift */; };
+		E7E3022E1E6C6314008D6B35 /* MediaDetails+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E302241E6C6314008D6B35 /* MediaDetails+CoreDataProperties.swift */; };
+		E7E302321E6C72CF008D6B35 /* BlogTags+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E302311E6C72CF008D6B35 /* BlogTags+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,16 +63,22 @@
 		E76FB13F1E30161400B10858 /* BlogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogViewController.swift; sourceTree = "<group>"; };
 		E76FB1411E301DE700B10858 /* BlogTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogTableViewCell.swift; sourceTree = "<group>"; };
 		E76FB1431E31656E00B10858 /* blogDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = blogDetailViewController.swift; sourceTree = "<group>"; };
-		E76FB1451E32898A00B10858 /* blogPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = blogPost.swift; sourceTree = "<group>"; };
-		E76FB14B1E39270800B10858 /* blogUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = blogUser.swift; sourceTree = "<group>"; };
-		E76FB14D1E39275400B10858 /* blogTags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = blogTags.swift; sourceTree = "<group>"; };
-		E76FB14F1E39277E00B10858 /* blogCategories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = blogCategories.swift; sourceTree = "<group>"; };
-		E76FB1511E3A26CC00B10858 /* mediaDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mediaDetails.swift; sourceTree = "<group>"; };
 		E78AFBAC1E0A5ED800BC7569 /* backgroundImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = backgroundImageView.swift; sourceTree = "<group>"; };
 		E78AFBAE1E0E765D00BC7569 /* LanguageStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageStruct.swift; sourceTree = "<group>"; };
+		E7C5B9E81E6C20CD0013D1AC /* BlogModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BlogModel.xcdatamodel; sourceTree = "<group>"; };
 		E7E088941DFDC7EC00221174 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E7E0889D1E0093BA00221174 /* HelperFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
 		E7E0889F1E009B9400221174 /* AstroDistance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AstroDistance.swift; sourceTree = "<group>"; };
+		E7E3021B1E6C6314008D6B35 /* BlogPost+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlogPost+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E7E3021C1E6C6314008D6B35 /* BlogPost+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlogPost+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E7E3021D1E6C6314008D6B35 /* BlogUsers+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlogUsers+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E7E3021E1E6C6314008D6B35 /* BlogUsers+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlogUsers+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E7E3021F1E6C6314008D6B35 /* BlogCategories+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlogCategories+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E7E302201E6C6314008D6B35 /* BlogCategories+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlogCategories+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E7E302211E6C6314008D6B35 /* BlogTags+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlogTags+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E7E302231E6C6314008D6B35 /* MediaDetails+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MediaDetails+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E7E302241E6C6314008D6B35 /* MediaDetails+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MediaDetails+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E7E302311E6C72CF008D6B35 /* BlogTags+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlogTags+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F4FDDDA01EE9A6BF8CE48E3F /* Pods-12parsecs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-12parsecs.debug.xcconfig"; path = "Pods/Target Support Files/Pods-12parsecs/Pods-12parsecs.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -111,12 +123,18 @@
 		E704CEBD1E42889200C25A7A /* Blog */ = {
 			isa = PBXGroup;
 			children = (
+				E7E3021B1E6C6314008D6B35 /* BlogPost+CoreDataClass.swift */,
+				E7E3021C1E6C6314008D6B35 /* BlogPost+CoreDataProperties.swift */,
+				E7E3021D1E6C6314008D6B35 /* BlogUsers+CoreDataClass.swift */,
+				E7E3021E1E6C6314008D6B35 /* BlogUsers+CoreDataProperties.swift */,
+				E7E3021F1E6C6314008D6B35 /* BlogCategories+CoreDataClass.swift */,
+				E7E302201E6C6314008D6B35 /* BlogCategories+CoreDataProperties.swift */,
+				E7E302311E6C72CF008D6B35 /* BlogTags+CoreDataProperties.swift */,
+				E7E302211E6C6314008D6B35 /* BlogTags+CoreDataClass.swift */,
+				E7E302231E6C6314008D6B35 /* MediaDetails+CoreDataClass.swift */,
+				E7E302241E6C6314008D6B35 /* MediaDetails+CoreDataProperties.swift */,
 				E76FB1411E301DE700B10858 /* BlogTableViewCell.swift */,
-				E76FB1451E32898A00B10858 /* blogPost.swift */,
-				E76FB14B1E39270800B10858 /* blogUser.swift */,
-				E76FB14D1E39275400B10858 /* blogTags.swift */,
-				E76FB14F1E39277E00B10858 /* blogCategories.swift */,
-				E76FB1511E3A26CC00B10858 /* mediaDetails.swift */,
+				E7C5B9E71E6C20CD0013D1AC /* BlogModel.xcdatamodeld */,
 			);
 			name = Blog;
 			sourceTree = "<group>";
@@ -336,25 +354,31 @@
 				E76FB1421E301DE700B10858 /* BlogTableViewCell.swift in Sources */,
 				E7558DBC1DF467CB00093962 /* AFGTapGestureRecognizer.swift in Sources */,
 				E7558D881DEF6B1300093962 /* ViewController.swift in Sources */,
-				E76FB14C1E39270800B10858 /* blogUser.swift in Sources */,
 				E7558DBA1DF2BC9800093962 /* AstroTextField.swift in Sources */,
-				E76FB1521E3A26CC00B10858 /* mediaDetails.swift in Sources */,
-				E76FB14E1E39275400B10858 /* blogTags.swift in Sources */,
+				E7E302321E6C72CF008D6B35 /* BlogTags+CoreDataProperties.swift in Sources */,
 				E7E088A01E009B9400221174 /* AstroDistance.swift in Sources */,
+				E7E302271E6C6314008D6B35 /* BlogUsers+CoreDataClass.swift in Sources */,
 				E7E0889E1E0093BA00221174 /* HelperFunctions.swift in Sources */,
-				E76FB1461E32898A00B10858 /* blogPost.swift in Sources */,
+				E7E302261E6C6314008D6B35 /* BlogPost+CoreDataProperties.swift in Sources */,
+				E7C5B9E91E6C20CD0013D1AC /* BlogModel.xcdatamodeld in Sources */,
+				E7E3022B1E6C6314008D6B35 /* BlogTags+CoreDataClass.swift in Sources */,
+				E7E302281E6C6314008D6B35 /* BlogUsers+CoreDataProperties.swift in Sources */,
 				E76FB1401E30161400B10858 /* BlogViewController.swift in Sources */,
+				E7E3022E1E6C6314008D6B35 /* MediaDetails+CoreDataProperties.swift in Sources */,
+				E7E302251E6C6314008D6B35 /* BlogPost+CoreDataClass.swift in Sources */,
 				E7558DB61DF2BC3600093962 /* AstroButton.swift in Sources */,
 				E7558DB81DF2BC6D00093962 /* AstroSegmentedControl.swift in Sources */,
 				E767AFE31E068B24004E64F1 /* AFGFadeInAnimator.swift in Sources */,
 				E78AFBAF1E0E765D00BC7569 /* LanguageStruct.swift in Sources */,
+				E7E3022A1E6C6314008D6B35 /* BlogCategories+CoreDataProperties.swift in Sources */,
 				E7558D861DEF6B1300093962 /* AppDelegate.swift in Sources */,
+				E7E302291E6C6314008D6B35 /* BlogCategories+CoreDataClass.swift in Sources */,
 				E765359B1DFCA9370020497B /* WikiViewController.swift in Sources */,
 				E78AFBAD1E0A5ED800BC7569 /* backgroundImageView.swift in Sources */,
 				E76FB1441E31656E00B10858 /* blogDetailViewController.swift in Sources */,
-				E76FB1501E39277E00B10858 /* blogCategories.swift in Sources */,
 				E7558DB41DF2BC1000093962 /* AstroLabel.swift in Sources */,
 				E7E088951DFDC7EC00221174 /* Constants.swift in Sources */,
+				E7E3022D1E6C6314008D6B35 /* MediaDetails+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,7 +505,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = UBF9PWHB8L;
 				INFOPLIST_FILE = DistanceConverter/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = glasby.12parsecs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -497,7 +521,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = UBF9PWHB8L;
 				INFOPLIST_FILE = DistanceConverter/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = glasby.12parsecs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -527,6 +551,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E7C5B9E71E6C20CD0013D1AC /* BlogModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E7C5B9E81E6C20CD0013D1AC /* BlogModel.xcdatamodel */,
+			);
+			currentVersion = E7C5B9E81E6C20CD0013D1AC /* BlogModel.xcdatamodel */;
+			path = BlogModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = E7558D7A1DEF6B1300093962 /* Project object */;
 }
