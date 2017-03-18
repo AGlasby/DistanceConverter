@@ -32,6 +32,11 @@
         <attribute name="tagId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="tagName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BlogPosts" inverseName="tags" inverseEntity="BlogPosts" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="tagId"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="BlogUsers" representedClassName="BlogUsers" syncable="YES">
         <attribute name="userId" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>

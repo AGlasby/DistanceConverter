@@ -93,7 +93,7 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
             return
         }
         let loadMedia = MediaDetails.createFetchRequest()
-        let sortMedia = NSSortDescriptor(key: "mediaId", ascending: false)
+        let sortMedia = NSSortDescriptor(key: "mediaId", ascending: true)
         loadMedia.sortDescriptors = [sortMedia]
         do {
             mediaInfo = try container.viewContext.fetch(loadMedia)
@@ -180,7 +180,6 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
                     self.do_table_refresh()
 
                     let postsDownloaded = json.count
-                    let page = 2
                     var parametersNew = parameters
                     var stillToDownload = 0
                     if let httpResponse = response.response?.allHeaderFields {
@@ -196,17 +195,10 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
                                     self.handleErrorRetrievingJSON(action: action)
                                     return
                                 }
-                                var jsonData = NSMutableData()
+//                                var jsonData = NSMutableData()
                                 print("XPTOTPAG \(totalPagesInWP)")
-                                for page  in 1...totalPagesInWP {
+                                for page in 2...totalPagesInWP {
                                     print(page)
-                                }
-
-                                if totalPostsInWP > entriesInCoreData {
-                                    stillToDownload = totalPostsInWP - entriesInCoreData - postsDownloaded
-                                    if stillToDownload <= 0 {
-                                        return
-                                    }
                                     parametersNew["page"] = page
                                     Alamofire.request(serverUrl!, method: .get, parameters: parametersNew, encoding: JSONEncoding.default)
                                         .responseJSON {response in
@@ -224,7 +216,6 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
                                             }
                                             self.extractAndSave(action: action, json: json)
                                             self.do_table_refresh()
-
                                     }
                                 }
                         }

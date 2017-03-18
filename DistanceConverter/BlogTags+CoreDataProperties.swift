@@ -2,7 +2,7 @@
 //  BlogTags+CoreDataProperties.swift
 //  12parsecs
 //
-//  Created by Alan Glasby on 16/03/2017.
+//  Created by Alan Glasby on 18/03/2017.
 //  Copyright © 2017 Alan Glasby. All rights reserved.
 //
 
