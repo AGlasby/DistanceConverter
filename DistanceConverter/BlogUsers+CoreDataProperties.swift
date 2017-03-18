@@ -18,6 +18,6 @@ extension BlogUsers {
 
     @NSManaged public var userId: Int32
     @NSManaged public var userName: String?
-    @NSManaged public var user: BlogPost?
+    @NSManaged public var user: BlogPosts?
 
 }

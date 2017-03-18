@@ -35,10 +35,9 @@ class BlogTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
-    func configureCell(post: BlogPost) {
+    func configureCell(post: BlogPosts) {
         titleTextField.text = post.title
         extractLabel.attributedText = post.excerpt?.htmlAttributedString()
-
         var date_gmt = "0000-01-01"
         guard let dateGmtRange = post.dateGmt?.range(of: "T")
             else {
@@ -64,7 +63,6 @@ class BlogTableViewCell: UITableViewCell {
         let serverUrl = URL(string: (mediaId))
         var urlRequest = URLRequest(url: serverUrl!)
         urlRequest.httpMethod = HTTPMethod.get.rawValue
-//        urlRequest.addValue("alan:admin", forHTTPHeaderField: "Authorisation")
 
         Alamofire.request(urlRequest).responseImage { response in
             guard let image = response.result.value else {

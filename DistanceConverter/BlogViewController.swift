@@ -12,7 +12,7 @@ import AlamofireImage
 import CoreData
 
 
-var blogPosts = [BlogPost]()
+var blogPosts = [BlogPosts]()
 var users = [BlogUsers]()
 var tags = [BlogTags]()
 var categories = [BlogCategories]()
@@ -28,8 +28,9 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
 
         container = NSPersistentContainer(name: "BlogModel")
         container.loadPersistentStores {NSPersistentStoreDescription, error in
+            container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
             if let error = error {
-                print("Unresolved error \(error)")
+                self.handleErrorRetrievingDataFromCoreData(action: wordpressAction.posts, error: error)
             }
         }
 
@@ -73,15 +74,14 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
         if container.viewContext.hasChanges {
             do {
                 try container.viewContext.save()
-                print("Saved posts")
             } catch {
-                print("A fatal error has ocurred whilst saving: \(error)")
+                handleErrorSavingDataToCoreData(action: wordpressAction.posts, error: error)
             }
         }
     }
 
     func loadSavedData() {
-        let loadPosts = BlogPost.createFetchRequest()
+        let loadPosts = BlogPosts.createFetchRequest()
         let sortPosts = NSSortDescriptor(key: "id", ascending: false)
         loadPosts.sortDescriptors = [sortPosts]
         do {
@@ -103,6 +103,17 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
             print("Fetch media failed")
             return
         }
+        let loadTags = BlogTags.createFetchRequest()
+        let sortTags = NSSortDescriptor(key: "tagId", ascending: true)
+        loadTags.sortDescriptors = [sortTags]
+        do {
+            tags = try container.viewContext.fetch(loadTags)
+            print("Got results, \(tags.count) tags retreived")
+            do_table_refresh()
+        } catch {
+            print("Fetch tags failed")
+            return
+        }
     }
 
 
@@ -110,20 +121,15 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     func updateBlogData() {
 
-
         let per_page = 10
-        var lastDatePosts = "2000-00-00T00:00:00"
-        var lastDateMedia = "2000-00-00T00:00:00"
-        if blogPosts.count > 0 {
-            lastDatePosts = blogPosts[blogPosts.count-1].date!
-        }
-        if mediaInfo.count > 0 {
-            lastDateMedia = mediaInfo[mediaInfo.count-1].mediaDate!
-        }
         let parametersPosts = [
             "context" : "view",
             "per_page" : per_page] as [String : Any]
         self.getWordpressData(action: wordpressAction.posts, parameters: parametersPosts)
+        let parametersTags = [
+            "context" : "view",
+            "per_page" : per_page] as [String : Any]
+        self.getWordpressData(action: wordpressAction.tags, parameters: parametersTags)
         let parametersMedia = [
             "context" : "view",
             "per_page" : per_page] as [String : Any]
@@ -151,7 +157,25 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
                         self.handleErrorRetrievingJSON(action: action)
                         return
                     }
-                    let postsInCoreData = blogPosts.count
+                    var entriesInCoreData = 0
+                    switch action {
+                    case wordpressAction.posts:
+                        entriesInCoreData = blogPosts.count
+                        break
+                    case wordpressAction.tags:
+                        entriesInCoreData = tags.count
+                        break
+                    case wordpressAction.media:
+                        entriesInCoreData = mediaInfo.count
+                        break
+                    case wordpressAction.categories:
+                        entriesInCoreData = categories.count
+                        break
+                    case wordpressAction.users:
+                        entriesInCoreData = users.count
+                        break
+                    }
+
                     self.extractAndSave(action: action, json: json)
                     self.do_table_refresh()
 
@@ -160,15 +184,26 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
                     var parametersNew = parameters
                     var stillToDownload = 0
                     if let httpResponse = response.response?.allHeaderFields {
-                        if let xwpTotal = httpResponse["x-wp-total"] as? String {
-                            guard let totalPostsInWP = Int(xwpTotal) else {
+                        if let xWpTotal = httpResponse["x-wp-total"] as? String {
+                            guard let totalPostsInWP = Int(xWpTotal) else {
                                 self.handleErrorRetrievingJSON(action: action)
                                 return
                             }
-                            if totalPostsInWP <= postsInCoreData {
-                                print("yes \(action)")
-                            } else {
-                                    stillToDownload = totalPostsInWP - postsInCoreData - postsDownloaded
+                            print("XPTOT \(totalPostsInWP)")
+
+                            if let xWpTotalPages = httpResponse["x-wp-totalpages"] as? String {
+                                guard let totalPagesInWP = Int(xWpTotalPages) else {
+                                    self.handleErrorRetrievingJSON(action: action)
+                                    return
+                                }
+                                var jsonData = NSMutableData()
+                                print("XPTOTPAG \(totalPagesInWP)")
+                                for page  in 1...totalPagesInWP {
+                                    print(page)
+                                }
+
+                                if totalPostsInWP > entriesInCoreData {
+                                    stillToDownload = totalPostsInWP - entriesInCoreData - postsDownloaded
                                     if stillToDownload <= 0 {
                                         return
                                     }
@@ -189,11 +224,13 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
                                             }
                                             self.extractAndSave(action: action, json: json)
                                             self.do_table_refresh()
+
+                                    }
+                                }
                         }
                     }
                 }
             }
-        }
     }
 
 
@@ -203,16 +240,11 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
                 let data = json[j]
                 switch action {
                 case wordpressAction.posts:
-                    let id: Int32 = data["id"] as! Int32
-                    if !blogPosts.contains(where: {$0.id == id}) {
-                        let post = BlogPost(context: container.viewContext)
-                        guard BlogPost.extractPost(json: data, blogPost: post)! else {
+                        let post = BlogPosts(context: container.viewContext)
+                        guard BlogPosts.extractPost(json: data, blogPost: post)! else {
                             self.handleErrorDeserialisingJSON(action: action)
                             break
                         }
-                    } else {
-                        print("Duplicate")
-                    }
                     break
                 case wordpressAction.tags:
                     let tag = BlogTags(context: container.viewContext)
@@ -240,7 +272,6 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
                     guard MediaDetails.extractMedia(json: data, media: media)! else {
                         self.handleErrorDeserialisingJSON(action: action)
                         break
-
                     }
                     break
                 }
@@ -251,12 +282,22 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
 
-    func handleErrorDeserialisingJSON(action: wordpressAction) {
-        showAlert(title: "Error handling data from blog site", message: "There was an error handling the \(action) data from the blog site. Please try again. If the problem persists please contact the developer at: www.thisnow.software/contact/.", viewController: self)
+    func handleErrorRetrievingDataFromCoreData(action: wordpressAction, error: Error) {
+        showAlert(title: "Error retrieving data stored on device", message: "There was an error retrieving the \(action) data from the device. Please try again. If the problem persists please contact the developer at: www.thisnow.software/contact/.", viewController: self)
     }
+
+    func handleErrorSavingDataToCoreData(action: wordpressAction, error: Error) {
+        showAlert(title: "Error saving data stored on device", message: "There was an error saving the \(action) data to the device. Please try again. If the problem persists please contact the developer at: www.thisnow.software/contact/.", viewController: self)
+    }
+
     func handleErrorRetrievingJSON(action: wordpressAction) {
         showAlert(title: "Error retrieving data from blog site", message: "There was an error retrieving the \(action) data from the blog site. Please try again. If the problem persists please contact the developer at: www.thisnow.software/contact/.", viewController: self)
     }
+
+    func handleErrorDeserialisingJSON(action: wordpressAction) {
+        showAlert(title: "Error handling data from blog site", message: "There was an error handling the \(action) data from the blog site. Please try again. If the problem persists please contact the developer at: www.thisnow.software/contact/.", viewController: self)
+    }
+
 
 // MARK: Segue Methods
 

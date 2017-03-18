@@ -3,11 +3,11 @@
     <entity name="BlogCategories" representedClassName="BlogCategories" syncable="YES">
         <attribute name="categoryId" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="categoryName" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BlogPost" inverseName="category" inverseEntity="BlogPost" syncable="YES"/>
+        <relationship name="categories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BlogPosts" inverseName="categories" inverseEntity="BlogPosts" syncable="YES"/>
     </entity>
-    <entity name="BlogPost" representedClassName="BlogPost" syncable="YES">
+    <entity name="BlogPosts" representedClassName="BlogPosts" syncable="YES">
         <attribute name="author" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="categories" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="category" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="content" attributeType="String" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dateGmt" attributeType="String" syncable="YES"/>
@@ -16,22 +16,27 @@
         <attribute name="id" attributeType="Integer 32" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="slug" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="tags" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="tag" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="title" attributeType="String" minValueString="10" spotlightIndexingEnabled="YES" syncable="YES"/>
-        <relationship name="category" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BlogCategories" inverseName="category" inverseEntity="BlogCategories" syncable="YES"/>
+        <relationship name="categories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BlogCategories" inverseName="categories" inverseEntity="BlogCategories" syncable="YES"/>
         <relationship name="media" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MediaDetails" inverseName="media" inverseEntity="MediaDetails" syncable="YES"/>
-        <relationship name="tag" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BlogTags" inverseName="tag" inverseEntity="BlogTags" syncable="YES"/>
+        <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BlogTags" inverseName="tags" inverseEntity="BlogTags" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BlogUsers" inverseName="user" inverseEntity="BlogUsers" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="BlogTags" representedClassName="BlogTags" syncable="YES">
         <attribute name="tagId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="tagName" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="tag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BlogPost" inverseName="tag" inverseEntity="BlogPost" syncable="YES"/>
+        <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BlogPosts" inverseName="tags" inverseEntity="BlogPosts" syncable="YES"/>
     </entity>
     <entity name="BlogUsers" representedClassName="BlogUsers" syncable="YES">
         <attribute name="userId" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="userName" attributeType="String" syncable="YES"/>
-        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BlogPost" inverseName="user" inverseEntity="BlogPost" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BlogPosts" inverseName="user" inverseEntity="BlogPosts" syncable="YES"/>
     </entity>
     <entity name="MediaDetails" representedClassName="MediaDetails" syncable="YES">
         <attribute name="mediaCaption" optional="YES" attributeType="String" syncable="YES"/>
@@ -40,11 +45,16 @@
         <attribute name="mediaId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="mediaThumbUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="mediaUrl" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="media" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BlogPost" inverseName="media" inverseEntity="BlogPost" syncable="YES"/>
+        <relationship name="media" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BlogPosts" inverseName="media" inverseEntity="BlogPosts" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="mediaId"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <elements>
         <element name="BlogCategories" positionX="-54" positionY="-81" width="128" height="90"/>
-        <element name="BlogPost" positionX="-351" positionY="-45" width="128" height="285"/>
+        <element name="BlogPosts" positionX="-351" positionY="-45" width="128" height="285"/>
         <element name="BlogTags" positionX="16" positionY="216" width="128" height="90"/>
         <element name="BlogUsers" positionX="-20" positionY="351" width="128" height="90"/>
         <element name="MediaDetails" positionX="18" positionY="18" width="128" height="150"/>
