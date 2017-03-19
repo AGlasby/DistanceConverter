@@ -2,7 +2,7 @@
 //  BlogCategories+CoreDataProperties.swift
 //  12parsecs
 //
-//  Created by Alan Glasby on 16/03/2017.
+//  Created by Alan Glasby on 19/03/2017.
 //  Copyright © 2017 Alan Glasby. All rights reserved.
 //
 
@@ -18,23 +18,23 @@ extension BlogCategories {
 
     @NSManaged public var categoryId: Int32
     @NSManaged public var categoryName: String?
-    @NSManaged public var categories: NSSet?
+    @NSManaged public var posts: NSSet?
 
 }
 
-// MARK: Generated accessors for categories
+// MARK: Generated accessors for posts
 extension BlogCategories {
 
-    @objc(addCategoriesObject:)
-    @NSManaged public func addToCategories(_ value: BlogPosts)
+    @objc(addPostsObject:)
+    @NSManaged public func addToPosts(_ value: BlogPosts)
 
-    @objc(removeCategoriesObject:)
-    @NSManaged public func removeFromCategories(_ value: BlogPosts)
+    @objc(removePostsObject:)
+    @NSManaged public func removeFromPosts(_ value: BlogPosts)
 
-    @objc(addCategories:)
-    @NSManaged public func addToCategories(_ values: NSSet)
+    @objc(addPosts:)
+    @NSManaged public func addToPosts(_ values: NSSet)
 
-    @objc(removeCategories:)
-    @NSManaged public func removeFromCategories(_ values: NSSet)
+    @objc(removePosts:)
+    @NSManaged public func removeFromPosts(_ values: NSSet)
 
 }

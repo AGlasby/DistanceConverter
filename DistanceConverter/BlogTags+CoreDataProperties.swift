@@ -2,7 +2,7 @@
 //  BlogTags+CoreDataProperties.swift
 //  12parsecs
 //
-//  Created by Alan Glasby on 18/03/2017.
+//  Created by Alan Glasby on 19/03/2017.
 //  Copyright © 2017 Alan Glasby. All rights reserved.
 //
 
@@ -18,23 +18,23 @@ extension BlogTags {
 
     @NSManaged public var tagId: Int32
     @NSManaged public var tagName: String?
-    @NSManaged public var tags: NSSet?
+    @NSManaged public var posts: NSSet?
 
 }
 
-// MARK: Generated accessors for tags
+// MARK: Generated accessors for posts
 extension BlogTags {
 
-    @objc(addTagsObject:)
-    @NSManaged public func addToTags(_ value: BlogPosts)
+    @objc(addPostsObject:)
+    @NSManaged public func addToPosts(_ value: BlogPosts)
 
-    @objc(removeTagsObject:)
-    @NSManaged public func removeFromTags(_ value: BlogPosts)
+    @objc(removePostsObject:)
+    @NSManaged public func removeFromPosts(_ value: BlogPosts)
 
-    @objc(addTags:)
-    @NSManaged public func addToTags(_ values: NSSet)
+    @objc(addPosts:)
+    @NSManaged public func addToPosts(_ values: NSSet)
 
-    @objc(removeTags:)
-    @NSManaged public func removeFromTags(_ values: NSSet)
+    @objc(removePosts:)
+    @NSManaged public func removeFromPosts(_ values: NSSet)
 
 }

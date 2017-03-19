@@ -12,11 +12,11 @@ import AlamofireImage
 import CoreData
 
 
-var blogPosts = [BlogPosts]()
-var users = [BlogUsers]()
-var tags = [BlogTags]()
-var categories = [BlogCategories]()
-var mediaInfo = [MediaDetails]()
+var blogPosts: [BlogPosts]!
+var users: [BlogUsers]!
+var tags: [BlogTags]!
+var categories: [BlogCategories]!
+var mediaInfo: [MediaDetails]!
 
 var container: NSPersistentContainer!
 
@@ -114,6 +114,17 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
             print("Fetch tags failed")
             return
         }
+        let loadCategories = BlogCategories.createFetchRequest()
+        let sortCategories = NSSortDescriptor(key: "categoryId", ascending: true)
+        loadCategories.sortDescriptors = [sortCategories]
+        do {
+            categories = try container.viewContext.fetch(loadCategories)
+            print("Got results, \(categories.count) categories retreived")
+            do_table_refresh()
+        } catch {
+            print("Fetch categories failed")
+            return
+        }
     }
 
 
@@ -134,6 +145,10 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
             "context" : "view",
             "per_page" : per_page] as [String : Any]
         self.getWordpressData(action: wordpressAction.media, parameters: parametersMedia)
+        let parametersCategories = [
+            "context" : "view",
+            "per_page" : per_page] as [String : Any]
+        self.getWordpressData(action: wordpressAction.categories, parameters: parametersCategories)
     }
 
 
@@ -197,6 +212,7 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
                                 }
 //                                var jsonData = NSMutableData()
                                 print("XPTOTPAG \(totalPagesInWP)")
+                                if totalPagesInWP > 1 {
                                 for page in 2...totalPagesInWP {
                                     print(page)
                                     parametersNew["page"] = page
@@ -218,6 +234,7 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
                                             self.do_table_refresh()
                                     }
                                 }
+                            }
                         }
                     }
                 }
@@ -232,7 +249,7 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
                 switch action {
                 case wordpressAction.posts:
                         let post = BlogPosts(context: container.viewContext)
-                        guard BlogPosts.extractPost(json: data, blogPost: post)! else {
+                        guard BlogPosts.extractPost(json: data, blogPost: post, blogTags: tags, blogCategories: categories)! else {
                             self.handleErrorDeserialisingJSON(action: action)
                             break
                         }

@@ -2,7 +2,7 @@
 //  BlogPosts+CoreDataProperties.swift
 //  12parsecs
 //
-//  Created by Alan Glasby on 16/03/2017.
+//  Created by Alan Glasby on 19/03/2017.
 //  Copyright © 2017 Alan Glasby. All rights reserved.
 //
 
@@ -26,7 +26,7 @@ extension BlogPosts {
     @NSManaged public var id: Int32
     @NSManaged public var link: String?
     @NSManaged public var slug: String?
-    @NSManaged public var tag: Int32
+    @NSManaged public var tagsForBlog: Int32
     @NSManaged public var title: String?
     @NSManaged public var categories: NSSet?
     @NSManaged public var media: MediaDetails?

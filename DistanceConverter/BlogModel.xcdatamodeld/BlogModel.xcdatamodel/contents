@@ -3,7 +3,12 @@
     <entity name="BlogCategories" representedClassName="BlogCategories" syncable="YES">
         <attribute name="categoryId" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="categoryName" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="categories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BlogPosts" inverseName="categories" inverseEntity="BlogPosts" syncable="YES"/>
+        <relationship name="posts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BlogPosts" inverseName="categories" inverseEntity="BlogPosts" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="categoryId"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="BlogPosts" representedClassName="BlogPosts" syncable="YES">
         <attribute name="author" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -16,12 +21,12 @@
         <attribute name="id" attributeType="Integer 32" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="slug" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="tag" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="tagsForBlog" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="title" attributeType="String" minValueString="10" spotlightIndexingEnabled="YES" syncable="YES"/>
-        <relationship name="categories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BlogCategories" inverseName="categories" inverseEntity="BlogCategories" syncable="YES"/>
-        <relationship name="media" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MediaDetails" inverseName="media" inverseEntity="MediaDetails" syncable="YES"/>
-        <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BlogTags" inverseName="tags" inverseEntity="BlogTags" syncable="YES"/>
-        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BlogUsers" inverseName="user" inverseEntity="BlogUsers" syncable="YES"/>
+        <relationship name="categories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BlogCategories" inverseName="posts" inverseEntity="BlogCategories" syncable="YES"/>
+        <relationship name="media" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MediaDetails" inverseName="posts" inverseEntity="MediaDetails" syncable="YES"/>
+        <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BlogTags" inverseName="posts" inverseEntity="BlogTags" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BlogUsers" inverseName="posts" inverseEntity="BlogUsers" syncable="YES"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="id"/>
@@ -31,7 +36,7 @@
     <entity name="BlogTags" representedClassName="BlogTags" syncable="YES">
         <attribute name="tagId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="tagName" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BlogPosts" inverseName="tags" inverseEntity="BlogPosts" syncable="YES"/>
+        <relationship name="posts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BlogPosts" inverseName="tags" inverseEntity="BlogPosts" syncable="YES"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="tagId"/>
@@ -41,7 +46,12 @@
     <entity name="BlogUsers" representedClassName="BlogUsers" syncable="YES">
         <attribute name="userId" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="userName" attributeType="String" syncable="YES"/>
-        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BlogPosts" inverseName="user" inverseEntity="BlogPosts" syncable="YES"/>
+        <relationship name="posts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BlogPosts" inverseName="user" inverseEntity="BlogPosts" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="userId"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="MediaDetails" representedClassName="MediaDetails" syncable="YES">
         <attribute name="mediaCaption" optional="YES" attributeType="String" syncable="YES"/>
@@ -50,7 +60,7 @@
         <attribute name="mediaId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="mediaThumbUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="mediaUrl" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="media" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BlogPosts" inverseName="media" inverseEntity="BlogPosts" syncable="YES"/>
+        <relationship name="posts" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BlogPosts" inverseName="media" inverseEntity="BlogPosts" syncable="YES"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="mediaId"/>
