@@ -98,7 +98,6 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
         do {
             mediaInfo = try container.viewContext.fetch(loadMedia)
             print("Got results, \(mediaInfo.count) media retreived")
-            do_table_refresh()
         } catch {
             print("Fetch media failed")
             return
@@ -109,7 +108,6 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
         do {
             tags = try container.viewContext.fetch(loadTags)
             print("Got results, \(tags.count) tags retreived")
-            do_table_refresh()
         } catch {
             print("Fetch tags failed")
             return
@@ -120,7 +118,6 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
         do {
             categories = try container.viewContext.fetch(loadCategories)
             print("Got results, \(categories.count) categories retreived")
-            do_table_refresh()
         } catch {
             print("Fetch categories failed")
             return
@@ -132,7 +129,7 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     func updateBlogData() {
 
-        let per_page = 10
+        let per_page = WORDPRESSPAGESIZE
         let parametersPosts = [
             "context" : "view",
             "per_page" : per_page] as [String : Any]
@@ -210,7 +207,6 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
                                     self.handleErrorRetrievingJSON(action: action)
                                     return
                                 }
-//                                var jsonData = NSMutableData()
                                 print("XPTOTPAG \(totalPagesInWP)")
                                 if totalPagesInWP > 1 {
                                 for page in 2...totalPagesInWP {
@@ -231,7 +227,6 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
                                                 return
                                             }
                                             self.extractAndSave(action: action, json: json)
-                                            self.do_table_refresh()
                                     }
                                 }
                             }
@@ -285,7 +280,9 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
                 }
             }
             self.saveContext()
-            self.loadSavedData()
+            if action == wordpressAction.posts {
+                self.loadSavedData()
+            }
         }
     }
 
@@ -310,16 +307,24 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
 // MARK: Segue Methods
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let nc = segue.destination as! UINavigationController
-        let blogDetailVC = nc.topViewController as! blogDetailViewController
-        if let indexPath = self.blogTableView.indexPathForSelectedRow{
+        if segue.identifier == "ShowBlogPostFilter" {
+
+        } else {
+            let nc = segue.destination as! UINavigationController
+            let blogDetailVC = nc.topViewController as! blogDetailViewController
+            if let indexPath = self.blogTableView.indexPathForSelectedRow {
             let selectedBlog = blogPosts[indexPath.row].link
             blogDetailVC.postLink = selectedBlog
             blogDetailVC.postTitle = blogPosts[indexPath.row].title
+            }
         }
     }
 
     @IBAction func backFromModalDetail(segue: UIStoryboardSegue) {
+        self.tabBarController?.selectedIndex = 1
+    }
+
+    @IBAction func backFromModal(segue: UIStoryboardSegue) {
         self.tabBarController?.selectedIndex = 1
     }
 }
