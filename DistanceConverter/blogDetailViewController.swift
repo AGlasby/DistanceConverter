@@ -27,7 +27,6 @@ class blogDetailViewController: UIViewController, UIWebViewDelegate, NSURLConnec
 // create the request
         let requestUrl = URL(string: postLink)
         let urlRequest = URLRequest(url: requestUrl!)
- let urlConnection = NSURLConnection(request: urlRequest as URLRequest, delegate: self)
         blogDetailWebView.loadRequest(urlRequest)
         self.title = postTitle
     }

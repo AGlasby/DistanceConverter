@@ -11,7 +11,6 @@ import UIKit
 class BlogFilterTableViewCell: UITableViewCell {
 
     @IBOutlet weak var tagNameLabel: UILabel!
-    @IBOutlet weak var tagSelectedImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,8 +19,11 @@ class BlogFilterTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
 
+    func configureCell(tag: BlogTags) {
+        tagNameLabel.text = tag.tagName
+        self.accessoryView = .none
+    }
 }

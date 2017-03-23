@@ -271,7 +271,6 @@
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="PHs-4B-1iY"/>
                         <segue destination="LyM-jT-EtL" kind="relationship" relationship="viewControllers" id="SpQ-US-i32"/>
-                        <segue destination="2o7-4Y-KeK" kind="relationship" relationship="viewControllers" id="23t-LJ-1Wy"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6m5-bh-a6c" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -303,7 +302,7 @@
                                         <rect key="frame" x="0.0" y="28" width="374" height="182"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sEY-bN-Il4" id="sWi-Yh-bZK">
-                                            <rect key="frame" x="0.0" y="0.0" width="374" height="181"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="181.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Title" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zud-GU-Xqn" customClass="AstroTextField" customModule="_2parsecs" customModuleProvider="target">
@@ -383,7 +382,11 @@
                                                     <segue destination="lbO-wO-Ghz" kind="presentation" identifier="ShowBlogPostFilter" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="xCN-6F-9iH"/>
                                                 </connections>
                                             </barButtonItem>
-                                            <barButtonItem title="Sort" id="IiH-8h-6wa"/>
+                                            <barButtonItem title="Sort" id="IiH-8h-6wa">
+                                                <connections>
+                                                    <action selector="showSortOptions:" destination="LyM-jT-EtL" id="Shq-pZ-15o"/>
+                                                </connections>
+                                            </barButtonItem>
                                         </rightBarButtonItems>
                                     </navigationItem>
                                 </items>
@@ -462,25 +465,6 @@
             </objects>
             <point key="canvasLocation" x="6398.5507246376819" y="636.68478260869574"/>
         </scene>
-        <!--StarBase-->
-        <scene sceneID="gED-f2-uSR">
-            <objects>
-                <viewController id="2o7-4Y-KeK" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="QeA-UF-3XO"/>
-                        <viewControllerLayoutGuide type="bottom" id="H3e-tP-ZW5"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="qVH-Ol-uaV">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="StarBase" id="tcB-Q0-Nsx"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="oFC-TF-wKy" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4906" y="1520"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="hgd-XA-4zB">
             <objects>
@@ -551,7 +535,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="382" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qmS-Od-AeF" id="CVU-KK-d7s">
-                                                    <rect key="frame" x="0.0" y="0.0" width="382" height="43"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="382" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tag" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ql0-2X-huF">
@@ -563,23 +547,15 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="12pc@1x" translatesAutoresizingMaskIntoConstraints="NO" id="hWX-EV-WpF">
-                                                            <rect key="frame" x="266" y="0.0" width="108" height="43"/>
-                                                        </imageView>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstAttribute="bottomMargin" secondItem="Ql0-2X-huF" secondAttribute="bottom" constant="3" id="0qO-6V-Yds"/>
-                                                        <constraint firstItem="hWX-EV-WpF" firstAttribute="top" secondItem="CVU-KK-d7s" secondAttribute="top" id="BrP-ep-Afk"/>
                                                         <constraint firstItem="Ql0-2X-huF" firstAttribute="leading" secondItem="CVU-KK-d7s" secondAttribute="leadingMargin" id="H5p-vM-k2G"/>
-                                                        <constraint firstAttribute="trailing" secondItem="hWX-EV-WpF" secondAttribute="trailing" constant="8" id="MmN-Qq-78s"/>
-                                                        <constraint firstItem="hWX-EV-WpF" firstAttribute="leading" secondItem="Ql0-2X-huF" secondAttribute="trailing" constant="8" id="Ne4-Tt-8Ia"/>
                                                         <constraint firstItem="Ql0-2X-huF" firstAttribute="top" secondItem="CVU-KK-d7s" secondAttribute="topMargin" constant="3" id="SqY-Jo-nra"/>
-                                                        <constraint firstAttribute="bottom" secondItem="hWX-EV-WpF" secondAttribute="bottom" id="jpv-Fr-Jbq"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
                                                     <outlet property="tagNameLabel" destination="Ql0-2X-huF" id="GYy-fR-e92"/>
-                                                    <outlet property="tagSelectedImageView" destination="hWX-EV-WpF" id="fLn-0m-LW7"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -612,6 +588,18 @@
                                 <segue destination="AYd-DO-tpT" kind="unwind" unwindAction="backFromModalWithSegue:" id="wEg-YF-QBb"/>
                             </connections>
                         </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Clear" id="mJK-ul-nCp">
+                                <connections>
+                                    <action selector="selectClearAll:" destination="b8Y-iE-CVx" id="4tx-8L-vqd"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="All" id="Zqb-fv-Pm2">
+                                <connections>
+                                    <action selector="selectSetAll:" destination="b8Y-iE-CVx" id="gL1-nl-UcF"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="blogFilterTableView" destination="xam-Eh-nfW" id="5BB-P9-m2E"/>
@@ -620,7 +608,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bAb-90-t7o" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="AYd-DO-tpT" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="6576.811594202899" y="1325.5434782608697"/>
+            <point key="canvasLocation" x="6399" y="1326"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="bPd-0g-H8E">
