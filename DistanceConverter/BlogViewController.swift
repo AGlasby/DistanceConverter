@@ -8,7 +8,6 @@
 
 import UIKit
 import Alamofire
-import AlamofireImage
 import CoreData
 
 
@@ -26,11 +25,13 @@ var blogPredicate: NSPredicate?
 
 class BlogViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-@IBOutlet weak var blogTableView: UITableView!
+    @IBOutlet weak var blogNavigationBar: UINavigationBar!
+    @IBOutlet weak var blogTableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        blogNavigationBar.topItem!.title = "12 parsecs"
         container = NSPersistentContainer(name: "BlogModel")
         container.loadPersistentStores {NSPersistentStoreDescription, error in
             container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
@@ -288,9 +289,8 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowBlogPostFilter" {
-        } else {
-            let nc = segue.destination as! UINavigationController
-            let blogDetailVC = nc.topViewController as! blogDetailViewController
+        } else if segue.identifier == "showPost" {
+            let blogDetailVC = segue.destination as! blogDetailViewController
             if let indexPath = self.blogTableView.indexPathForSelectedRow {
             let selectedBlog = blogPosts[indexPath.row].link
             blogDetailVC.postLink = selectedBlog

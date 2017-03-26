@@ -8,5 +8,5 @@
   # Pods for 12parsecs
 
      pod 'Alamofire', '~> 4.2'
-     pod 'AlamofireImage', '~> 3.2'
+     pod 'AlamofireImage', '~> 3.1'
   end
