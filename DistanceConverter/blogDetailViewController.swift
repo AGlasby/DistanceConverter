@@ -9,46 +9,52 @@
 import UIKit
 import WebKit
 
-class blogDetailViewController: UIViewController, UIWebViewDelegate, NSURLConnectionDelegate, NSURLConnectionDataDelegate {
-    @IBOutlet weak var blogDetailWebView: UIWebView!
-    @IBOutlet weak var spinnerActivityIndicatorView: UIActivityIndicatorView!
+class blogDetailViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
+    
+    @IBOutlet weak var detailTitle: UINavigationItem!
+    @IBOutlet weak var postSpaceView: UIView!
+
+    var spinnerActivityIndicator: UIActivityIndicatorView!
+    var blogDetailWebView: WKWebView!
     var postLink: String!
     var postTitle: String!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        blogDetailWebView.delegate = self
 
-        spinnerActivityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-        spinnerActivityIndicatorView.center = view.center
-        self.view.addSubview(spinnerActivityIndicatorView)
-        spinnerActivityIndicatorView.hidesWhenStopped = true
+        detailTitle.title = postTitle
+        blogDetailWebView = WKWebView()
+        blogDetailWebView.navigationDelegate = self
+        blogDetailWebView.uiDelegate = self
+        blogDetailWebView.translatesAutoresizingMaskIntoConstraints = false
+        postSpaceView.addSubview(blogDetailWebView)
+        let views: [String: UIView] = ["postSpaceView" : postSpaceView , "blogDetailWebView" : blogDetailWebView]
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[blogDetailWebView]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[blogDetailWebView]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
 
-// create the request
-        let requestUrl = URL(string: postLink)
-        let urlRequest = URLRequest(url: requestUrl!)
- let urlConnection = NSURLConnection(request: urlRequest as URLRequest, delegate: self)
-        blogDetailWebView.loadRequest(urlRequest)
-        self.title = postTitle
+        // create the request
+        let requestUrl = URL(string: postLink)!
+        blogDetailWebView.load(URLRequest(url: requestUrl))
+
     }
 
-    func connection(_ connection: NSURLConnection, willSendRequestFor challenge: URLAuthenticationChallenge) {
-        let defaultCredentials: URLCredential = URLCredential(user: "alan", password: "admin", persistence:URLCredential.Persistence.forSession)
-        challenge.sender!.use(defaultCredentials, for: challenge)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        spinnerActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        spinnerActivityIndicator.center = blogDetailWebView.center
+        spinnerActivityIndicator.becomeFirstResponder()
+        blogDetailWebView.addSubview(spinnerActivityIndicator)
+        spinnerActivityIndicator.startAnimating()
+        spinnerActivityIndicator.hidesWhenStopped = true
     }
 
-    func webViewDidStartLoad(_ webView: UIWebView) {
-        spinnerActivityIndicatorView.startAnimating()
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        spinnerActivityIndicator.stopAnimating()
     }
 
-
-    func webViewDidFinishLoad(_ webView: UIWebView) {
-        spinnerActivityIndicatorView.stopAnimating()
-    }
-
-
-    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
-        spinnerActivityIndicatorView.stopAnimating()
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        spinnerActivityIndicator.stopAnimating()
     }
 }
 

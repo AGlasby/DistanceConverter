@@ -46,7 +46,7 @@ public class BlogPosts: NSManagedObject {
 
         let tagsCopy = blogPost.tags!.mutableCopy() as! NSMutableSet
         let tagsForBlogs = NSEntityDescription.entity(forEntityName: "BlogTags", in: container.viewContext)
-        for var t in 0..<tagsInJson.count {
+        for t in 0..<tagsInJson.count {
             let tag = BlogTags(entity: tagsForBlogs!, insertInto: container.viewContext)
             tag.tagId = tagsInJson[t]
             if let iIndex = blogTags.index(where: {$0.tagId == tagsInJson[t]}) {
@@ -58,7 +58,7 @@ public class BlogPosts: NSManagedObject {
 
         let categoriesCopy = blogPost.categories!.mutableCopy() as! NSMutableSet
         let categoriesForBlogs = NSEntityDescription.entity(forEntityName: "BlogCategories", in: container.viewContext)
-        for var c in 0..<categoriesInJson.count {
+        for c in 0..<categoriesInJson.count {
             let category = BlogCategories(entity: categoriesForBlogs!, insertInto: container.viewContext)
             category.categoryId = categoriesInJson[c]
             if let iIndex = blogCategories.index(where: {$0.categoryId == categoriesInJson[c]}) {
