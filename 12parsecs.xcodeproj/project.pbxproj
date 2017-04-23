@@ -22,15 +22,26 @@
 		E7558DB81DF2BC6D00093962 /* AstroSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7558DB71DF2BC6D00093962 /* AstroSegmentedControl.swift */; };
 		E7558DBA1DF2BC9800093962 /* AstroTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7558DB91DF2BC9800093962 /* AstroTextField.swift */; };
 		E7558DBC1DF467CB00093962 /* AFGTapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7558DBB1DF467CB00093962 /* AFGTapGestureRecognizer.swift */; };
+		E755B0D31E9101A10072386A /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E755B0D21E9101A10072386A /* DataController.swift */; };
+		E755B0D91E91799B0072386A /* wordpressFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E755B0D81E91799B0072386A /* wordpressFunctions.swift */; };
 		E7581C7A1E118666002C2DE7 /* StarBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7581C791E118666002C2DE7 /* StarBase.swift */; };
 		E765359B1DFCA9370020497B /* WikiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E765359A1DFCA9370020497B /* WikiViewController.swift */; };
 		E767AFE31E068B24004E64F1 /* AFGFadeInAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E767AFE21E068B24004E64F1 /* AFGFadeInAnimator.swift */; };
+		E76E76F41E8A3F2D006D8277 /* Airship in Resources */ = {isa = PBXBuildFile; fileRef = E76E76F31E8A3F2D006D8277 /* Airship */; };
+		E76E76F61E8A3F45006D8277 /* AirshipKit in Resources */ = {isa = PBXBuildFile; fileRef = E76E76F51E8A3F45006D8277 /* AirshipKit */; };
+		E76E77061E8A4058006D8277 /* AirshipKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E76E76FF1E8A3FF9006D8277 /* AirshipKit.framework */; };
+		E76E77071E8A4058006D8277 /* AirshipKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E76E76FF1E8A3FF9006D8277 /* AirshipKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E76E770C1E8A40F3006D8277 /* AirshipConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = E76E770B1E8A40F3006D8277 /* AirshipConfig.plist */; };
 		E76FB1401E30161400B10858 /* BlogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76FB13F1E30161400B10858 /* BlogViewController.swift */; };
 		E76FB1421E301DE700B10858 /* BlogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76FB1411E301DE700B10858 /* BlogTableViewCell.swift */; };
 		E76FB1441E31656E00B10858 /* blogDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76FB1431E31656E00B10858 /* blogDetailViewController.swift */; };
+		E77F6B3A1E9A80C9007BF9F0 /* TagsForPost+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77F6B381E9A80C9007BF9F0 /* TagsForPost+CoreDataClass.swift */; };
+		E77F6B3B1E9A80CA007BF9F0 /* TagsForPost+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77F6B391E9A80C9007BF9F0 /* TagsForPost+CoreDataProperties.swift */; };
 		E78AFBAD1E0A5ED800BC7569 /* backgroundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78AFBAC1E0A5ED800BC7569 /* backgroundImageView.swift */; };
 		E78AFBAF1E0E765D00BC7569 /* LanguageStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78AFBAE1E0E765D00BC7569 /* LanguageStruct.swift */; };
-		E7C5B9E91E6C20CD0013D1AC /* BlogModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E7C5B9E71E6C20CD0013D1AC /* BlogModel.xcdatamodeld */; };
+		E79A21701EA5123D00F7D3E9 /* PostsForTag+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79A216E1EA5123D00F7D3E9 /* PostsForTag+CoreDataClass.swift */; };
+		E79A21711EA5123D00F7D3E9 /* PostsForTag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79A216F1EA5123D00F7D3E9 /* PostsForTag+CoreDataProperties.swift */; };
+		E7A551FD1E9A39A2009BB1B8 /* BlogModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E7A551FB1E9A39A2009BB1B8 /* BlogModel.xcdatamodeld */; };
 		E7E088951DFDC7EC00221174 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E088941DFDC7EC00221174 /* Constants.swift */; };
 		E7E0889E1E0093BA00221174 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0889D1E0093BA00221174 /* HelperFunctions.swift */; };
 		E7E088A01E009B9400221174 /* AstroDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0889F1E009B9400221174 /* AstroDistance.swift */; };
@@ -43,6 +54,58 @@
 		E7E3022E1E6C6314008D6B35 /* MediaDetails+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E302241E6C6314008D6B35 /* MediaDetails+CoreDataProperties.swift */; };
 		E7E302321E6C72CF008D6B35 /* BlogTags+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E302311E6C72CF008D6B35 /* BlogTags+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E76E76FE1E8A3FF9006D8277 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E76E76F71E8A3FF9006D8277 /* AirshipKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 494DD9571B0EB677009C134E;
+			remoteInfo = AirshipKit;
+		};
+		E76E77001E8A3FF9006D8277 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E76E76F71E8A3FF9006D8277 /* AirshipKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CC8999771D8B625500A0CECC;
+			remoteInfo = AirshipResources;
+		};
+		E76E77021E8A3FF9006D8277 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E76E76F71E8A3FF9006D8277 /* AirshipKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CC899CD01D8B712D00A0CECC;
+			remoteInfo = AirshipLib;
+		};
+		E76E77041E8A3FF9006D8277 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E76E76F71E8A3FF9006D8277 /* AirshipKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CC64F0541D8B77E3009CEF27;
+			remoteInfo = AirshipKitTests;
+		};
+		E76E77081E8A4058006D8277 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E76E76F71E8A3FF9006D8277 /* AirshipKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 494DD9561B0EB677009C134E;
+			remoteInfo = AirshipKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E76E770A1E8A4059006D8277 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E76E77071E8A4058006D8277 /* AirshipKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		AA1EBF86AC58145BF976574A /* Pods-12parsecs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-12parsecs.release.xcconfig"; path = "Pods/Target Support Files/Pods-12parsecs/Pods-12parsecs.release.xcconfig"; sourceTree = "<group>"; };
@@ -63,15 +126,26 @@
 		E7558DB71DF2BC6D00093962 /* AstroSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AstroSegmentedControl.swift; sourceTree = "<group>"; };
 		E7558DB91DF2BC9800093962 /* AstroTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AstroTextField.swift; sourceTree = "<group>"; };
 		E7558DBB1DF467CB00093962 /* AFGTapGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AFGTapGestureRecognizer.swift; sourceTree = "<group>"; };
+		E755B0D21E9101A10072386A /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		E755B0D81E91799B0072386A /* wordpressFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = wordpressFunctions.swift; sourceTree = "<group>"; };
 		E7581C791E118666002C2DE7 /* StarBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarBase.swift; sourceTree = "<group>"; };
 		E765359A1DFCA9370020497B /* WikiViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WikiViewController.swift; sourceTree = "<group>"; };
 		E767AFE21E068B24004E64F1 /* AFGFadeInAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AFGFadeInAnimator.swift; sourceTree = "<group>"; };
+		E76AB10B1E89084F00BD4E54 /* 12parsecs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = 12parsecs.entitlements; sourceTree = SOURCE_ROOT; };
+		E76E76F31E8A3F2D006D8277 /* Airship */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Airship; sourceTree = "<group>"; };
+		E76E76F51E8A3F45006D8277 /* AirshipKit */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AirshipKit; sourceTree = "<group>"; };
+		E76E76F71E8A3FF9006D8277 /* AirshipKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AirshipKit.xcodeproj; path = AirshipKit/AirshipKit.xcodeproj; sourceTree = "<group>"; };
+		E76E770B1E8A40F3006D8277 /* AirshipConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AirshipConfig.plist; sourceTree = "<group>"; };
 		E76FB13F1E30161400B10858 /* BlogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogViewController.swift; sourceTree = "<group>"; };
 		E76FB1411E301DE700B10858 /* BlogTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogTableViewCell.swift; sourceTree = "<group>"; };
 		E76FB1431E31656E00B10858 /* blogDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = blogDetailViewController.swift; sourceTree = "<group>"; };
+		E77F6B381E9A80C9007BF9F0 /* TagsForPost+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TagsForPost+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E77F6B391E9A80C9007BF9F0 /* TagsForPost+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TagsForPost+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E78AFBAC1E0A5ED800BC7569 /* backgroundImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = backgroundImageView.swift; sourceTree = "<group>"; };
 		E78AFBAE1E0E765D00BC7569 /* LanguageStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageStruct.swift; sourceTree = "<group>"; };
-		E7C5B9E81E6C20CD0013D1AC /* BlogModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BlogModel.xcdatamodel; sourceTree = "<group>"; };
+		E79A216E1EA5123D00F7D3E9 /* PostsForTag+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PostsForTag+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E79A216F1EA5123D00F7D3E9 /* PostsForTag+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PostsForTag+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E7A551FC1E9A39A2009BB1B8 /* BlogModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BlogModel.xcdatamodel; sourceTree = "<group>"; };
 		E7E088941DFDC7EC00221174 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E7E0889D1E0093BA00221174 /* HelperFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
 		E7E0889F1E009B9400221174 /* AstroDistance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AstroDistance.swift; sourceTree = "<group>"; };
@@ -91,6 +165,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E76E77061E8A4058006D8277 /* AirshipKit.framework in Frameworks */,
 				5B68D4A99D51C38AF1B62720 /* Pods_12parsecs.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -127,6 +202,11 @@
 		E704CEBD1E42889200C25A7A /* Blog */ = {
 			isa = PBXGroup;
 			children = (
+				E7A551FB1E9A39A2009BB1B8 /* BlogModel.xcdatamodeld */,
+				E79A216E1EA5123D00F7D3E9 /* PostsForTag+CoreDataClass.swift */,
+				E79A216F1EA5123D00F7D3E9 /* PostsForTag+CoreDataProperties.swift */,
+				E77F6B381E9A80C9007BF9F0 /* TagsForPost+CoreDataClass.swift */,
+				E77F6B391E9A80C9007BF9F0 /* TagsForPost+CoreDataProperties.swift */,
 				E70A257D1E7B0F4800CA2245 /* BlogPosts+CoreDataClass.swift */,
 				E70A257E1E7B0F4800CA2245 /* BlogPosts+CoreDataProperties.swift */,
 				E7E3021D1E6C6314008D6B35 /* BlogUsers+CoreDataClass.swift */,
@@ -138,7 +218,6 @@
 				E7E302231E6C6314008D6B35 /* MediaDetails+CoreDataClass.swift */,
 				E7E302241E6C6314008D6B35 /* MediaDetails+CoreDataProperties.swift */,
 				E76FB1411E301DE700B10858 /* BlogTableViewCell.swift */,
-				E7C5B9E71E6C20CD0013D1AC /* BlogModel.xcdatamodeld */,
 				E70A25831E7F1F3B00CA2245 /* BlogFilterTableViewCell.swift */,
 			);
 			name = Blog;
@@ -155,6 +234,10 @@
 		E7558D791DEF6B1300093962 = {
 			isa = PBXGroup;
 			children = (
+				E76E770B1E8A40F3006D8277 /* AirshipConfig.plist */,
+				E76E76F71E8A3FF9006D8277 /* AirshipKit.xcodeproj */,
+				E76E76F51E8A3F45006D8277 /* AirshipKit */,
+				E76E76F31E8A3F2D006D8277 /* Airship */,
 				E7558D841DEF6B1300093962 /* 12parsecs */,
 				E7558D831DEF6B1300093962 /* Products */,
 				6536C3413E61E435E1040193 /* Pods */,
@@ -173,6 +256,8 @@
 		E7558D841DEF6B1300093962 /* 12parsecs */ = {
 			isa = PBXGroup;
 			children = (
+				E755B0D71E9102160072386A /* Services */,
+				E76AB10B1E89084F00BD4E54 /* 12parsecs.entitlements */,
 				E7E0889C1E00938D00221174 /* Helpers */,
 				E7E088931DFD5F4900221174 /* Model */,
 				E7E088921DFD5F3E00221174 /* View */,
@@ -185,6 +270,25 @@
 			);
 			name = 12parsecs;
 			path = DistanceConverter;
+			sourceTree = "<group>";
+		};
+		E755B0D71E9102160072386A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E755B0D21E9101A10072386A /* DataController.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		E76E76F81E8A3FF9006D8277 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E76E76FF1E8A3FF9006D8277 /* AirshipKit.framework */,
+				E76E77011E8A3FF9006D8277 /* AirshipResources.bundle */,
+				E76E77031E8A3FF9006D8277 /* libUAirship.a */,
+				E76E77051E8A3FF9006D8277 /* AirshipKitTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		E7E088911DFD5F2F00221174 /* Controller */ = {
@@ -228,6 +332,7 @@
 				E7E0889D1E0093BA00221174 /* HelperFunctions.swift */,
 				E767AFE21E068B24004E64F1 /* AFGFadeInAnimator.swift */,
 				E7558DBB1DF467CB00093962 /* AFGTapGestureRecognizer.swift */,
+				E755B0D81E91799B0072386A /* wordpressFunctions.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -245,10 +350,12 @@
 				E7558D801DEF6B1300093962 /* Resources */,
 				9FDAA2A554F47ED0BC47B646 /* [CP] Embed Pods Frameworks */,
 				E54F4ADC216F5EE667061AF2 /* [CP] Copy Pods Resources */,
+				E76E770A1E8A4059006D8277 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				E76E77091E8A4058006D8277 /* PBXTargetDependency */,
 			);
 			name = 12parsecs;
 			productName = DistanceConverter;
@@ -262,13 +369,21 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Alan Glasby";
 				TargetAttributes = {
 					E7558D811DEF6B1300093962 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = UBF9PWHB8L;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -283,6 +398,12 @@
 			mainGroup = E7558D791DEF6B1300093962;
 			productRefGroup = E7558D831DEF6B1300093962 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = E76E76F81E8A3FF9006D8277 /* Products */;
+					ProjectRef = E76E76F71E8A3FF9006D8277 /* AirshipKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				E7558D811DEF6B1300093962 /* 12parsecs */,
@@ -290,14 +411,48 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		E76E76FF1E8A3FF9006D8277 /* AirshipKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AirshipKit.framework;
+			remoteRef = E76E76FE1E8A3FF9006D8277 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E76E77011E8A3FF9006D8277 /* AirshipResources.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AirshipResources.bundle;
+			remoteRef = E76E77001E8A3FF9006D8277 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E76E77031E8A3FF9006D8277 /* libUAirship.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libUAirship.a;
+			remoteRef = E76E77021E8A3FF9006D8277 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E76E77051E8A3FF9006D8277 /* AirshipKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AirshipKitTests.xctest;
+			remoteRef = E76E77041E8A3FF9006D8277 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		E7558D801DEF6B1300093962 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				E7558D901DEF6B1400093962 /* LaunchScreen.storyboard in Resources */,
+				E76E76F61E8A3F45006D8277 /* AirshipKit in Resources */,
 				E7558D8D1DEF6B1400093962 /* Assets.xcassets in Resources */,
+				E76E770C1E8A40F3006D8277 /* AirshipConfig.plist in Resources */,
 				E7558D8B1DEF6B1400093962 /* Main.storyboard in Resources */,
+				E76E76F41E8A3F2D006D8277 /* Airship in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,9 +521,9 @@
 				E7E088A01E009B9400221174 /* AstroDistance.swift in Sources */,
 				E7E302271E6C6314008D6B35 /* BlogUsers+CoreDataClass.swift in Sources */,
 				E7E0889E1E0093BA00221174 /* HelperFunctions.swift in Sources */,
-				E7C5B9E91E6C20CD0013D1AC /* BlogModel.xcdatamodeld in Sources */,
 				E70A25841E7F1F3B00CA2245 /* BlogFilterTableViewCell.swift in Sources */,
 				E7E3022B1E6C6314008D6B35 /* BlogTags+CoreDataClass.swift in Sources */,
+				E77F6B3B1E9A80CA007BF9F0 /* TagsForPost+CoreDataProperties.swift in Sources */,
 				E7E302281E6C6314008D6B35 /* BlogUsers+CoreDataProperties.swift in Sources */,
 				E76FB1401E30161400B10858 /* BlogViewController.swift in Sources */,
 				E7E3022E1E6C6314008D6B35 /* MediaDetails+CoreDataProperties.swift in Sources */,
@@ -378,19 +533,33 @@
 				E70A25821E7F0AD500CA2245 /* BlogFilterViewController.swift in Sources */,
 				E767AFE31E068B24004E64F1 /* AFGFadeInAnimator.swift in Sources */,
 				E78AFBAF1E0E765D00BC7569 /* LanguageStruct.swift in Sources */,
+				E79A21701EA5123D00F7D3E9 /* PostsForTag+CoreDataClass.swift in Sources */,
 				E7E3022A1E6C6314008D6B35 /* BlogCategories+CoreDataProperties.swift in Sources */,
 				E7558D861DEF6B1300093962 /* AppDelegate.swift in Sources */,
+				E7A551FD1E9A39A2009BB1B8 /* BlogModel.xcdatamodeld in Sources */,
+				E755B0D31E9101A10072386A /* DataController.swift in Sources */,
 				E7E302291E6C6314008D6B35 /* BlogCategories+CoreDataClass.swift in Sources */,
+				E77F6B3A1E9A80C9007BF9F0 /* TagsForPost+CoreDataClass.swift in Sources */,
 				E765359B1DFCA9370020497B /* WikiViewController.swift in Sources */,
 				E78AFBAD1E0A5ED800BC7569 /* backgroundImageView.swift in Sources */,
 				E76FB1441E31656E00B10858 /* blogDetailViewController.swift in Sources */,
 				E7558DB41DF2BC1000093962 /* AstroLabel.swift in Sources */,
 				E7E088951DFDC7EC00221174 /* Constants.swift in Sources */,
+				E755B0D91E91799B0072386A /* wordpressFunctions.swift in Sources */,
 				E7E3022D1E6C6314008D6B35 /* MediaDetails+CoreDataClass.swift in Sources */,
+				E79A21711EA5123D00F7D3E9 /* PostsForTag+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E76E77091E8A4058006D8277 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AirshipKit;
+			targetProxy = E76E77081E8A4058006D8277 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		E7558D891DEF6B1400093962 /* Main.storyboard */ = {
@@ -453,7 +622,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -497,7 +666,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -511,6 +680,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = 12parsecs.entitlements;
 				DEVELOPMENT_TEAM = UBF9PWHB8L;
 				INFOPLIST_FILE = DistanceConverter/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -527,6 +697,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = 12parsecs.entitlements;
 				DEVELOPMENT_TEAM = UBF9PWHB8L;
 				INFOPLIST_FILE = DistanceConverter/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -561,12 +732,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		E7C5B9E71E6C20CD0013D1AC /* BlogModel.xcdatamodeld */ = {
+		E7A551FB1E9A39A2009BB1B8 /* BlogModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				E7C5B9E81E6C20CD0013D1AC /* BlogModel.xcdatamodel */,
+				E7A551FC1E9A39A2009BB1B8 /* BlogModel.xcdatamodel */,
 			);
-			currentVersion = E7C5B9E81E6C20CD0013D1AC /* BlogModel.xcdatamodel */;
+			currentVersion = E7A551FC1E9A39A2009BB1B8 /* BlogModel.xcdatamodel */;
 			path = BlogModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

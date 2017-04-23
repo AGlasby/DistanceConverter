@@ -2,7 +2,7 @@
 //  MediaDetails+CoreDataProperties.swift
 //  12parsecs
 //
-//  Created by Alan Glasby on 19/03/2017.
+//  Created by Alan Glasby on 17/04/2017.
 //  Copyright © 2017 Alan Glasby. All rights reserved.
 //
 
@@ -13,7 +13,7 @@ import CoreData
 extension MediaDetails {
 
     @nonobjc public class func createFetchRequest() -> NSFetchRequest<MediaDetails> {
-        return NSFetchRequest<MediaDetails>(entityName: "MediaDetails");
+        return NSFetchRequest<MediaDetails>(entityName: "MediaDetails")
     }
 
     @NSManaged public var mediaCaption: String?
@@ -22,6 +22,7 @@ extension MediaDetails {
     @NSManaged public var mediaId: Int32
     @NSManaged public var mediaThumbUrl: String?
     @NSManaged public var mediaUrl: String?
+    @NSManaged public var thumbnailImage: NSData?
     @NSManaged public var posts: BlogPosts?
 
 }

@@ -31,7 +31,7 @@ class WikiViewController: UIViewController, UIWebViewDelegate {
             let wikiLoadRequest = URLRequest(url: wikiUrl)
             wikiWebView.loadRequest(wikiLoadRequest as URLRequest)
         } else {
-            showAlert(title: "Failed to correctly set web page address", message: "Unfortunately there was an error when setting the address of the web page. Please notify developer through developer's website - https://thisnow.software/contact/ ", viewController: self)
+            showAlert(title: "Failed to correctly set web page address", message: "Unfortunately there was an error when setting the address of the web page. Please notify developer through developer's website - https://thisnow.software/contact/ ")
         }
     }
 
@@ -51,10 +51,20 @@ class WikiViewController: UIViewController, UIWebViewDelegate {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "returnFromWiki" {
-            let destinationVC = segue.destination as? ViewController
-            destinationVC?.transitioningDelegate = self
+        guard let identifier = segue.identifier else {
+            fatalError("Unidentified segue")
         }
+        switch identifier {
+            case "returnFromWiki":
+                prepareForReturnFromWikiSegue(segue)
+        default:
+                fatalError("Unidentified segue \(identifier)")
+        }
+    }
+
+    func prepareForReturnFromWikiSegue(_ segue: UIStoryboardSegue) {
+        let destinationVC = segue.destination as? ViewController
+        destinationVC?.transitioningDelegate = self
     }
 }
 

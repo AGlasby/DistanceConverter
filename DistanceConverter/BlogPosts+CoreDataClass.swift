@@ -12,7 +12,7 @@ import CoreData
 @objc(BlogPosts)
 public class BlogPosts: NSManagedObject {
     
-    class func extractPost(json: [String: Any], blogPost: BlogPosts, blogTags: [BlogTags], blogCategories: [BlogCategories]) -> Bool? {
+    class func extractPost(json: [String: Any], blogPost: BlogPosts, context: NSManagedObjectContext) -> Bool? {
         guard let date_gmt = json["date_gmt"] as? String,
             let date = json["date"] as? String,
             let id = json["id"] as? Int32,
@@ -44,29 +44,63 @@ public class BlogPosts: NSManagedObject {
                 return nil
         }
 
-        let tagsCopy = blogPost.tags!.mutableCopy() as! NSMutableSet
-        let tagsForBlogs = NSEntityDescription.entity(forEntityName: "BlogTags", in: container.viewContext)
-        for t in 0..<tagsInJson.count {
-            let tag = BlogTags(entity: tagsForBlogs!, insertInto: container.viewContext)
-            tag.tagId = tagsInJson[t]
-            if let iIndex = blogTags.index(where: {$0.tagId == tagsInJson[t]}) {
-                tag.tagName = blogTags[iIndex].tagName
-            }
-            tagsCopy.add(tag)
-        }
-        blogPost.tags = tagsCopy.copy() as? NSSet
 
-        let categoriesCopy = blogPost.categories!.mutableCopy() as! NSMutableSet
-        let categoriesForBlogs = NSEntityDescription.entity(forEntityName: "BlogCategories", in: container.viewContext)
-        for c in 0..<categoriesInJson.count {
-            let category = BlogCategories(entity: categoriesForBlogs!, insertInto: container.viewContext)
-            category.categoryId = categoriesInJson[c]
-            if let iIndex = blogCategories.index(where: {$0.categoryId == categoriesInJson[c]}) {
-                category.categoryName = blogCategories[iIndex].categoryName
+        let tagsSet = blogPost.mutableSetValue(forKey: #keyPath(BlogPosts.tagSet))
+        for t in 0..<tagsInJson.count {
+            if tagsInJson[t] != 0 {
+                let fetch: NSFetchRequest<TagsForPost> = TagsForPost.createFetchRequest()
+                fetch.predicate = NSPredicate(format: "tagId == %d", tagsInJson[t])
+                var results: [TagsForPost]? = nil
+                do {
+                    results = try context.fetch(fetch)
+                } catch {
+                    fatalError("Failed to retrieve TagsForPosts from core data \(error)")
+                }
+                if results?.count == 0 {
+                    
+                } else {
+                    let tag = TagsForPost(context: context)
+                    tag.tagId = tagsInJson[t]
+                    tagsSet.add(tag)
+                }
             }
-            categoriesCopy.add(category)
         }
-        blogPost.categories = categoriesCopy.copy() as? NSSet
+        blogPost.tagSet = tagsSet.copy() as? NSSet
+
+        for t in 0..<tagsInJson.count {
+            if tagsInJson[t] != 0 {
+                let fetchP: NSFetchRequest<PostsForTag> = PostsForTag.createFetchRequest()
+                fetchP.predicate = NSPredicate(format: "tagId == %d", tagsInJson[t])
+                var results: [PostsForTag]? = nil
+                do {
+                    results = try context.fetch(fetchP)
+                } catch {
+                    fatalError("Failed to retrieve TagsForPosts from core data \(error)")
+                }
+                if results?.count == 0 {
+                    let tag = PostsForTag(context: context)
+                    tag.tagId = tagsInJson[t]
+                    tag.addToPost(blogPost as BlogPosts)
+                } else {
+                    results?.first?.addToPost(blogPost)
+                }
+            }
+        }
+
+//        let categoriesSet = blogPost.mutableSetValue(forKey: #keyPath(BlogPosts.categories))
+//        let categoriesForBlogs = NSEntityDescription.entity(forEntityName: "BlogCategories", in: blogCategoriesMO!)
+//        for c in 0..<categoriesInJson.count {
+//            var category = BlogCategories(entity: categoriesForBlogs!, insertInto: blogCategoriesMO!)
+//            if let iIndex = blogCategories.index(where: {$0.categoryId == categoriesInJson[c]}) {
+//                category = blogCategories[iIndex]
+//            }
+//            if category.categoryName != nil && category.categoryId != 0 {
+//                categoriesSet.add(category)
+//            } else {
+//                category.removeFromPosts(blogPost)
+//            }
+//        }
+//        blogPost.categories = categoriesSet.copy() as? NSSet
 
         blogPost.dateGmt = date_gmt
         blogPost.date = date
@@ -81,3 +115,7 @@ public class BlogPosts: NSManagedObject {
         return true
     }
 }
+
+
+
+

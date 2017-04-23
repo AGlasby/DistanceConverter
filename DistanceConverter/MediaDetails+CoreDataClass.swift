@@ -39,3 +39,5 @@ public class MediaDetails: NSManagedObject {
         return true
     }
 }
+
+

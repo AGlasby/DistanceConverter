@@ -22,8 +22,8 @@ class BlogFilterTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    func configureCell(tag: BlogTags) {
+    func configureCell(tag: BlogTags, accessoryType: UITableViewCellAccessoryType) {
         tagNameLabel.text = tag.tagName
-        self.accessoryView = .none
+            self.accessoryType = accessoryType
     }
 }

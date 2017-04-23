@@ -26,6 +26,9 @@ let KILOMETREfr = "Kilomètre"
 let ASTRONOMICALUNITfr = "Unité_astronomique"
 let LIGHTYEARfr = "Année-lumière"
 
+let INITIALIZED = "initialized"
+let REFRESHCOMPLETE = "refreshcomplete"
+
 enum wordpressAction {
     case posts
     case users

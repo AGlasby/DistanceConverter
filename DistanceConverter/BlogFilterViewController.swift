@@ -10,7 +10,9 @@ import UIKit
 
 class BlogFilterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var filterByTags = [Int32]()
-    
+    var tagDetails: [BlogTags]!
+    var allSelected = false
+
     @IBOutlet weak var blogFilterTableView: UITableView!
     
     override func viewDidLoad() {
@@ -25,18 +27,22 @@ class BlogFilterViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tags.count
+        return tagDetails.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "filterCell", for: indexPath) as! BlogFilterTableViewCell
-        cell.configureCell(tag: tags[indexPath.row])
+        if filterByTags.contains(tagDetails[indexPath.row].tagId) {
+            cell.configureCell(tag: tagDetails[indexPath.row], accessoryType: .checkmark)
+        } else {
+            cell.configureCell(tag: tagDetails[indexPath.row], accessoryType: .none)
+        }
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! BlogFilterTableViewCell
-        let t = tags[indexPath.row].tagId
+        let t = tagDetails[indexPath.row].tagId
         if let index = filterByTags.index(of: t) {
             filterByTags.remove(at: index)
             cell.accessoryType = .none
@@ -44,28 +50,35 @@ class BlogFilterViewController: UIViewController, UITableViewDelegate, UITableVi
             filterByTags.append(t)
             cell.accessoryType = .checkmark
         }
+        allSelected = false
     }
     
     @IBAction func selectSetAll(_ sender: Any) {
-        for t in 0..<tags.count {
-            filterByTags.append(tags[t].tagId)
+
+        if let totalRows = blogFilterTableView.indexPathsForVisibleRows{
+            for r in totalRows {
+                blogFilterTableView.selectRow(at: IndexPath(row: r.row, section: 0), animated: true, scrollPosition: .none)
+                let cell = blogFilterTableView.cellForRow(at: IndexPath(row: r.row, section: 0)) as! BlogFilterTableViewCell
+                cell.accessoryType = .checkmark
+            }
         }
-        let totalRows = blogFilterTableView.numberOfRows(inSection: 0)
-        for row in 0..<totalRows {
-            blogFilterTableView.selectRow(at: IndexPath(row: row, section: 0), animated: true, scrollPosition: .none)
-            let cell = blogFilterTableView.cellForRow(at: IndexPath(row: row, section: 0)) as! BlogFilterTableViewCell
-            cell.accessoryType = .checkmark
+        for td in 0..<tagDetails.count {
+            let tagId = tagDetails[td].tagId
+            filterByTags.append(tagId)
         }
+        allSelected = true
     }
 
     @IBAction func selectClearAll(_ sender: Any) {
-        filterByTags.removeAll()
-        let totalRows = blogFilterTableView.numberOfRows(inSection: 0)
-        for row in 0..<totalRows {
-            blogFilterTableView.selectRow(at: IndexPath(row: row, section: 0), animated: true, scrollPosition: .none)
-        let cell = blogFilterTableView.cellForRow(at: IndexPath(row: row, section: 0)) as! BlogFilterTableViewCell
-            cell.accessoryType = .none
+        if let totalRows = blogFilterTableView.indexPathsForVisibleRows {
+            for r in totalRows {
+                blogFilterTableView.selectRow(at: IndexPath(row: r.row, section: 0), animated: true, scrollPosition: .none)
+                let cell = blogFilterTableView.cellForRow(at: IndexPath(row: r.row, section: 0)) as! BlogFilterTableViewCell
+                cell.accessoryType = .none
+            }
         }
+        filterByTags.removeAll()
+        allSelected = false
     }
 }
 

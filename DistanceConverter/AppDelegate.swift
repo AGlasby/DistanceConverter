@@ -7,17 +7,107 @@
 //
 
 import UIKit
+import AirshipKit
+import UserNotifications
+
+var dataController: AFGDataController?
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
-
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+
+        dataController = AFGDataController() {
+            (inError) in
+            if let error = inError {
+                self.displayError(error)
+            } else {
+                self.contextInitialized()
+            }
+        }
+
+        guard let tabBarController = window?.rootViewController as? UITabBarController else {
+            fatalError("Root view controller is not a tab bar controller")
+        }
+        tabBarController.selectedIndex = 0
+        guard let controller = tabBarController.selectedViewController as? BlogViewController else {
+            fatalError("Top view controller is not BlogViewController \(String(describing: tabBarController.selectedViewController.self))")
+        }
+
+        controller.managedObjectContext = dataController?.mainContext
+
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options:[.badge, .alert, .sound]) { (granted, error) in
+            // Enable or disable features based on authorization.
+        }
+        application.registerForRemoteNotifications()
+
+        // Populate AirshipConfig.plist with your app's info from
+        // https://go.urbanairship.com
+        // or set runtime properties here.
+
+        let config: UAConfig = UAConfig.default()
+        if (config.validate() != true) {
+            showInvalidConfigAlert()
+            return true
+        }
+
+        UAirship.setLogLevel(UALogLevel.trace)
+
+        config.messageCenterStyleConfig = "UAMessageCenterDefaultStyle"
+
+        // You can also programmatically override the plist values:
+        // config.developmentAppKey = @"YourKey";
+        // etc.
+
+        // Call takeOff
+        UAirship.takeOff(config)
+
+        // Print out the application configuration for debugging (optional)
+        print("Config:\n \(config)")
+        UAirship.push().userPushNotificationsEnabled = true
+        UAirship.push().defaultPresentationOptions = [.alert, .badge, .sound]
+        UAirship.push().resetBadge()
+        
         return true
     }
+
+    func contextInitialized() {
+
+    }
+
+    func displayError(_ error: Error) {
+        var message = "The database is either corrupt or was created by a"
+        message += " newer version of the application. Please contact support to"
+        message += " assist with this error. \n\(error.localizedDescription)"
+        let alert = UIAlertController(title: "Error", message: message,
+                                      preferredStyle: .alert)
+        let close = UIAlertAction(title: "Close", style: .cancel, handler: {
+            (action) in
+
+            //Probably terminate the application
+        })
+        alert.addAction(close)
+        if let controller = window?.rootViewController {
+            controller.present(alert, animated: true, completion: nil)
+        }
+    }
+
+    func showInvalidConfigAlert() {
+        let alertController = UIAlertController.init(title: "Invalid AirshipConfig.plist", message: "The AirshipConfig.plist must be a part of the app bundle and include a valid appkey and secret for the selected production level.", preferredStyle:.actionSheet)
+        alertController.addAction(UIAlertAction.init(title: "Exit Application", style: UIAlertActionStyle.default, handler: { (UIAlertAction) in
+            exit(1)
+        }))
+
+        DispatchQueue.main.async {
+            alertController.popoverPresentationController?.sourceView = self.window?.rootViewController?.view
+
+            self.window?.rootViewController?.present(alertController, animated:true, completion: nil)
+        }
+    }
+
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -35,6 +125,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        UAirship.push().resetBadge()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

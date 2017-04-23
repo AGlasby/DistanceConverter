@@ -88,11 +88,20 @@ func convertToDecimalString(distance: Double) -> String {
 }
 
 
-func showAlert(title: String, message: String, viewController: UIViewController) {
-    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))    
-    viewController.present(alert, animated: true, completion: nil)
-}
+func showAlert(title: String, message: String) {
+    DispatchQueue.main.async {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        var rootViewController = UIApplication.shared.keyWindow?.rootViewController
+        if let navigationController = rootViewController as? UINavigationController {
+            rootViewController = navigationController.viewControllers.first
+        }
+        if let tabBarController = rootViewController as? UITabBarController {
+            rootViewController = tabBarController.selectedViewController
+        }
+        rootViewController?.present(alert, animated: true, completion: nil)
+        }
+    }
 
 extension Array {
     func rotate(directionAndDistance:Int) -> Array {
@@ -117,6 +126,9 @@ extension Array {
         return array
     }
 }
+
+
+
 
 
 

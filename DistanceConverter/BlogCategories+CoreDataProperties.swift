@@ -2,7 +2,7 @@
 //  BlogCategories+CoreDataProperties.swift
 //  12parsecs
 //
-//  Created by Alan Glasby on 19/03/2017.
+//  Created by Alan Glasby on 09/04/2017.
 //  Copyright © 2017 Alan Glasby. All rights reserved.
 //
 
@@ -13,7 +13,7 @@ import CoreData
 extension BlogCategories {
 
     @nonobjc public class func createFetchRequest() -> NSFetchRequest<BlogCategories> {
-        return NSFetchRequest<BlogCategories>(entityName: "BlogCategories");
+        return NSFetchRequest<BlogCategories>(entityName: "BlogCategories")
     }
 
     @NSManaged public var categoryId: Int32

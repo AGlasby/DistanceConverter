@@ -2,7 +2,7 @@
 //  BlogPosts+CoreDataProperties.swift
 //  12parsecs
 //
-//  Created by Alan Glasby on 19/03/2017.
+//  Created by Alan Glasby on 17/04/2017.
 //  Copyright © 2017 Alan Glasby. All rights reserved.
 //
 
@@ -13,7 +13,7 @@ import CoreData
 extension BlogPosts {
 
     @nonobjc public class func createFetchRequest() -> NSFetchRequest<BlogPosts> {
-        return NSFetchRequest<BlogPosts>(entityName: "BlogPosts");
+        return NSFetchRequest<BlogPosts>(entityName: "BlogPosts")
     }
 
     @NSManaged public var author: Int32
@@ -26,12 +26,12 @@ extension BlogPosts {
     @NSManaged public var id: Int32
     @NSManaged public var link: String?
     @NSManaged public var slug: String?
-    @NSManaged public var tagsForBlog: Int32
     @NSManaged public var title: String?
     @NSManaged public var categories: NSSet?
     @NSManaged public var media: MediaDetails?
-    @NSManaged public var tags: NSSet?
+    @NSManaged public var tagSet: NSSet?
     @NSManaged public var user: BlogUsers?
+    @NSManaged public var tag: PostsForTag?
 
 }
 
@@ -52,19 +52,19 @@ extension BlogPosts {
 
 }
 
-// MARK: Generated accessors for tags
+// MARK: Generated accessors for tagSet
 extension BlogPosts {
 
-    @objc(addTagsObject:)
-    @NSManaged public func addToTags(_ value: BlogTags)
+    @objc(addTagSetObject:)
+    @NSManaged public func addToTagSet(_ value: TagsForPost)
 
-    @objc(removeTagsObject:)
-    @NSManaged public func removeFromTags(_ value: BlogTags)
+    @objc(removeTagSetObject:)
+    @NSManaged public func removeFromTagSet(_ value: TagsForPost)
 
-    @objc(addTags:)
-    @NSManaged public func addToTags(_ values: NSSet)
+    @objc(addTagSet:)
+    @NSManaged public func addToTagSet(_ values: NSSet)
 
-    @objc(removeTags:)
-    @NSManaged public func removeFromTags(_ values: NSSet)
+    @objc(removeTagSet:)
+    @NSManaged public func removeFromTagSet(_ values: NSSet)
 
 }

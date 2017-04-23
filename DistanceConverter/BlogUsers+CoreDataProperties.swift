@@ -2,7 +2,7 @@
 //  BlogUsers+CoreDataProperties.swift
 //  12parsecs
 //
-//  Created by Alan Glasby on 19/03/2017.
+//  Created by Alan Glasby on 09/04/2017.
 //  Copyright © 2017 Alan Glasby. All rights reserved.
 //
 
@@ -13,7 +13,7 @@ import CoreData
 extension BlogUsers {
 
     @nonobjc public class func createFetchRequest() -> NSFetchRequest<BlogUsers> {
-        return NSFetchRequest<BlogUsers>(entityName: "BlogUsers");
+        return NSFetchRequest<BlogUsers>(entityName: "BlogUsers")
     }
 
     @NSManaged public var userId: Int32

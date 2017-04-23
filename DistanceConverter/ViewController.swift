@@ -158,12 +158,12 @@ class ViewController: UIViewController {
         if distanceInputTextField.text == "12" && unitsSegmentedControl.selectedSegmentIndex == 0 {
             let starDetails = stars.getStar(distance: 12.0)
             if spectralTypesA.contains(String(describing: starDetails.spectralType)) {
-                showAlert(title: "Distance", message: "That is \(distance) \(unit). \(starDetails.nameOfStar) is the same distance from earth. It has an absolute magnitude of \(starDetails.magnitude) and is a \(starDetails.spectralType) class star.", viewController: self)
+                showAlert(title: "Distance", message: "That is \(distance) \(unit). \(starDetails.nameOfStar) is the same distance from earth. It has an absolute magnitude of \(starDetails.magnitude) and is a \(starDetails.spectralType) class star.")
             } else {
-                showAlert(title: "Distance", message: "That is \(distance) \(unit). \(starDetails.nameOfStar) is the same distance from earth. It has an absolute magnitude of \(starDetails.magnitude) and is an \(starDetails.spectralType) class star.", viewController: self)
+                showAlert(title: "Distance", message: "That is \(distance) \(unit). \(starDetails.nameOfStar) is the same distance from earth. It has an absolute magnitude of \(starDetails.magnitude) and is an \(starDetails.spectralType) class star.")
             }
         } else {
-            showAlert(title: "Distance", message: "That is \(distance) \(unit)", viewController: self)
+            showAlert(title: "Distance", message: "That is \(distance) \(unit)")
         }
     }
 
@@ -208,7 +208,7 @@ class ViewController: UIViewController {
                 }
             return
         }
-        showAlert(title: "Error", message: "Distance input field is not valid. Please enter non-zero number and try again.", viewController: self)
+        showAlert(title: "Error", message: "Distance input field is not valid. Please enter non-zero number and try again.")
     }
 
 
@@ -236,7 +236,7 @@ class ViewController: UIViewController {
                 return
             }
         }
-        showAlert(title: "Incorrect input", message: "Distance input field is not valid. Please enter non-zero number and try again.", viewController: self)
+        showAlert(title: "Incorrect input", message: "Distance input field is not valid. Please enter non-zero number and try again.")
     }
 
 
@@ -247,11 +247,21 @@ class ViewController: UIViewController {
 
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showWikiPage" {
-            let nc = segue.destination as! UINavigationController
-            let destinationVC = nc.topViewController as! WikiViewController
-            destinationVC.url = url
+        guard let identifier = segue.identifier else {
+            fatalError("Unidentified segue")
         }
+        switch identifier {
+            case "showWikiPage":
+                prepareForShowWikiPageSegue(segue)
+            default:
+                fatalError("Unidentified segue \(identifier)")
+        }
+    }
+
+    func prepareForShowWikiPageSegue(_ segue: UIStoryboardSegue) {
+        let nc = segue.destination as! UINavigationController
+        let destinationVC = nc.topViewController as! WikiViewController
+        destinationVC.url = url
     }
 }
 

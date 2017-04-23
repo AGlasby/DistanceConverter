@@ -9,6 +9,8 @@
 import Foundation
 import CoreData
 
+var blogUsersMO: NSManagedObjectContext?
+
 @objc(BlogUsers)
 public class BlogUsers: NSManagedObject {
 

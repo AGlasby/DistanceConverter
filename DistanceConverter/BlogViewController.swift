@@ -10,20 +10,22 @@ import UIKit
 import Alamofire
 import CoreData
 
-
-var blogPosts: [BlogPosts]!
-var users: [BlogUsers]!
-var tags: [BlogTags]!
-var categories: [BlogCategories]!
-var mediaInfo: [MediaDetails]!
-
 var filteredTags = [Int32]()
 var filter = false
+enum sort {
+    case id
+    case author
+    case date
+    case title
+}
 
-var container: NSPersistentContainer!
-var blogPredicate: NSPredicate?
 
-class BlogViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, UITableViewDelegate, UITableViewDataSource {
+
+    var managedObjectContext: NSManagedObjectContext?
+    var fetchPredicate: NSPredicate?
+    var fRC: NSFetchedResultsController<BlogPosts>?
+    private let refreshControl = UIRefreshControl()
 
     @IBOutlet weak var blogNavigationBar: UINavigationBar!
     @IBOutlet weak var blogTableView: UITableView!
@@ -32,270 +34,204 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
 
         blogNavigationBar.topItem!.title = "12 parsecs"
-        container = NSPersistentContainer(name: "BlogModel")
-        container.loadPersistentStores {NSPersistentStoreDescription, error in
-            container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-            if let error = error {
-                self.handleErrorAccessingCoreData(action: wordpressAction.posts, operation: "retrieving", error: error)
-            }
+        var notificationName = Notification.Name(INITIALIZED)
+        NotificationCenter.default.addObserver(self, selector: #selector(completeUISetUp), name: notificationName, object: nil)
+        notificationName = Notification.Name(REFRESHCOMPLETE)
+        NotificationCenter.default.addObserver(self, selector: #selector(endTableRefresh), name: notificationName, object: nil)
+    }
+
+
+    func completeUISetUp() {
+        DispatchQueue.main.async {
+        let sortBy = [NSSortDescriptor(key: "id", ascending: false)]
+        self.fetchPosts(sortBy: sortBy, filterBy: nil)
+
+        self.blogTableView.delegate = self
+        self.blogTableView.dataSource = self
+
+        self.setUpTableView()
+        self.updateBlogData()
         }
+    }
 
-        blogTableView.delegate = self
-        blogTableView.dataSource = self
-        loadSavedData()
-
-        performSelector(inBackground: #selector(updateBlogData), with: nil)
+    func fetchPosts(sortBy: [NSSortDescriptor], filterBy: NSPredicate?) {
+        let fetch: NSFetchRequest<BlogPosts> = BlogPosts.createFetchRequest()
+        fetch.sortDescriptors = sortBy
+        if filterBy != nil {
+            fetch.predicate = filterBy
+        }
+        guard let moc = self.managedObjectContext else {
+            fatalError("MOC not initialized")
+        }
+        self.fRC = NSFetchedResultsController(fetchRequest: fetch, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
+        self.fRC?.delegate = self
+        do {
+            try
+                self.fRC?.performFetch()
+        } catch {
+            fatalError("Unable to fetch \(error)")
+        }
+        blogTableView.reloadData()
     }
 
 
 // MARK: UITableViewDelegate Methods
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        guard let count = fRC?.sections?.count else {
+            fatalError("Failed to resolve FetchedResultsController")
+        }
+        return count
     }
 
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return blogPosts.count
+        guard let sectionInfo = fRC?.sections?[section] else {
+            fatalError("Failed to resolve FetchedResultsController")
+        }
+        return sectionInfo.numberOfObjects
     }
 
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let frc = fRC else {
+            fatalError("Failed to resolve FetchedResultsController")
+        }
+        let obj = frc.object(at: indexPath)
         let cell = tableView.dequeueReusableCell(withIdentifier: "blogCell", for: indexPath) as! BlogTableViewCell
-        cell.configureCell(post: blogPosts[indexPath.row])
+        cell.configureCell(post: obj, context: managedObjectContext!)
         return cell
     }
 
 
-    func do_table_refresh() {
-        DispatchQueue.main.async (execute: {
-            self.blogTableView.reloadData()
-            return
-        })
+    func setUpTableView() {
+        if #available(iOS 10.0, *) {
+            blogTableView.refreshControl = refreshControl
+        } else {
+            blogTableView.addSubview(refreshControl)
+        }
+        refreshControl.addTarget(self, action: #selector(updateBlogData), for: .valueChanged)
+        let attributes = [NSFontAttributeName:UIFont(name: "Georgia", size: 16.0)!]
+        refreshControl.attributedTitle = NSAttributedString(string: "Fetching blog posts ...", attributes: attributes)
     }
 
 
-// MARK: Core Data Methods
+        public func endTableRefresh(_ notification: Notification) {
+        if refreshControl.isRefreshing {
+            refreshControl.endRefreshing()
+        }
+    }
 
-    func saveContext() {
-        if container.viewContext.hasChanges {
-            do {
-                try container.viewContext.save()
-            } catch {
-                handleErrorAccessingCoreData(action: wordpressAction.posts, operation: "saving", error: error)
+// MARK: FetchedResultsController Methods
+
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        blogTableView.beginUpdates()
+    }
+
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        switch type {
+        case .insert:
+            blogTableView.insertSections(IndexSet(integer: sectionIndex), with: .fade)
+        case .delete:
+            blogTableView.deleteSections(IndexSet(integer: sectionIndex), with: .fade)
+        case .move: break
+        case .update: break
+        }
+    }
+
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .insert:
+            guard let nip = newIndexPath else {
+                fatalError("How?")
             }
+            blogTableView.insertRows(at: [nip], with: .fade)
+        case .delete:
+            guard let ip = indexPath else {
+                fatalError("How?")
+            }
+            blogTableView.deleteRows(at: [ip], with: .fade)
+        case .move:
+            guard  let ip = indexPath else {
+                fatalError("How")
+            }
+            guard let nip = newIndexPath else {
+                fatalError("How?")
+            }
+            blogTableView.deleteRows(at: [ip], with: .fade)
+            blogTableView.insertRows(at: [nip], with: .fade)
+        case .update:
+            guard let ip = indexPath else {
+                fatalError("How?")
+            }
+            blogTableView.reloadRows(at: [ip], with: .fade)
         }
     }
 
-    func loadSavedData() {
-        loadPosts(sortField: "id", ascending: false)
-        loadMedia(sortField: "mediaId")
-        loadTags(sortField: "tagId")
-        loadCategories(sortField: "categoryId")
-    }
 
-    func loadPosts(sortField: String, ascending: Bool) {
-        let loadPosts = BlogPosts.createFetchRequest()
-        let sortPosts = NSSortDescriptor(key: sortField, ascending: ascending)
-        loadPosts.sortDescriptors = [sortPosts]
-        if filter {
-            blogPredicate = NSPredicate(format: "ANY tags.tagId in %@", filteredTags)
-            loadPosts.predicate = blogPredicate
-        }
-        do {
-            blogPosts = try container.viewContext.fetch(loadPosts)
-            do_table_refresh()
-        } catch {
-            handleErrorAccessingCoreData(action: wordpressAction.posts, operation: "retrieving", error: nil)
-            return
-        }
-    }
-
-    func loadMedia(sortField: String) {
-        let loadMedia = MediaDetails.createFetchRequest()
-        let sortMedia = NSSortDescriptor(key: sortField, ascending: true)
-        loadMedia.sortDescriptors = [sortMedia]
-        do {
-            mediaInfo = try container.viewContext.fetch(loadMedia)
-        } catch {
-            handleErrorAccessingCoreData(action: wordpressAction.media, operation: "retrieving", error: nil)
-            return
-        }
-    }
-
-    func loadTags(sortField: String) {
-        let loadTags = BlogTags.createFetchRequest()
-        let sortTags = NSSortDescriptor(key: sortField, ascending: true)
-        loadTags.sortDescriptors = [sortTags]
-        do {
-            tags = try container.viewContext.fetch(loadTags)
-        } catch {
-            handleErrorAccessingCoreData(action: wordpressAction.tags, operation: "retrieving", error: nil)
-            return
-        }
-    }
-
-    func loadCategories(sortField: String) {
-        let loadCategories = BlogCategories.createFetchRequest()
-        let sortCategories = NSSortDescriptor(key: sortField, ascending: true)
-        loadCategories.sortDescriptors = [sortCategories]
-        do {
-            categories = try container.viewContext.fetch(loadCategories)
-        } catch {
-            handleErrorAccessingCoreData(action: wordpressAction.categories, operation: "retrieving", error: nil)
-            return
-        }
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        blogTableView.endUpdates()
     }
 
 
 // MARK: WordPress Methods
 
     func updateBlogData() {
-
-        let parameters = [
-            "context" : "view",
-            "per_page" : WORDPRESSPAGESIZE] as [String : Any]
-        self.getWordpressData(action: wordpressAction.posts, parameters: parameters)
-        self.getWordpressData(action: wordpressAction.tags, parameters: parameters)
-        self.getWordpressData(action: wordpressAction.media, parameters: parameters)
-        self.getWordpressData(action: wordpressAction.categories, parameters: parameters)
-    }
-
-
-    func getWordpressData(action: wordpressAction, parameters: [String : Any]) {
-
-        let serverUrl = URL(string: "\(WORDPRESSADDRESS)\(action)")
-        var urlRequest = URLRequest(url: serverUrl!)
-        urlRequest.httpMethod = HTTPMethod.get.rawValue
-
-            Alamofire.request(serverUrl!, method: .get, parameters: parameters, encoding: JSONEncoding.default)
-                .responseJSON {response in
-                    guard response.result.isSuccess else {
-                        self.handleErrorRetrievingJSON(action: action)
-                        return
-                    }
-                    guard let result = response.result.value else {
-                        self.handleErrorRetrievingJSON(action: action)
-                        return
-                    }
-                    guard let json = result as? [Dictionary<String, Any>] else {
-                        self.handleErrorRetrievingJSON(action: action)
-                        return
-                    }
-                    self.extractAndSave(action: action, json: json)
-                    var parametersNew = parameters
-                    if let httpResponse = response.response?.allHeaderFields {
-                        if let xWpTotal = httpResponse["x-wp-total"] as? String {
-                            guard Int(xWpTotal) != nil else {
-                                self.handleErrorRetrievingJSON(action: action)
-                                return
-                            }
-                            if let xWpTotalPages = httpResponse["x-wp-totalpages"] as? String {
-                                guard let totalPagesInWP = Int(xWpTotalPages) else {
-                                    self.handleErrorRetrievingJSON(action: action)
-                                    return
-                                }
-                                if totalPagesInWP > 1 {
-                                for page in 2...totalPagesInWP {
-                                    parametersNew["page"] = page
-                                    Alamofire.request(serverUrl!, method: .get, parameters: parametersNew, encoding: JSONEncoding.default)
-                                        .responseJSON {response in
-                                            guard response.result.isSuccess else {
-                                                self.handleErrorRetrievingJSON(action: action)
-                                                return
-                                            }
-                                            guard let result = response.result.value else {
-                                                self.handleErrorRetrievingJSON(action: action)
-                                                return
-                                            }
-                                            guard let json = result as? [Dictionary<String, Any>] else {
-                                                self.handleErrorRetrievingJSON(action: action)
-                                                return
-                                            }
-                                            self.extractAndSave(action: action, json: json)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-    }
-
-
-    func extractAndSave(action: wordpressAction, json: [Dictionary<String, Any>]) {
-        DispatchQueue.main.async {[unowned self] in
-            for j in 0..<json.count {
-                let data = json[j]
-                switch action {
-                case wordpressAction.posts:
-                    let post = BlogPosts(context: container.viewContext)
-                    guard BlogPosts.extractPost(json: data, blogPost: post, blogTags: tags, blogCategories: categories)! else {
-                        self.handleErrorDeserialisingJSON(action: action)
-                        break
-                    }
-                    break
-                case wordpressAction.tags:
-                    let tag = BlogTags(context: container.viewContext)
-                    guard BlogTags.extractTag(json: data, tag: tag)! else {
-                        self.handleErrorDeserialisingJSON(action: action)
-                        break
-                    }
-                    break
-                case wordpressAction.users:
-                    let user = BlogUsers(context: container.viewContext)
-                    guard BlogUsers.extractUsers(json: data, user: user)! else {
-                        self.handleErrorDeserialisingJSON(action: action)
-                        break
-                    }
-                    break
-                case wordpressAction.categories:
-                    let category = BlogCategories(context: container.viewContext)
-                    guard BlogCategories.extractCategories(json: data, category: category)! else {
-                        self.handleErrorDeserialisingJSON(action: action)
-                        break
-                    }
-                    break
-                case wordpressAction.media:
-                    let media = MediaDetails(context: container.viewContext)
-                    guard MediaDetails.extractMedia(json: data, media: media)! else {
-                        self.handleErrorDeserialisingJSON(action: action)
-                        break
-                    }
-                    break
-                }
-            }
-            self.saveContext()
-            if action == wordpressAction.posts {
-                self.loadSavedData()
-            }
+        guard let moc = managedObjectContext else {
+            fatalError("MOC not initialized")
         }
-    }
+        let parameters = setUpParameters()
+        getWordpressData(action: wordpressAction.tags, parameters: parameters, context: moc)
+        getWordpressData(action: wordpressAction.categories, parameters: parameters, context: moc)
+        getWordpressData(action: wordpressAction.media, parameters: parameters, context: moc)
+        getWordpressData(action: wordpressAction.posts, parameters: parameters, context: moc)
 
-    func handleErrorAccessingCoreData(action: wordpressAction, operation: String, error: Error?) {
-        showAlert(title: "Error \(operation) data", message: "There was an error \(operation) the \(action) data. Please try again. If the problem persists please contact the developer at: www.thisnow.software/contact/.", viewController: self)
-    }
-
-    func handleErrorRetrievingJSON(action: wordpressAction) {
-        showAlert(title: "Error retrieving data from blog site", message: "There was an error retrieving the \(action) data from the blog site. Please try again. If the problem persists please contact the developer at: www.thisnow.software/contact/.", viewController: self)
-    }
-
-    func handleErrorDeserialisingJSON(action: wordpressAction) {
-        showAlert(title: "Error handling data from blog site", message: "There was an error handling the \(action) data from the blog site. Please try again. If the problem persists please contact the developer at: www.thisnow.software/contact/.", viewController: self)
     }
 
 
 // MARK: Segue Methods
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ShowBlogPostFilter" {
-        } else if segue.identifier == "showPost" {
-            let blogDetailVC = segue.destination as! blogDetailViewController
-            if let indexPath = self.blogTableView.indexPathForSelectedRow {
-            let selectedBlog = blogPosts[indexPath.row].link
-            blogDetailVC.postLink = selectedBlog
-            blogDetailVC.postTitle = blogPosts[indexPath.row].title
-            }
+        guard let identifier = segue.identifier else {
+            fatalError("Unidentified segue")
+        }
+        switch identifier {
+            case "ShowBlogPostFilter":
+                prepareForBlogPostFilterSegue(segue)
+            case "showPost":
+                prepareForBlogDetailSegue(segue)
+            default:
+                    fatalError("Unidentified segue \(identifier)")
+        }
+    }
+
+
+    func prepareForBlogPostFilterSegue(_ segue: UIStoryboardSegue) {
+        let fetch: NSFetchRequest<BlogTags> = BlogTags.createFetchRequest()
+        fetch.sortDescriptors = [NSSortDescriptor(key: "tagId", ascending: true)]
+        guard let moc = self.managedObjectContext else {
+            fatalError("MOC not initialized")
+        }
+        var blogTags: [BlogTags]? = nil
+        do {
+            blogTags = try moc.fetch(fetch)
+        } catch {
+            fatalError("Failed to retrieve blogPost images from core data \(error)")
+        }
+        let nc = segue.destination as! UINavigationController
+        let blogFilterVC = nc.topViewController as! BlogFilterViewController
+        blogFilterVC.tagDetails = blogTags
+        blogFilterVC.filterByTags = filteredTags
+    }
+
+
+    func prepareForBlogDetailSegue(_ segue: UIStoryboardSegue) {
+        let blogDetailVC = segue.destination as! blogDetailViewController
+        if let indexPath = self.blogTableView.indexPathForSelectedRow {
+            let post = fRC?.object(at: indexPath)
+            let selectedBlog = post?.value(forKey: "link")
+            blogDetailVC.postLink = selectedBlog as! String
+            blogDetailVC.postTitle = post!.value(forKey: "title") as! String
         }
     }
 
@@ -304,12 +240,42 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.tabBarController?.selectedIndex = 1
     }
 
+
     @IBAction func backFromModal(segue: UIStoryboardSegue) {
         if let sourceViewController = segue.source as? BlogFilterViewController {
             filter = true
             filteredTags = sourceViewController.filterByTags
-            blogPredicate = NSPredicate(format: "ANY tags.tagId in %@", filteredTags)
-            loadSavedData()
+            let all = sourceViewController.allSelected
+            if !all {
+                let fetch: NSFetchRequest<PostsForTag> = PostsForTag.createFetchRequest()
+                fetch.sortDescriptors = [NSSortDescriptor(key: "tagId", ascending: false)]
+                    fetch.predicate = NSPredicate(format: "tagId IN %@", filteredTags)
+                guard let moc = self.managedObjectContext else {
+                    fatalError("MOC not initialized")
+                }
+                var postsForTags: [PostsForTag]? = nil
+                do {
+                    postsForTags = try moc.fetch(fetch)
+                } catch {
+                    fatalError("Failed to retrieve postsForTag images from core data \(error)")
+                }
+                var posts = [Int32]()
+                for s in 0..<postsForTags!.count {
+                    let setOfPosts = postsForTags![s].post
+                    let postsInSet = setOfPosts!.allObjects as! [BlogPosts]
+                    for p in 0..<postsInSet.count {
+                        posts.append(postsInSet[p].id)
+                    }
+                }
+
+                let sortDescriptors = [NSSortDescriptor(key: "id", ascending: false)]
+                fetchPredicate = NSPredicate(format: "id IN %@", posts)
+                fetchPosts(sortBy: sortDescriptors, filterBy:fetchPredicate)
+
+            } else {
+                let sortDescriptor = [NSSortDescriptor(key: "id", ascending: false)]
+                fetchPosts(sortBy: sortDescriptor, filterBy: nil)
+            }
             self.tabBarController?.selectedIndex = 1
         }
     }
@@ -319,20 +285,35 @@ class BlogViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     @IBAction func showSortOptions(_ sender: Any) {
         let ac = UIAlertController(title: "Sort Posts", message: nil, preferredStyle: .actionSheet)
-        ac.addAction(UIAlertAction(title: "By Date", style: .default) { [unowned self] _ in
-            self.loadPosts(sortField: "date", ascending: false)
+        ac.addAction(UIAlertAction(title: "By Date", style: .default) { _ in
+            self.sortSelectedPosts(sortBy: sort.date)
             })
-        ac.addAction(UIAlertAction(title: "By Title", style: .default) { [unowned self] _ in
-            self.loadPosts(sortField: "title", ascending: true)
+        ac.addAction(UIAlertAction(title: "By Title", style: .default) { _ in
+            self.sortSelectedPosts(sortBy: sort.title)
         })
-        ac.addAction(UIAlertAction(title: "By Author", style: .default) { [unowned self] _ in
-            self.loadPosts(sortField: "author", ascending: true)
+        ac.addAction(UIAlertAction(title: "By Author", style: .default) { _ in
+            self.sortSelectedPosts(sortBy: sort.author)
         })
-        ac.addAction(UIAlertAction(title: "By ID", style: .default) { [unowned self] _ in
-            self.loadPosts(sortField: "id", ascending: true)
+        ac.addAction(UIAlertAction(title: "Default", style: .default) { _ in
+            self.sortSelectedPosts(sortBy: sort.id)
         })
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(ac, animated: true)
+    }
+
+    func sortSelectedPosts(sortBy: sort) {
+        var sorter = [NSSortDescriptor]()
+        switch sortBy {
+            case sort.author:
+                sorter.append(NSSortDescriptor(key: "author", ascending: true))
+            case sort.date:
+                sorter.append(NSSortDescriptor(key: "date", ascending: true))
+            case sort.id:
+                sorter.append(NSSortDescriptor(key: "id", ascending: false))
+            case sort.title:
+                sorter.append(NSSortDescriptor(key: "title", ascending: true))
+        }
+        fetchPosts(sortBy: sorter, filterBy: fetchPredicate)
     }
 }
 
