@@ -20,13 +20,4 @@ class AstroButton: UIButton {
         layer.shadowOffset = CGSize(width:0.00, height:2.00)
         setTitleColor(UIColor (colorLiteralRed: 0.004, green: 0.055, blue: 0.129, alpha: 1.00), for: .normal)
     }
-
-
-    /*
-     // Only override draw() if you perform custom drawing.
-     // An empty implementation adversely affects performance during animation.
-     override func draw(_ rect: CGRect) {
-     // Drawing code
-     }
-     */
 }

@@ -17,11 +17,6 @@ class BlogFilterTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
-    }
-
     func configureCell(tag: BlogTags, accessoryType: UITableViewCellAccessoryType) {
         tagNameLabel.text = tag.tagName
             self.accessoryType = accessoryType

@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16E195" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="BlogCategories" representedClassName="BlogCategories" syncable="YES">
-        <attribute name="categoryId" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="categoryName" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="posts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BlogPosts" inverseName="categories" inverseEntity="BlogPosts" syncable="YES"/>
-        <uniquenessConstraints>
-            <uniquenessConstraint>
-                <constraint value="categoryId"/>
-            </uniquenessConstraint>
-        </uniquenessConstraints>
-    </entity>
     <entity name="BlogPosts" representedClassName="BlogPosts" syncable="YES">
         <attribute name="author" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="category" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -22,27 +12,15 @@
         <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="slug" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" attributeType="String" minValueString="10" spotlightIndexingEnabled="YES" syncable="YES"/>
-        <relationship name="categories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BlogCategories" inverseName="posts" inverseEntity="BlogCategories" syncable="YES"/>
         <relationship name="media" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MediaDetails" inverseName="posts" inverseEntity="MediaDetails" syncable="YES"/>
         <relationship name="tag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PostsForTag" inverseName="post" inverseEntity="PostsForTag" syncable="YES"/>
         <relationship name="tagSet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TagsForPost" inverseName="post" inverseEntity="TagsForPost" syncable="YES"/>
-        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BlogUsers" inverseName="posts" inverseEntity="BlogUsers" syncable="YES"/>
     </entity>
     <entity name="BlogTags" representedClassName="BlogTags" syncable="YES">
         <attribute name="tagId" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="tagName" attributeType="String" minValueString="1" syncable="YES"/>
         <relationship name="postSet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PostsForTag" inverseName="tagDetails" inverseEntity="PostsForTag" syncable="YES"/>
         <relationship name="tag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TagsForPost" inverseName="details" inverseEntity="TagsForPost" syncable="YES"/>
-    </entity>
-    <entity name="BlogUsers" representedClassName="BlogUsers" syncable="YES">
-        <attribute name="userId" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="userName" attributeType="String" syncable="YES"/>
-        <relationship name="posts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BlogPosts" inverseName="user" inverseEntity="BlogPosts" syncable="YES"/>
-        <uniquenessConstraints>
-            <uniquenessConstraint>
-                <constraint value="userId"/>
-            </uniquenessConstraint>
-        </uniquenessConstraints>
     </entity>
     <entity name="MediaDetails" representedClassName="MediaDetails" syncable="YES">
         <attribute name="mediaCaption" optional="YES" attributeType="String" syncable="YES"/>
@@ -65,12 +43,10 @@
         <relationship name="post" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BlogPosts" inverseName="tagSet" inverseEntity="BlogPosts" syncable="YES"/>
     </entity>
     <elements>
-        <element name="BlogCategories" positionX="-45" positionY="-477" width="128" height="90"/>
-        <element name="BlogPosts" positionX="-351" positionY="-45" width="128" height="283"/>
+        <element name="BlogPosts" positionX="-351" positionY="-45" width="128" height="253"/>
         <element name="BlogTags" positionX="268" positionY="221" width="128" height="103"/>
-        <element name="BlogUsers" positionX="-45" positionY="486" width="128" height="90"/>
         <element name="MediaDetails" positionX="133" positionY="-342" width="128" height="163"/>
-        <element name="TagsForPost" positionX="45" positionY="333" width="128" height="88"/>
         <element name="PostsForTag" positionX="45" positionY="135" width="128" height="88"/>
+        <element name="TagsForPost" positionX="45" positionY="333" width="128" height="88"/>
     </elements>
 </model>

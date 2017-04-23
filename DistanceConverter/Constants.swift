@@ -31,9 +31,7 @@ let REFRESHCOMPLETE = "refreshcomplete"
 
 enum wordpressAction {
     case posts
-    case users
     case tags
-    case categories
     case media
 }
 

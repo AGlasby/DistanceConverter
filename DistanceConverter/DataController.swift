@@ -55,14 +55,9 @@ class AFGDataController {
                 assertionFailure("Failed to initialize PSC: \(error)")
                 self.initializationComplete?(error)
             }
-            self.populateTypeEntities()
             let notificationName = Notification.Name(INITIALIZED)
             NotificationCenter.default.post(name: notificationName, object: nil)
         }
-    }
-
-    func populateTypeEntities() {
-        
     }
 
 

@@ -29,12 +29,10 @@ public class BlogTags: NSManagedObject {
         } catch {
             fatalError("Failed to retrieve TagsForPosts from core data \(error)")
         }
-        if results?.count == 0 {
-            
+        if results?.count == 0 {            
             let newTag = TagsForPost(context: context)
             newTag.tagId = tagId
             tag.setValue(newTag, forKey: "tag")
-
         }
 
         let fetch2: NSFetchRequest<PostsForTag> = PostsForTag.createFetchRequest()

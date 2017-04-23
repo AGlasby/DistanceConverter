@@ -23,7 +23,6 @@ public class BlogPosts: NSManagedObject {
             let excerptTemp = json["excerpt"] as? [String: Any],
             let featuredMedia = json["featured_media"] as? Int32,
             let tagsInJson = json["tags"] as? [Int32],
-            let categoriesInJson = json["categories"] as? [Int32],
             let link = json["link"] as? String
             else {
                 return nil
@@ -86,21 +85,6 @@ public class BlogPosts: NSManagedObject {
                 }
             }
         }
-
-//        let categoriesSet = blogPost.mutableSetValue(forKey: #keyPath(BlogPosts.categories))
-//        let categoriesForBlogs = NSEntityDescription.entity(forEntityName: "BlogCategories", in: blogCategoriesMO!)
-//        for c in 0..<categoriesInJson.count {
-//            var category = BlogCategories(entity: categoriesForBlogs!, insertInto: blogCategoriesMO!)
-//            if let iIndex = blogCategories.index(where: {$0.categoryId == categoriesInJson[c]}) {
-//                category = blogCategories[iIndex]
-//            }
-//            if category.categoryName != nil && category.categoryId != 0 {
-//                categoriesSet.add(category)
-//            } else {
-//                category.removeFromPosts(blogPost)
-//            }
-//        }
-//        blogPost.categories = categoriesSet.copy() as? NSSet
 
         blogPost.dateGmt = date_gmt
         blogPost.date = date

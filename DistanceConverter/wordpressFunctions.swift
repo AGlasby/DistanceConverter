@@ -73,10 +73,8 @@ func getWordpressData(action: wordpressAction, parameters: [String : Any], conte
                             extractAndSave(action: action, json: json, context: context)
                             }
                         }
-                        checkDownloadsCompleted()
-                    } else {
-                        checkDownloadsCompleted()
                     }
+                    checkDownloadsCompleted()
                 }
             }
         }
@@ -155,47 +153,6 @@ func getWordpressData(action: wordpressAction, parameters: [String : Any], conte
                                 handleErrorDeserialisingJSON(action: action)
                                 break
                             }
-                        }
-                        break
-                    }
-                    break
-                case wordpressAction.users:
-                    if let id = data["id"] as? Int32 {
-                        let fetch: NSFetchRequest<BlogUsers> = BlogUsers.createFetchRequest()
-                        fetch.predicate = NSPredicate(format: "userId == %d", id)
-                        var blogUsersResults: [BlogUsers]? = nil
-                        do {
-                            blogUsersResults = try context.fetch(fetch)
-                        } catch {
-                            fatalError("Failed to retrieve blogCategories from core data \(error)")
-                        }
-                        if blogUsersResults?.count == 0 {
-                            let user = BlogUsers(context: moc)
-                            guard BlogUsers.extractUsers(json: data, user: user)! else {
-                                handleErrorDeserialisingJSON(action: action)
-                                break
-                            }
-                        }
-                        break
-                    }
-                    break
-                case wordpressAction.categories:
-                    if let id = data["id"] as? Int32 {
-                        let fetch: NSFetchRequest<BlogCategories> = BlogCategories.createFetchRequest()
-                        fetch.predicate = NSPredicate(format: "categoryId == %d", id)
-                        var blogCategoriesResults: [BlogCategories]? = nil
-                        do {
-                            blogCategoriesResults = try context.fetch(fetch)
-                        } catch {
-                            fatalError("Failed to retrieve blogCategories from core data \(error)")
-                        }
-                        if blogCategoriesResults?.count == 0 {
-                            let category = BlogCategories(context: moc)
-                            guard BlogCategories.extractCategories(json: data, category: category)! else {
-                                handleErrorDeserialisingJSON(action: action)
-                                break
-                            }
-
                         }
                         break
                     }

@@ -2,7 +2,7 @@
 //  BlogPosts+CoreDataProperties.swift
 //  12parsecs
 //
-//  Created by Alan Glasby on 17/04/2017.
+//  Created by Alan Glasby on 23/04/2017.
 //  Copyright © 2017 Alan Glasby. All rights reserved.
 //
 
@@ -27,28 +27,9 @@ extension BlogPosts {
     @NSManaged public var link: String?
     @NSManaged public var slug: String?
     @NSManaged public var title: String?
-    @NSManaged public var categories: NSSet?
     @NSManaged public var media: MediaDetails?
-    @NSManaged public var tagSet: NSSet?
-    @NSManaged public var user: BlogUsers?
     @NSManaged public var tag: PostsForTag?
-
-}
-
-// MARK: Generated accessors for categories
-extension BlogPosts {
-
-    @objc(addCategoriesObject:)
-    @NSManaged public func addToCategories(_ value: BlogCategories)
-
-    @objc(removeCategoriesObject:)
-    @NSManaged public func removeFromCategories(_ value: BlogCategories)
-
-    @objc(addCategories:)
-    @NSManaged public func addToCategories(_ values: NSSet)
-
-    @objc(removeCategories:)
-    @NSManaged public func removeFromCategories(_ values: NSSet)
+    @NSManaged public var tagSet: NSSet?
 
 }
 

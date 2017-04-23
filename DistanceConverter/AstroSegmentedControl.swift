@@ -10,14 +10,6 @@ import UIKit
 
 class AstroSegmentedControl: UISegmentedControl {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
-
     func setImagesForSegmentedControl() {
         let image1 = UIImage(named: "parsecs.png")?.withRenderingMode(.alwaysOriginal)
         self.setImage(image1, forSegmentAt: 0)

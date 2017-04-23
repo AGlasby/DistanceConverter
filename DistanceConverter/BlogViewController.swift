@@ -182,7 +182,6 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
         }
         let parameters = setUpParameters()
         getWordpressData(action: wordpressAction.tags, parameters: parameters, context: moc)
-        getWordpressData(action: wordpressAction.categories, parameters: parameters, context: moc)
         getWordpressData(action: wordpressAction.media, parameters: parameters, context: moc)
         getWordpressData(action: wordpressAction.posts, parameters: parameters, context: moc)
 
@@ -249,7 +248,7 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
             if !all {
                 let fetch: NSFetchRequest<PostsForTag> = PostsForTag.createFetchRequest()
                 fetch.sortDescriptors = [NSSortDescriptor(key: "tagId", ascending: false)]
-                    fetch.predicate = NSPredicate(format: "tagId IN %@", filteredTags)
+                fetch.predicate = NSPredicate(format: "tagId IN %@", filteredTags)
                 guard let moc = self.managedObjectContext else {
                     fatalError("MOC not initialized")
                 }
@@ -274,7 +273,8 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
 
             } else {
                 let sortDescriptor = [NSSortDescriptor(key: "id", ascending: false)]
-                fetchPosts(sortBy: sortDescriptor, filterBy: nil)
+                fetchPredicate = NSPredicate(value: true)
+                fetchPosts(sortBy: sortDescriptor, filterBy: fetchPredicate)
             }
             self.tabBarController?.selectedIndex = 1
         }

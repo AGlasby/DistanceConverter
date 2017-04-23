@@ -41,14 +41,10 @@
 		E78AFBAF1E0E765D00BC7569 /* LanguageStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78AFBAE1E0E765D00BC7569 /* LanguageStruct.swift */; };
 		E79A21701EA5123D00F7D3E9 /* PostsForTag+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79A216E1EA5123D00F7D3E9 /* PostsForTag+CoreDataClass.swift */; };
 		E79A21711EA5123D00F7D3E9 /* PostsForTag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79A216F1EA5123D00F7D3E9 /* PostsForTag+CoreDataProperties.swift */; };
-		E7A551FD1E9A39A2009BB1B8 /* BlogModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E7A551FB1E9A39A2009BB1B8 /* BlogModel.xcdatamodeld */; };
+		E7C4D2BA1EAD0C5900CDB80D /* BlogModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E7C4D2B81EAD0C5900CDB80D /* BlogModel.xcdatamodeld */; };
 		E7E088951DFDC7EC00221174 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E088941DFDC7EC00221174 /* Constants.swift */; };
 		E7E0889E1E0093BA00221174 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0889D1E0093BA00221174 /* HelperFunctions.swift */; };
 		E7E088A01E009B9400221174 /* AstroDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0889F1E009B9400221174 /* AstroDistance.swift */; };
-		E7E302271E6C6314008D6B35 /* BlogUsers+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E3021D1E6C6314008D6B35 /* BlogUsers+CoreDataClass.swift */; };
-		E7E302281E6C6314008D6B35 /* BlogUsers+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E3021E1E6C6314008D6B35 /* BlogUsers+CoreDataProperties.swift */; };
-		E7E302291E6C6314008D6B35 /* BlogCategories+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E3021F1E6C6314008D6B35 /* BlogCategories+CoreDataClass.swift */; };
-		E7E3022A1E6C6314008D6B35 /* BlogCategories+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E302201E6C6314008D6B35 /* BlogCategories+CoreDataProperties.swift */; };
 		E7E3022B1E6C6314008D6B35 /* BlogTags+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E302211E6C6314008D6B35 /* BlogTags+CoreDataClass.swift */; };
 		E7E3022D1E6C6314008D6B35 /* MediaDetails+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E302231E6C6314008D6B35 /* MediaDetails+CoreDataClass.swift */; };
 		E7E3022E1E6C6314008D6B35 /* MediaDetails+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E302241E6C6314008D6B35 /* MediaDetails+CoreDataProperties.swift */; };
@@ -145,14 +141,10 @@
 		E78AFBAE1E0E765D00BC7569 /* LanguageStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageStruct.swift; sourceTree = "<group>"; };
 		E79A216E1EA5123D00F7D3E9 /* PostsForTag+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PostsForTag+CoreDataClass.swift"; sourceTree = "<group>"; };
 		E79A216F1EA5123D00F7D3E9 /* PostsForTag+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PostsForTag+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		E7A551FC1E9A39A2009BB1B8 /* BlogModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BlogModel.xcdatamodel; sourceTree = "<group>"; };
+		E7C4D2B91EAD0C5900CDB80D /* BlogModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BlogModel.xcdatamodel; sourceTree = "<group>"; };
 		E7E088941DFDC7EC00221174 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E7E0889D1E0093BA00221174 /* HelperFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
 		E7E0889F1E009B9400221174 /* AstroDistance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AstroDistance.swift; sourceTree = "<group>"; };
-		E7E3021D1E6C6314008D6B35 /* BlogUsers+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlogUsers+CoreDataClass.swift"; sourceTree = "<group>"; };
-		E7E3021E1E6C6314008D6B35 /* BlogUsers+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlogUsers+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		E7E3021F1E6C6314008D6B35 /* BlogCategories+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlogCategories+CoreDataClass.swift"; sourceTree = "<group>"; };
-		E7E302201E6C6314008D6B35 /* BlogCategories+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlogCategories+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E7E302211E6C6314008D6B35 /* BlogTags+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlogTags+CoreDataClass.swift"; sourceTree = "<group>"; };
 		E7E302231E6C6314008D6B35 /* MediaDetails+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MediaDetails+CoreDataClass.swift"; sourceTree = "<group>"; };
 		E7E302241E6C6314008D6B35 /* MediaDetails+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MediaDetails+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -202,17 +194,13 @@
 		E704CEBD1E42889200C25A7A /* Blog */ = {
 			isa = PBXGroup;
 			children = (
-				E7A551FB1E9A39A2009BB1B8 /* BlogModel.xcdatamodeld */,
+				E7C4D2B81EAD0C5900CDB80D /* BlogModel.xcdatamodeld */,
 				E79A216E1EA5123D00F7D3E9 /* PostsForTag+CoreDataClass.swift */,
 				E79A216F1EA5123D00F7D3E9 /* PostsForTag+CoreDataProperties.swift */,
 				E77F6B381E9A80C9007BF9F0 /* TagsForPost+CoreDataClass.swift */,
 				E77F6B391E9A80C9007BF9F0 /* TagsForPost+CoreDataProperties.swift */,
 				E70A257D1E7B0F4800CA2245 /* BlogPosts+CoreDataClass.swift */,
 				E70A257E1E7B0F4800CA2245 /* BlogPosts+CoreDataProperties.swift */,
-				E7E3021D1E6C6314008D6B35 /* BlogUsers+CoreDataClass.swift */,
-				E7E3021E1E6C6314008D6B35 /* BlogUsers+CoreDataProperties.swift */,
-				E7E3021F1E6C6314008D6B35 /* BlogCategories+CoreDataClass.swift */,
-				E7E302201E6C6314008D6B35 /* BlogCategories+CoreDataProperties.swift */,
 				E7E302311E6C72CF008D6B35 /* BlogTags+CoreDataProperties.swift */,
 				E7E302211E6C6314008D6B35 /* BlogTags+CoreDataClass.swift */,
 				E7E302231E6C6314008D6B35 /* MediaDetails+CoreDataClass.swift */,
@@ -519,13 +507,12 @@
 				E7558DBA1DF2BC9800093962 /* AstroTextField.swift in Sources */,
 				E7E302321E6C72CF008D6B35 /* BlogTags+CoreDataProperties.swift in Sources */,
 				E7E088A01E009B9400221174 /* AstroDistance.swift in Sources */,
-				E7E302271E6C6314008D6B35 /* BlogUsers+CoreDataClass.swift in Sources */,
 				E7E0889E1E0093BA00221174 /* HelperFunctions.swift in Sources */,
 				E70A25841E7F1F3B00CA2245 /* BlogFilterTableViewCell.swift in Sources */,
 				E7E3022B1E6C6314008D6B35 /* BlogTags+CoreDataClass.swift in Sources */,
 				E77F6B3B1E9A80CA007BF9F0 /* TagsForPost+CoreDataProperties.swift in Sources */,
-				E7E302281E6C6314008D6B35 /* BlogUsers+CoreDataProperties.swift in Sources */,
 				E76FB1401E30161400B10858 /* BlogViewController.swift in Sources */,
+				E7C4D2BA1EAD0C5900CDB80D /* BlogModel.xcdatamodeld in Sources */,
 				E7E3022E1E6C6314008D6B35 /* MediaDetails+CoreDataProperties.swift in Sources */,
 				E70A257F1E7B0F4800CA2245 /* BlogPosts+CoreDataClass.swift in Sources */,
 				E7558DB61DF2BC3600093962 /* AstroButton.swift in Sources */,
@@ -534,11 +521,8 @@
 				E767AFE31E068B24004E64F1 /* AFGFadeInAnimator.swift in Sources */,
 				E78AFBAF1E0E765D00BC7569 /* LanguageStruct.swift in Sources */,
 				E79A21701EA5123D00F7D3E9 /* PostsForTag+CoreDataClass.swift in Sources */,
-				E7E3022A1E6C6314008D6B35 /* BlogCategories+CoreDataProperties.swift in Sources */,
 				E7558D861DEF6B1300093962 /* AppDelegate.swift in Sources */,
-				E7A551FD1E9A39A2009BB1B8 /* BlogModel.xcdatamodeld in Sources */,
 				E755B0D31E9101A10072386A /* DataController.swift in Sources */,
-				E7E302291E6C6314008D6B35 /* BlogCategories+CoreDataClass.swift in Sources */,
 				E77F6B3A1E9A80C9007BF9F0 /* TagsForPost+CoreDataClass.swift in Sources */,
 				E765359B1DFCA9370020497B /* WikiViewController.swift in Sources */,
 				E78AFBAD1E0A5ED800BC7569 /* backgroundImageView.swift in Sources */,
@@ -732,12 +716,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		E7A551FB1E9A39A2009BB1B8 /* BlogModel.xcdatamodeld */ = {
+		E7C4D2B81EAD0C5900CDB80D /* BlogModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				E7A551FC1E9A39A2009BB1B8 /* BlogModel.xcdatamodel */,
+				E7C4D2B91EAD0C5900CDB80D /* BlogModel.xcdatamodel */,
 			);
-			currentVersion = E7A551FC1E9A39A2009BB1B8 /* BlogModel.xcdatamodel */;
+			currentVersion = E7C4D2B91EAD0C5900CDB80D /* BlogModel.xcdatamodel */;
 			path = BlogModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

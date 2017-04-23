@@ -40,13 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options:[.badge, .alert, .sound]) { (granted, error) in
-            // Enable or disable features based on authorization.
         }
         application.registerForRemoteNotifications()
-
-        // Populate AirshipConfig.plist with your app's info from
-        // https://go.urbanairship.com
-        // or set runtime properties here.
 
         let config: UAConfig = UAConfig.default()
         if (config.validate() != true) {
@@ -58,15 +53,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
         config.messageCenterStyleConfig = "UAMessageCenterDefaultStyle"
 
-        // You can also programmatically override the plist values:
-        // config.developmentAppKey = @"YourKey";
-        // etc.
-
         // Call takeOff
         UAirship.takeOff(config)
-
-        // Print out the application configuration for debugging (optional)
-        print("Config:\n \(config)")
         UAirship.push().userPushNotificationsEnabled = true
         UAirship.push().defaultPresentationOptions = [.alert, .badge, .sound]
         UAirship.push().resetBadge()
