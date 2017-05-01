@@ -38,6 +38,7 @@ enum wordpressAction {
 let WORDPRESSADDRESS = "https://thisnow.software/wp-json/wp/v2/"
 let WORDPRESSPAGESIZE = 10
 
+let ALLOWEDDOMAINS = ["bbc.co.uk", "bbc.com", "universetoday.com", "space.com", "scientificamerican.com", "eso.org", "nasa.gov", "astronomy.com", "starrynight.com"]
 
 
 

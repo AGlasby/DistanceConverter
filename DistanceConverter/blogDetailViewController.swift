@@ -56,6 +56,25 @@ class blogDetailViewController: UIViewController, WKUIDelegate, WKNavigationDele
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         spinnerActivityIndicator.stopAnimating()
     }
+
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+
+        if let url = navigationAction.request.url {
+            let urlString = url.absoluteString
+            var safeUrl = false
+            for dom in ALLOWEDDOMAINS {
+                if urlString.contains(dom) {
+                    safeUrl = true
+                    break
+                }
+            }
+            if url == URL(string: postLink)! || safeUrl {
+                decisionHandler(.allow)
+            } else {
+                decisionHandler(.cancel)
+            }
+        }
+    }
 }
 
 

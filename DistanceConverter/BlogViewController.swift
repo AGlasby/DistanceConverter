@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import CoreData
+import SystemConfiguration
 
 var filteredTags = [Int32]()
 var filter = false
@@ -26,6 +27,7 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
     var fetchPredicate: NSPredicate?
     var fRC: NSFetchedResultsController<BlogPosts>?
     private let refreshControl = UIRefreshControl()
+    var sortMode = sort.id
 
     @IBOutlet weak var blogNavigationBar: UINavigationBar!
     @IBOutlet weak var blogTableView: UITableView!
@@ -43,15 +45,48 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
 
     func completeUISetUp() {
         DispatchQueue.main.async {
-        let sortBy = [NSSortDescriptor(key: "id", ascending: false)]
-        self.fetchPosts(sortBy: sortBy, filterBy: nil)
+            let sortBy = [NSSortDescriptor(key: "id", ascending: false)]
+            self.fetchPosts(sortBy: sortBy, filterBy: nil)
 
-        self.blogTableView.delegate = self
-        self.blogTableView.dataSource = self
+            self.blogTableView.delegate = self
+            self.blogTableView.dataSource = self
 
-        self.setUpTableView()
-        self.updateBlogData()
+            self.setUpTableView()
+            if !self.isInternetAvailable() {
+                self.handleErrorNoNetworkConnection()
+            } else {
+                self.updateBlogData()
+            }
         }
+    }
+
+    func isInternetAvailable() -> Bool {
+
+        var zeroAddress = sockaddr_in()
+        zeroAddress.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
+        zeroAddress.sin_family = sa_family_t(AF_INET)
+
+        guard let defaultRouteReachability = withUnsafePointer(to: &zeroAddress, {
+            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {
+                SCNetworkReachabilityCreateWithAddress(nil, $0)
+            }
+        }) else {
+            return false
+        }
+
+        var flags: SCNetworkReachabilityFlags = []
+        if !SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags) {
+            return false
+        }
+
+        let isReachable = flags.contains(.reachable)
+        let needsConnection = flags.contains(.connectionRequired)
+        
+        return (isReachable && !needsConnection)
+    }
+
+    func handleErrorNoNetworkConnection() {
+        showAlert(title: "No Network Connection", message: "Unable to retrieve blog data as there is no internet connection. Please check connectivity and try again")
     }
 
     func fetchPosts(sortBy: [NSSortDescriptor], filterBy: NSPredicate?) {
@@ -113,10 +148,16 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
         refreshControl.addTarget(self, action: #selector(updateBlogData), for: .valueChanged)
         let attributes = [NSFontAttributeName:UIFont(name: "Georgia", size: 16.0)!]
         refreshControl.attributedTitle = NSAttributedString(string: "Fetching blog posts ...", attributes: attributes)
+//        Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(refreshTimeout), userInfo: nil, repeats: false)
     }
 
-
         public func endTableRefresh(_ notification: Notification) {
+        if refreshControl.isRefreshing {
+            refreshControl.endRefreshing()
+        }
+    }
+
+    func refreshTimeout(){
         if refreshControl.isRefreshing {
             refreshControl.endRefreshing()
         }
@@ -180,11 +221,11 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
         guard let moc = managedObjectContext else {
             fatalError("MOC not initialized")
         }
+        Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(refreshTimeout), userInfo: nil, repeats: false)
         let parameters = setUpParameters()
         getWordpressData(action: wordpressAction.tags, parameters: parameters, context: moc)
         getWordpressData(action: wordpressAction.media, parameters: parameters, context: moc)
         getWordpressData(action: wordpressAction.posts, parameters: parameters, context: moc)
-
     }
 
 
@@ -267,7 +308,7 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
                     }
                 }
 
-                let sortDescriptors = [NSSortDescriptor(key: "id", ascending: false)]
+                let sortDescriptors = sortSelectedPosts(sortBy: sortMode)
                 fetchPredicate = NSPredicate(format: "id IN %@", posts)
                 fetchPosts(sortBy: sortDescriptors, filterBy:fetchPredicate)
 
@@ -276,6 +317,8 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
                 fetchPredicate = NSPredicate(value: true)
                 fetchPosts(sortBy: sortDescriptor, filterBy: fetchPredicate)
             }
+            let tableViewTop = IndexPath(row: 0, section: 0)
+            self.blogTableView.scrollToRow(at: tableViewTop, at: UITableViewScrollPosition.top, animated: true)
             self.tabBarController?.selectedIndex = 1
         }
     }
@@ -286,22 +329,30 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
     @IBAction func showSortOptions(_ sender: Any) {
         let ac = UIAlertController(title: "Sort Posts", message: nil, preferredStyle: .actionSheet)
         ac.addAction(UIAlertAction(title: "By Date", style: .default) { _ in
-            self.sortSelectedPosts(sortBy: sort.date)
+            self.sortMode = sort.date
+            let sortBy = self.sortSelectedPosts(sortBy: sort.date)
+            self.fetchPosts(sortBy: sortBy, filterBy: self.fetchPredicate)
             })
         ac.addAction(UIAlertAction(title: "By Title", style: .default) { _ in
-            self.sortSelectedPosts(sortBy: sort.title)
+            self.sortMode = sort.title
+            let sortBy = self.sortSelectedPosts(sortBy: sort.title)
+            self.fetchPosts(sortBy: sortBy, filterBy: self.fetchPredicate)
         })
         ac.addAction(UIAlertAction(title: "By Author", style: .default) { _ in
-            self.sortSelectedPosts(sortBy: sort.author)
+            self.sortMode = sort.author
+            let sortBy = self.sortSelectedPosts(sortBy: sort.author)
+            self.fetchPosts(sortBy: sortBy, filterBy: self.fetchPredicate)
         })
         ac.addAction(UIAlertAction(title: "Default", style: .default) { _ in
-            self.sortSelectedPosts(sortBy: sort.id)
+            self.sortMode = sort.id
+            let sortBy = self.sortSelectedPosts(sortBy: sort.id)
+            self.fetchPosts(sortBy: sortBy, filterBy: self.fetchPredicate)
         })
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(ac, animated: true)
     }
 
-    func sortSelectedPosts(sortBy: sort) {
+    func sortSelectedPosts(sortBy: sort) -> [NSSortDescriptor] {
         var sorter = [NSSortDescriptor]()
         switch sortBy {
             case sort.author:
@@ -313,7 +364,7 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
             case sort.title:
                 sorter.append(NSSortDescriptor(key: "title", ascending: true))
         }
-        fetchPosts(sortBy: sorter, filterBy: fetchPredicate)
+        return sorter
     }
 }
 

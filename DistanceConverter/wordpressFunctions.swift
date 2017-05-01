@@ -29,6 +29,9 @@ func getWordpressData(action: wordpressAction, parameters: [String : Any], conte
     Alamofire.request(serverUrl!, method: .get, parameters: parameters, encoding: JSONEncoding.default)
         .responseJSON {response in
         guard response.result.isSuccess else {
+            let notificationName = Notification.Name(REFRESHCOMPLETE)
+            NotificationCenter.default.post(name: notificationName, object: nil)
+            downloadsComplete = 0
             handleErrorRetrievingJSON(action: action)
             return
         }
