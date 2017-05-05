@@ -10,6 +10,7 @@
         <attribute name="featuredMedia" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="id" attributeType="Integer 32" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="newPost" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="slug" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" attributeType="String" minValueString="10" spotlightIndexingEnabled="YES" syncable="YES"/>
         <relationship name="media" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MediaDetails" inverseName="posts" inverseEntity="MediaDetails" syncable="YES"/>
@@ -43,7 +44,7 @@
         <relationship name="post" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BlogPosts" inverseName="tagSet" inverseEntity="BlogPosts" syncable="YES"/>
     </entity>
     <elements>
-        <element name="BlogPosts" positionX="-351" positionY="-45" width="128" height="253"/>
+        <element name="BlogPosts" positionX="-351" positionY="-45" width="128" height="270"/>
         <element name="BlogTags" positionX="268" positionY="221" width="128" height="103"/>
         <element name="MediaDetails" positionX="133" positionY="-342" width="128" height="163"/>
         <element name="PostsForTag" positionX="45" positionY="135" width="128" height="88"/>

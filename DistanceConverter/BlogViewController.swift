@@ -270,6 +270,18 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
         if let indexPath = self.blogTableView.indexPathForSelectedRow {
             let post = fRC?.object(at: indexPath)
             let selectedBlog = post?.value(forKey: "link")
+            post?.newPost = false
+            guard let moc = managedObjectContext else {
+                fatalError("Failed to get managed object context")
+            }
+            moc.performAndWait {
+                do {
+                    try moc.save()
+                    dataController?.saveContext()
+                } catch {
+                    fatalError("Failed to save child context: \(error)")
+                }
+            }
             blogDetailVC.postLink = selectedBlog as! String
             blogDetailVC.postTitle = post!.value(forKey: "title") as! String
         }

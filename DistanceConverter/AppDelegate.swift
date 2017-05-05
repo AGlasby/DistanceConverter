@@ -57,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         UAirship.takeOff(config)
         UAirship.push().userPushNotificationsEnabled = true
         UAirship.push().defaultPresentationOptions = [.alert, .badge, .sound]
+        UAirship.push().isAutobadgeEnabled = true
         UAirship.push().resetBadge()
         
         return true

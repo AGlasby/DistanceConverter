@@ -37,16 +37,30 @@ class BlogTableViewCell: UITableViewCell {
     }
 
     func configureCell(post: NSManagedObject, context: NSManagedObjectContext) {
-        titleTextField.text = post.value(forKey: "title") as? String
+        if let titleText = post.value(forKey: "title") as? String {
+            if let newPost = post.value(forKey: "newPost") as? Bool {
+                if newPost {
+                    titleTextField.text = "NEW - \(titleText)"
+                } else {
+                    titleTextField.text = titleText
+                }
+            }
+        }
+
         let excerpt = post.value(forKey: "excerpt") as? String
         extractLabel.attributedText = excerpt?.htmlAttributedString()
-        var date_gmt = "0000-01-01"
+        
         guard let dateGmt = post.value(forKey: "dateGmt") as? String else {
             return
         }
-        let dateGmtRange = dateGmt.range(of: "T")
-        date_gmt = (dateGmt.substring(to: dateGmtRange!.lowerBound))
-        dateTextField.text = date_gmt
+        var dateISO = dateGmt
+        dateISO.append("Z")
+        let isoFormatter = ISO8601DateFormatter()
+        let blogDate = isoFormatter.date(from: dateISO)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "d MMM yyyy"
+        let formatedDateGMT = formatter.string(from: blogDate!)
+        dateTextField.text = formatedDateGMT
 
         self.featuredImageImageView.image = #imageLiteral(resourceName: "12pc@1x")
         if let mediaId = post.value(forKey: "featuredMedia") as? Int {
