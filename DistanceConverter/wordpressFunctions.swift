@@ -11,7 +11,63 @@ import  CoreData
 import Alamofire
 import AlamofireImage
 
-var downloadsComplete = 0
+struct ActionDownloadsStatus {
+    private var _postsPagesTotal:Int
+    private var _postsPagesProcessed:Int
+    private var _tagsPagesTotal:Int
+    private var _tagsPagesProcessed:Int
+    private var _mediaPagesTotal:Int
+    private var _mediaPagesProcessed:Int
+
+    init() {
+        _postsPagesTotal = 100
+        _postsPagesProcessed = 0
+        _tagsPagesTotal = 100
+        _tagsPagesProcessed = 0
+        _mediaPagesTotal = 100
+        _mediaPagesProcessed = 0
+    }
+
+    mutating func actionComplete(action: wordpressAction) {
+        switch action {
+        case .tags:
+            _tagsPagesProcessed += 1
+        case .media:
+            _mediaPagesProcessed += 1
+        case .posts:
+            _postsPagesProcessed += 1
+        }
+    }
+
+    mutating func setPagesTotal(action: wordpressAction, totalPages: Int) {
+        switch action {
+        case .tags:
+            _tagsPagesTotal = totalPages
+        case .media:
+            _mediaPagesTotal = totalPages
+        case .posts:
+            _postsPagesTotal = totalPages
+        }
+    }
+
+    mutating func resetDownloadStatus() {
+        _postsPagesProcessed = 0
+        _tagsPagesProcessed = 0
+        _mediaPagesProcessed = 0
+    }
+    func checkStatus() -> Bool {
+        if _postsPagesProcessed == _postsPagesTotal && _mediaPagesProcessed == _mediaPagesTotal && _tagsPagesProcessed == _tagsPagesTotal {
+            return true
+        } else {
+            return false
+        }
+    }
+    func status() {
+        print("posts = \(_postsPagesProcessed)")
+        print("tags = \(_tagsPagesProcessed)")
+        print("media = \(_mediaPagesProcessed)")
+    }
+}
 
 func setUpParameters() -> [String:Any] {
     let parameters = [
@@ -20,7 +76,7 @@ func setUpParameters() -> [String:Any] {
     return parameters
 }
 
-func getWordpressData(action: wordpressAction, parameters: [String : Any], context: NSManagedObjectContext) {
+func getWordpressData(action: wordpressAction, parameters: [String : Any]) {
 
     let serverUrl = URL(string: "\(WORDPRESSADDRESS)\(action)")
     var urlRequest = URLRequest(url: serverUrl!)
@@ -31,7 +87,7 @@ func getWordpressData(action: wordpressAction, parameters: [String : Any], conte
         guard response.result.isSuccess else {
             let notificationName = Notification.Name(REFRESHCOMPLETE)
             NotificationCenter.default.post(name: notificationName, object: nil)
-            downloadsComplete = 0
+
             handleErrorRetrievingJSON(action: action)
             return
         }
@@ -43,7 +99,7 @@ func getWordpressData(action: wordpressAction, parameters: [String : Any], conte
             handleErrorRetrievingJSON(action: action)
             return
         }
-        extractAndSave(action: action, json: json, context: context)
+        extractAndSave(action: action, json: json)
         var parametersNew = parameters
         if let httpResponse = response.response?.allHeaderFields {
             if let xWpTotal = httpResponse["x-wp-total"] as? String {
@@ -56,7 +112,10 @@ func getWordpressData(action: wordpressAction, parameters: [String : Any], conte
                         handleErrorRetrievingJSON(action: action)
                         return
                     }
-                    if totalPagesInWP > 1 {
+                    downloadTracker.setPagesTotal(action: action, totalPages: totalPagesInWP)
+                    if totalPagesInWP == 1 {
+                        downloadTracker.actionComplete(action: action)
+                    } else {
                         for page in 2...totalPagesInWP {
                             parametersNew["page"] = page
                             Alamofire.request(serverUrl!, method: .get, parameters: parametersNew, encoding: JSONEncoding.default)
@@ -73,29 +132,33 @@ func getWordpressData(action: wordpressAction, parameters: [String : Any], conte
                                 handleErrorRetrievingJSON(action: action)
                                 return
                             }
-                            extractAndSave(action: action, json: json, context: context)
+                                print("\(action) page \(page) of \(totalPagesInWP)")
+                                extractAndSave(action: action, json: json)
+                                print("extracted \(action) page \(page)")
                             }
                         }
                     }
-                    checkDownloadsCompleted()
                 }
             }
         }
     }
 
-    func checkDownloadsCompleted() {
-        downloadsComplete += 1
-        if downloadsComplete == 4 {
+    func checkIfDownloadsCompleted() {
+        print("checking status")
+        downloadTracker.status()
+        if downloadTracker.checkStatus() {
+            print("All complete")
             let notificationName = Notification.Name(REFRESHCOMPLETE)
             NotificationCenter.default.post(name: notificationName, object: nil)
-            downloadsComplete = 0
+            downloadTracker.resetDownloadStatus()
         }
     }
 
-    func extractAndSave(action: wordpressAction, json: [Dictionary<String, Any>], context: NSManagedObjectContext) {
-        let type = NSManagedObjectContextConcurrencyType.privateQueueConcurrencyType
-        let moc = NSManagedObjectContext(concurrencyType: type)
-        moc.parent = context
+    func extractAndSave(action: wordpressAction, json: [Dictionary<String, Any>]) {
+        print("extracting \(action)")
+        guard let moc = dataController?.writerContext else {
+            fatalError("Unable to get main context")
+        }
         moc.performAndWait {
             for j in 0..<json.count {
                 let data = json[j]
@@ -106,7 +169,7 @@ func getWordpressData(action: wordpressAction, parameters: [String : Any], conte
                         fetch.predicate = NSPredicate(format: "id == %d", id)
                         var blogPostsResults: [BlogPosts]? = nil
                         do {
-                            blogPostsResults = try context.fetch(fetch)
+                            blogPostsResults = try moc.fetch(fetch)
                         } catch {
                             fatalError("Failed to retrieve blogPosts from core data \(error)")
                         }
@@ -126,7 +189,7 @@ func getWordpressData(action: wordpressAction, parameters: [String : Any], conte
                         fetch.predicate = NSPredicate(format: "mediaId == %d", id)
                         var mediaDetailsResults: [MediaDetails]? = nil
                         do {
-                            mediaDetailsResults = try context.fetch(fetch)
+                            mediaDetailsResults = try moc.fetch(fetch)
                         } catch {
                             fatalError("Failed to retrieve mediaDetails from core data \(error)")
                         }
@@ -146,7 +209,7 @@ func getWordpressData(action: wordpressAction, parameters: [String : Any], conte
                         fetch.predicate = NSPredicate(format: "tagId == %d", id)
                         var blogTagsResults: [BlogTags]? = nil
                         do {
-                            blogTagsResults = try context.fetch(fetch)
+                            blogTagsResults = try moc.fetch(fetch)
                         } catch {
                             fatalError("Failed to retrieve blogTags from core data \(error)")
                         }
@@ -168,9 +231,12 @@ func getWordpressData(action: wordpressAction, parameters: [String : Any], conte
             try moc.save()
              dataController?.saveContext()
             } catch {
-                fatalError("Failed to save child context: \(error)")
+                fatalError("Failed to save context: \(error)")
             }
         }
+        downloadTracker.actionComplete(action: action)
+        print("\(action) completed")
+        checkIfDownloadsCompleted()
     }
 
     func handleErrorRetrievingJSON(action: wordpressAction) {

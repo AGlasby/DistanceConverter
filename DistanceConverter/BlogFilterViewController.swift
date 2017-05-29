@@ -12,8 +12,10 @@ class BlogFilterViewController: UIViewController, UITableViewDelegate, UITableVi
     var filterByTags = [Int32]()
     var tagDetails: [BlogTags]!
     var allSelected = false
+    var newSelected = false
 
     @IBOutlet weak var blogFilterTableView: UITableView!
+    @IBOutlet weak var newButtonSelected: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +71,16 @@ class BlogFilterViewController: UIViewController, UITableViewDelegate, UITableVi
         allSelected = true
     }
 
+    @IBAction func newSelected(_ sender: Any) {
+        if !newSelected {
+            newSelected = true
+            newButtonSelected.tintColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
+        } else {
+            newSelected = false
+            newButtonSelected.tintColor = #colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1)
+        }
+    }
+    
     @IBAction func selectClearAll(_ sender: Any) {
         if let totalRows = blogFilterTableView.indexPathsForVisibleRows {
             for r in totalRows {

@@ -13,21 +13,21 @@ import SystemConfiguration
 
 var filteredTags = [Int32]()
 var filter = false
-enum sort {
+enum sortField {
     case id
     case author
     case date
     case title
 }
-
+var downloadTracker = ActionDownloadsStatus()
 
 class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, UITableViewDelegate, UITableViewDataSource {
 
-    var managedObjectContext: NSManagedObjectContext?
     var fetchPredicate: NSPredicate?
     var fRC: NSFetchedResultsController<BlogPosts>?
-    private let refreshControl = UIRefreshControl()
-    var sortMode = sort.id
+    internal let refreshControl = UIRefreshControl()
+    var sortMode = sortField.id
+
 
     @IBOutlet weak var blogNavigationBar: UINavigationBar!
     @IBOutlet weak var blogTableView: UITableView!
@@ -44,19 +44,16 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
 
 
     func completeUISetUp() {
-        DispatchQueue.main.async {
-            let sortBy = [NSSortDescriptor(key: "id", ascending: false)]
-            self.fetchPosts(sortBy: sortBy, filterBy: nil)
+        let sortBy = [NSSortDescriptor(key: "id", ascending: false)]
+        self.fetchPosts(sortBy: sortBy, filterBy: nil)
 
-            self.blogTableView.delegate = self
-            self.blogTableView.dataSource = self
-
-            self.setUpTableView()
-            if !self.isInternetAvailable() {
-                self.handleErrorNoNetworkConnection()
-            } else {
-                self.updateBlogData()
-            }
+        self.blogTableView.delegate = self
+        self.blogTableView.dataSource = self
+        self.setUpTableView()
+        if !self.isInternetAvailable() {
+            self.handleErrorNoNetworkConnection()
+        } else {
+            self.updateBlogData()
         }
     }
 
@@ -95,7 +92,7 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
         if filterBy != nil {
             fetch.predicate = filterBy
         }
-        guard let moc = self.managedObjectContext else {
+        guard let moc = dataController?.mainContext else {
             fatalError("MOC not initialized")
         }
         self.fRC = NSFetchedResultsController(fetchRequest: fetch, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
@@ -129,12 +126,14 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
 
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let frc = fRC else {
-            fatalError("Failed to resolve FetchedResultsController")
+        guard let moc = dataController?.mainContext else {
+            fatalError("Unable to get main context")
         }
-        let obj = frc.object(at: indexPath)
+        guard let obj = fRC?.object(at: indexPath) else {
+            fatalError("Unable to get object from fetched results controller")
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: "blogCell", for: indexPath) as! BlogTableViewCell
-        cell.configureCell(post: obj, context: managedObjectContext!)
+        cell.configureCell(post: obj, context: moc)
         return cell
     }
 
@@ -148,13 +147,15 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
         refreshControl.addTarget(self, action: #selector(updateBlogData), for: .valueChanged)
         let attributes = [NSFontAttributeName:UIFont(name: "Georgia", size: 16.0)!]
         refreshControl.attributedTitle = NSAttributedString(string: "Fetching blog posts ...", attributes: attributes)
-//        Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(refreshTimeout), userInfo: nil, repeats: false)
+        Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(refreshTimeout), userInfo: nil, repeats: false)
     }
 
         public func endTableRefresh(_ notification: Notification) {
         if refreshControl.isRefreshing {
             refreshControl.endRefreshing()
         }
+        let sortBy = [NSSortDescriptor(key: "id", ascending: false)]
+        fetchPosts(sortBy: sortBy, filterBy: nil)
     }
 
     func refreshTimeout(){
@@ -218,14 +219,12 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
 // MARK: WordPress Methods
 
     func updateBlogData() {
-        guard let moc = managedObjectContext else {
-            fatalError("MOC not initialized")
-        }
+
         Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(refreshTimeout), userInfo: nil, repeats: false)
         let parameters = setUpParameters()
-        getWordpressData(action: wordpressAction.tags, parameters: parameters, context: moc)
-        getWordpressData(action: wordpressAction.media, parameters: parameters, context: moc)
-        getWordpressData(action: wordpressAction.posts, parameters: parameters, context: moc)
+        getWordpressData(action: wordpressAction.tags, parameters: parameters)
+        getWordpressData(action: wordpressAction.media, parameters: parameters)
+        getWordpressData(action: wordpressAction.posts, parameters: parameters)
     }
 
 
@@ -249,7 +248,7 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
     func prepareForBlogPostFilterSegue(_ segue: UIStoryboardSegue) {
         let fetch: NSFetchRequest<BlogTags> = BlogTags.createFetchRequest()
         fetch.sortDescriptors = [NSSortDescriptor(key: "tagId", ascending: true)]
-        guard let moc = self.managedObjectContext else {
+        guard let moc = dataController?.mainContext else {
             fatalError("MOC not initialized")
         }
         var blogTags: [BlogTags]? = nil
@@ -271,7 +270,7 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
             let post = fRC?.object(at: indexPath)
             let selectedBlog = post?.value(forKey: "link")
             post?.newPost = false
-            guard let moc = managedObjectContext else {
+            guard let moc = dataController?.writerContext else {
                 fatalError("Failed to get managed object context")
             }
             moc.performAndWait {
@@ -279,7 +278,7 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
                     try moc.save()
                     dataController?.saveContext()
                 } catch {
-                    fatalError("Failed to save child context: \(error)")
+                    fatalError("Failed to save writer context: \(error)")
                 }
             }
             blogDetailVC.postLink = selectedBlog as! String
@@ -296,41 +295,48 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
     @IBAction func backFromModal(segue: UIStoryboardSegue) {
         if let sourceViewController = segue.source as? BlogFilterViewController {
             filter = true
+            let newPosts = sourceViewController.newSelected
             filteredTags = sourceViewController.filterByTags
             let all = sourceViewController.allSelected
             if !all {
-                let fetch: NSFetchRequest<PostsForTag> = PostsForTag.createFetchRequest()
-                fetch.sortDescriptors = [NSSortDescriptor(key: "tagId", ascending: false)]
-                fetch.predicate = NSPredicate(format: "tagId IN %@", filteredTags)
-                guard let moc = self.managedObjectContext else {
-                    fatalError("MOC not initialized")
-                }
-                var postsForTags: [PostsForTag]? = nil
-                do {
-                    postsForTags = try moc.fetch(fetch)
-                } catch {
-                    fatalError("Failed to retrieve postsForTag images from core data \(error)")
-                }
-                var posts = [Int32]()
-                for s in 0..<postsForTags!.count {
-                    let setOfPosts = postsForTags![s].post
-                    let postsInSet = setOfPosts!.allObjects as! [BlogPosts]
-                    for p in 0..<postsInSet.count {
-                        posts.append(postsInSet[p].id)
+                if !newPosts {
+                    let fetch: NSFetchRequest<PostsForTag> = PostsForTag.createFetchRequest()
+                    fetch.sortDescriptors = [NSSortDescriptor(key: "tagId", ascending: false)]
+                    fetch.predicate = NSPredicate(format: "tagId IN %@", filteredTags)
+                    guard let moc = dataController?.mainContext else {
+                        fatalError("MOC not initialized")
                     }
+                    var postsForTags: [PostsForTag]? = nil
+                    do {
+                        postsForTags = try moc.fetch(fetch)
+                    } catch {
+                        fatalError("Failed to retrieve postsForTag images from core data \(error)")
+                    }
+                    var posts = [Int32]()
+                    for s in 0..<postsForTags!.count {
+                        let setOfPosts = postsForTags![s].post
+                        let postsInSet = setOfPosts!.allObjects as! [BlogPosts]
+                        for p in 0..<postsInSet.count {
+                            posts.append(postsInSet[p].id)
+                        }
                 }
-
                 let sortDescriptors = sortSelectedPosts(sortBy: sortMode)
                 fetchPredicate = NSPredicate(format: "id IN %@", posts)
                 fetchPosts(sortBy: sortDescriptors, filterBy:fetchPredicate)
-
+                } else {
+                    let sortDescriptor = [NSSortDescriptor(key: "id", ascending: false)]
+                    let fetchPredicate = NSPredicate(format: "newPost == %@", NSNumber(booleanLiteral: true))
+                    fetchPosts(sortBy: sortDescriptor, filterBy: fetchPredicate)
+                }
             } else {
                 let sortDescriptor = [NSSortDescriptor(key: "id", ascending: false)]
                 fetchPredicate = NSPredicate(value: true)
                 fetchPosts(sortBy: sortDescriptor, filterBy: fetchPredicate)
             }
-            let tableViewTop = IndexPath(row: 0, section: 0)
-            self.blogTableView.scrollToRow(at: tableViewTop, at: UITableViewScrollPosition.top, animated: true)
+            if blogTableView.numberOfRows(inSection: 0) > 0 {
+                let tableViewTop = IndexPath(row: 0, section: 0)
+                self.blogTableView.scrollToRow(at: tableViewTop, at: UITableViewScrollPosition.top, animated: true)
+            }
             self.tabBarController?.selectedIndex = 1
         }
     }
@@ -341,42 +347,77 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
     @IBAction func showSortOptions(_ sender: Any) {
         let ac = UIAlertController(title: "Sort Posts", message: nil, preferredStyle: .actionSheet)
         ac.addAction(UIAlertAction(title: "By Date", style: .default) { _ in
-            self.sortMode = sort.date
-            let sortBy = self.sortSelectedPosts(sortBy: sort.date)
+            self.sortMode = sortField.date
+            let sortBy = self.sortSelectedPosts(sortBy: sortField.date)
             self.fetchPosts(sortBy: sortBy, filterBy: self.fetchPredicate)
             })
         ac.addAction(UIAlertAction(title: "By Title", style: .default) { _ in
-            self.sortMode = sort.title
-            let sortBy = self.sortSelectedPosts(sortBy: sort.title)
+            self.sortMode = sortField.title
+            let sortBy = self.sortSelectedPosts(sortBy: sortField.title)
             self.fetchPosts(sortBy: sortBy, filterBy: self.fetchPredicate)
         })
         ac.addAction(UIAlertAction(title: "By Author", style: .default) { _ in
-            self.sortMode = sort.author
-            let sortBy = self.sortSelectedPosts(sortBy: sort.author)
+            self.sortMode = sortField.author
+            let sortBy = self.sortSelectedPosts(sortBy: sortField.author)
             self.fetchPosts(sortBy: sortBy, filterBy: self.fetchPredicate)
         })
         ac.addAction(UIAlertAction(title: "Default", style: .default) { _ in
-            self.sortMode = sort.id
-            let sortBy = self.sortSelectedPosts(sortBy: sort.id)
+            self.sortMode = sortField.id
+            let sortBy = self.sortSelectedPosts(sortBy: sortField.id)
             self.fetchPosts(sortBy: sortBy, filterBy: self.fetchPredicate)
         })
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(ac, animated: true)
     }
 
-    func sortSelectedPosts(sortBy: sort) -> [NSSortDescriptor] {
-        var sorter = [NSSortDescriptor]()
+    func sortSelectedPosts(sortBy: sortField) -> [NSSortDescriptor] {
+        var sortDescriptor = [NSSortDescriptor]()
         switch sortBy {
-            case sort.author:
-                sorter.append(NSSortDescriptor(key: "author", ascending: true))
-            case sort.date:
-                sorter.append(NSSortDescriptor(key: "date", ascending: true))
-            case sort.id:
-                sorter.append(NSSortDescriptor(key: "id", ascending: false))
-            case sort.title:
-                sorter.append(NSSortDescriptor(key: "title", ascending: true))
+            case sortField.author:
+                sortDescriptor.append(NSSortDescriptor(key: "author", ascending: true))
+            case sortField.date:
+                sortDescriptor.append(NSSortDescriptor(key: "date", ascending: true))
+            case sortField.id:
+                sortDescriptor.append(NSSortDescriptor(key: "id", ascending: false))
+            case sortField.title:
+                sortDescriptor.append(NSSortDescriptor(key: "title", ascending: true))
         }
-        return sorter
+        return sortDescriptor
+    }
+
+    @IBAction func markAllPostsRead(_ sender: Any) {
+        guard let moc = dataController?.writerContext else {
+            fatalError("Failed to get writer context")
+        }
+        moc.perform({
+            let request = NSBatchUpdateRequest(entityName: "BlogPosts")
+            let predicate = NSPredicate(format: "newPost == %@", NSNumber(booleanLiteral: true))
+            request.predicate = predicate
+            request.propertiesToUpdate = ["newPost": false]
+            request.resultType = .updatedObjectIDsResultType
+            do {
+                guard let result = try moc.execute(request) as? NSBatchUpdateResult else {
+                    fatalError("Unexpected result from batch update")
+                }
+                guard let resultArray = result.result as? [NSManagedObjectID] else {
+                    fatalError("Unexpected result from batch update")
+                }
+                if resultArray.count != 0 {
+                    self.mergeExternalChanges(resultArray, ofType: NSUpdatedObjectsKey)
+                }
+            } catch {
+                fatalError("Failed to execute batch update")
+            }
+        })
+    }
+
+    func mergeExternalChanges(_ objectIDArray: [NSManagedObjectID], ofType type: String) {
+        guard let main = dataController?.mainContext, let writer = dataController?.writerContext else {
+            fatalError("Failed to get context")
+        }
+        let save = [type: objectIDArray]
+        let contexts = [main, writer]
+        NSManagedObjectContext.mergeChanges(fromRemoteContextSave: save, into: contexts)
     }
 }
 

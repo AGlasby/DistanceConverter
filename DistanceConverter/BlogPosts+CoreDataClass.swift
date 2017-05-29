@@ -96,6 +96,7 @@ public class BlogPosts: NSManagedObject {
         blogPost.excerpt = excerpt
         blogPost.featuredMedia = featuredMedia
         blogPost.link = link
+        blogPost.newPost = true
         return true
     }
 }

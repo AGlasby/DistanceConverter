@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="GfQ-F7-JmH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="GfQ-F7-JmH">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -314,7 +314,7 @@
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="16/1/2017" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S2l-5E-C1d" customClass="AstroTextField" customModule="_2parsecs" customModuleProvider="target">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="16/1/2017" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S2l-5E-C1d" customClass="AstroTextField" customModule="_2parsecs" customModuleProvider="target">
                                                     <rect key="frame" x="8" y="143.66666666666666" width="92" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="foA-Je-jmE"/>
@@ -379,6 +379,11 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="Title" id="Fw2-l0-lVy">
+                                        <barButtonItem key="leftBarButtonItem" title="Mark All Read" id="TPn-H2-jW5">
+                                            <connections>
+                                                <action selector="markAllPostsRead:" destination="LyM-jT-EtL" id="w7q-SH-LKH"/>
+                                            </connections>
+                                        </barButtonItem>
                                         <rightBarButtonItems>
                                             <barButtonItem title="Filter" id="Orh-pV-lg2">
                                                 <connections>
@@ -574,25 +579,35 @@
                     </view>
                     <navigationItem key="navigationItem" id="4VH-Vm-dUW">
                         <barButtonItem key="leftBarButtonItem" systemItem="done" id="VhL-Ag-H3T">
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="AYd-DO-tpT" kind="unwind" unwindAction="backFromModalWithSegue:" id="wEg-YF-QBb"/>
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem title="Clear" id="mJK-ul-nCp">
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="selectClearAll:" destination="b8Y-iE-CVx" id="4tx-8L-vqd"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="All" id="Zqb-fv-Pm2">
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="selectSetAll:" destination="b8Y-iE-CVx" id="gL1-nl-UcF"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="New" id="fZe-Vi-RZI">
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="newSelected:" destination="b8Y-iE-CVx" id="30B-4c-4sj"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="blogFilterTableView" destination="xam-Eh-nfW" id="5BB-P9-m2E"/>
+                        <outlet property="newButtonSelected" destination="fZe-Vi-RZI" id="gvr-EE-unl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bAb-90-t7o" userLabel="First Responder" sceneMemberID="firstResponder"/>

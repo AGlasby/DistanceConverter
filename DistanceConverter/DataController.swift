@@ -36,10 +36,11 @@ class AFGDataController {
         var type = NSManagedObjectContextConcurrencyType.privateQueueConcurrencyType
         writerContext = NSManagedObjectContext(concurrencyType: type)
         writerContext?.persistentStoreCoordinator = psc
+        writerContext?.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
         type = NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType
         mainContext = NSManagedObjectContext(concurrencyType: type)
-        mainContext?.parent = writerContext
+        mainContext?.persistentStoreCoordinator = psc
 
 
         let queue = DispatchQueue.global(qos: .background)
@@ -55,8 +56,10 @@ class AFGDataController {
                 assertionFailure("Failed to initialize PSC: \(error)")
                 self.initializationComplete?(error)
             }
-            let notificationName = Notification.Name(INITIALIZED)
-            NotificationCenter.default.post(name: notificationName, object: nil)
+            DispatchQueue.main.async {
+                let notificationName = Notification.Name(INITIALIZED)
+                NotificationCenter.default.post(name: notificationName, object: nil)
+            }
         }
     }
 

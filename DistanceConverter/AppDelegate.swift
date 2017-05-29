@@ -23,8 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             (inError) in
             if let error = inError {
                 self.displayError(error)
-            } else {
-                self.contextInitialized()
             }
         }
 
@@ -35,8 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         guard let controller = tabBarController.selectedViewController as? BlogViewController else {
             fatalError("Top view controller is not BlogViewController \(String(describing: tabBarController.selectedViewController.self))")
         }
-
-        controller.managedObjectContext = dataController?.mainContext
 
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options:[.badge, .alert, .sound]) { (granted, error) in
@@ -63,10 +59,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         return true
     }
 
-    func contextInitialized() {
-
-    }
-
     func displayError(_ error: Error) {
         var message = "The database is either corrupt or was created by a"
         message += " newer version of the application. Please contact support to"
@@ -76,7 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let close = UIAlertAction(title: "Close", style: .cancel, handler: {
             (action) in
 
-            //Probably terminate the application
+            fatalError("Closing app")
         })
         alert.addAction(close)
         if let controller = window?.rootViewController {
@@ -99,13 +91,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
 
     func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+        dataController?.saveContext()
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        dataController?.saveContext()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -118,7 +108,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        dataController?.saveContext()
     }
 
 
