@@ -132,9 +132,8 @@ func getWordpressData(action: wordpressAction, parameters: [String : Any]) {
                                 handleErrorRetrievingJSON(action: action)
                                 return
                             }
-                                print("\(action) page \(page) of \(totalPagesInWP)")
+                                print("About to extract \(action) page \(page)")
                                 extractAndSave(action: action, json: json)
-                                print("extracted \(action) page \(page)")
                             }
                         }
                     }
@@ -144,13 +143,13 @@ func getWordpressData(action: wordpressAction, parameters: [String : Any]) {
     }
 
     func checkIfDownloadsCompleted() {
-        print("checking status")
         downloadTracker.status()
         if downloadTracker.checkStatus() {
-            print("All complete")
+            print("All downloads completed")
             let notificationName = Notification.Name(REFRESHCOMPLETE)
             NotificationCenter.default.post(name: notificationName, object: nil)
             downloadTracker.resetDownloadStatus()
+
         }
     }
 

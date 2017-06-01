@@ -23,10 +23,12 @@ var downloadTracker = ActionDownloadsStatus()
 
 class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, UITableViewDelegate, UITableViewDataSource {
 
+    var spinnerActivityIndicator: UIActivityIndicatorView!
     var fetchPredicate: NSPredicate?
     var fRC: NSFetchedResultsController<BlogPosts>?
     internal let refreshControl = UIRefreshControl()
     var sortMode = sortField.id
+    var timer = Timer()
 
 
     @IBOutlet weak var blogNavigationBar: UINavigationBar!
@@ -40,6 +42,14 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
         NotificationCenter.default.addObserver(self, selector: #selector(completeUISetUp), name: notificationName, object: nil)
         notificationName = Notification.Name(REFRESHCOMPLETE)
         NotificationCenter.default.addObserver(self, selector: #selector(endTableRefresh), name: notificationName, object: nil)
+
+        spinnerActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        spinnerActivityIndicator.center = view.center
+        spinnerActivityIndicator.becomeFirstResponder()
+        view.addSubview(spinnerActivityIndicator)
+        spinnerActivityIndicator.activityIndicatorViewStyle = .whiteLarge
+        spinnerActivityIndicator.startAnimating()
+        spinnerActivityIndicator.hidesWhenStopped = true
     }
 
 
@@ -145,12 +155,17 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
             blogTableView.addSubview(refreshControl)
         }
         refreshControl.addTarget(self, action: #selector(updateBlogData), for: .valueChanged)
-        let attributes = [NSFontAttributeName:UIFont(name: "Georgia", size: 16.0)!]
+        let attributes = [NSFontAttributeName: UIFont(name: "Georgia", size: 16.0)!, NSForegroundColorAttributeName: UIColor.white]
         refreshControl.attributedTitle = NSAttributedString(string: "Fetching blog posts ...", attributes: attributes)
-        Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(refreshTimeout), userInfo: nil, repeats: false)
+        refreshControl.tintColor = UIColor.white
+        timer = Timer.scheduledTimer(timeInterval: 20, target: self, selector: #selector(refreshTimeout), userInfo: nil, repeats: false)
+
     }
 
-        public func endTableRefresh(_ notification: Notification) {
+    public func endTableRefresh(_ notification: Notification) {
+        spinnerActivityIndicator.stopAnimating()
+        timer.invalidate()
+        print("Timer invalidated")
         if refreshControl.isRefreshing {
             refreshControl.endRefreshing()
         }
