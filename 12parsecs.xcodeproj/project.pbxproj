@@ -110,6 +110,7 @@
 		E70A257E1E7B0F4800CA2245 /* BlogPosts+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlogPosts+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E70A25811E7F0AD500CA2245 /* BlogFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogFilterViewController.swift; sourceTree = "<group>"; };
 		E70A25831E7F1F3B00CA2245 /* BlogFilterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogFilterTableViewCell.swift; sourceTree = "<group>"; };
+		E720CD5C1EE5F2FE005AFFB5 /* BlogModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BlogModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		E7558D821DEF6B1300093962 /* 12parsecs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 12parsecs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7558D851DEF6B1300093962 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7558D871DEF6B1300093962 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -719,9 +720,10 @@
 		E7C4D2B81EAD0C5900CDB80D /* BlogModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				E720CD5C1EE5F2FE005AFFB5 /* BlogModel 2.xcdatamodel */,
 				E7C4D2B91EAD0C5900CDB80D /* BlogModel.xcdatamodel */,
 			);
-			currentVersion = E7C4D2B91EAD0C5900CDB80D /* BlogModel.xcdatamodel */;
+			currentVersion = E720CD5C1EE5F2FE005AFFB5 /* BlogModel 2.xcdatamodel */;
 			path = BlogModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

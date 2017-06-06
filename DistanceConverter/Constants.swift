@@ -41,4 +41,3 @@ let WORDPRESSPAGESIZE = 10
 let ALLOWEDDOMAINS = ["bbc.co.uk", "bbc.com", "universetoday.com", "space.com", "scientificamerican.com", "eso.org", "nasa.gov", "astronomy.com", "starrynight.com"]
 
 
-

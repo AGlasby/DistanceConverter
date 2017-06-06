@@ -51,7 +51,8 @@ class AFGDataController {
             }
             let storeUrl = documentsUrl.appendingPathComponent("BlogModel.sqlite")
             do {
-                try psc.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeUrl, options: nil)
+                let options = [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true]
+                try psc.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeUrl, options: options)
             } catch let  error {
                 assertionFailure("Failed to initialize PSC: \(error)")
                 self.initializationComplete?(error)
