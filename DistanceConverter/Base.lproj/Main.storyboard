@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="GfQ-F7-JmH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="GfQ-F7-JmH">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -188,7 +188,7 @@
                             <constraint firstItem="r0U-xp-kMp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="wyc-rq-ECZ"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Converter" id="Wti-ae-9qs"/>
+                    <tabBarItem key="tabBarItem" title="Converter" image="1497403373_calculator" id="Wti-ae-9qs"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -410,7 +410,7 @@
                             <constraint firstItem="nQN-Mk-OYk" firstAttribute="trailing" secondItem="j7u-0d-nLG" secondAttribute="trailingMargin" id="lEZ-aF-P1U"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Blog" id="L08-Jh-sz1"/>
+                    <tabBarItem key="tabBarItem" title="Blog" image="1497403748_26-wordpress" id="L08-Jh-sz1"/>
                     <connections>
                         <outlet property="blogNavigationBar" destination="ehx-qJ-0yI" id="Z9H-OB-8G4"/>
                         <outlet property="blogTableView" destination="nQN-Mk-OYk" id="Hdf-q2-7nE"/>
@@ -637,6 +637,8 @@
     <resources>
         <image name="12pc" width="170" height="75"/>
         <image name="12pc@1x" width="170" height="75"/>
+        <image name="1497403373_calculator" width="21" height="21"/>
+        <image name="1497403748_26-wordpress" width="21" height="21"/>
         <image name="universe2small" width="432" height="768"/>
     </resources>
 </document>

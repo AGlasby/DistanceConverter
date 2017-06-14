@@ -11,18 +11,6 @@ import  CoreData
 import Alamofire
 import AlamofireImage
 
-
-enum wordPressDownloadErrors: Error {
-    case errorRetrievingJSON
-    case extractAndSaveFailure
-    case coreDataError
-    case JSONDeserialisationError
-    case mediaDetailsHandlingError
-    case blogPostsHandlingError
-    case blogTagsHandlingError
-    case coreDataSaveError
-}
-
 struct ActionDownloadsStatus {
     private var _postsPagesTotal:Int
     private var _postsPagesProcessed:Int
@@ -85,11 +73,9 @@ func setUpParameters() -> [String:Any] {
 }
 
 func getWordpressData(action: wordpressAction, parameters: [String : Any]) {
-
     let serverUrl = URL(string: "\(WORDPRESSADDRESS)\(action)")
     var urlRequest = URLRequest(url: serverUrl!)
     urlRequest.httpMethod = HTTPMethod.get.rawValue
-
     Alamofire.request(serverUrl!, method: .get, parameters: parameters, encoding: JSONEncoding.default)
         .responseJSON {response in
         guard response.result.isSuccess else {
@@ -98,54 +84,42 @@ func getWordpressData(action: wordpressAction, parameters: [String : Any]) {
             handleErrorRetrievingJSON(action: action)
             return
         }
-        guard let json = response.result.value as? [Dictionary<String, Any>] else {
-            handleErrorRetrievingJSON(action: action)
-            return
-        }
-        if extractAndSave(action: action, json: json) {
-            var parametersNew = parameters
-            if let httpResponse = response.response?.allHeaderFields {
-                if let xWpTotal = httpResponse["x-wp-total"] as? String {
-                    guard Int(xWpTotal) != nil else {
-                        handleErrorRetrievingJSON(action: action)
-                        return
-                    }
-                    if let xWpTotalPages = httpResponse["x-wp-totalpages"] as? String {
-                        guard let totalPagesInWP = Int(xWpTotalPages) else {
-                            handleErrorRetrievingJSON(action: action)
-                            return
-                        }
-                        downloadTracker.setPagesTotal(action: action, totalPages: totalPagesInWP)
-                        if totalPagesInWP == 1 {
-                            downloadTracker.actionComplete(action: action)
-                        } else {
-                            for page in 2...totalPagesInWP {
-                                parametersNew["page"] = page
-                                Alamofire.request(serverUrl!, method: .get, parameters: parametersNew, encoding: JSONEncoding.default).responseJSON {response in
-                                    guard response.result.isSuccess else {
-                                        handleErrorRetrievingJSON(action: action)
-                                        return
-                                    }
-                                    guard let result = response.result.value else {
-                                        handleErrorRetrievingJSON(action: action)
-                                        return
-                                    }
-                                    guard let json = result as? [Dictionary<String, Any>] else {
-                                        handleErrorRetrievingJSON(action: action)
-                                        return
-                                    }
-                                    print("About to extract \(action) page \(page)")
-                                    if !extractAndSave(action: action, json: json) {
-                                        print("Handle extract and save fail")
-                                    }
-                                }
+        if let httpResponse = response.response?.allHeaderFields {
+            guard let totalPagesInWP = Int((httpResponse["x-wp-totalpages"] as? String)!) else {
+                handleErrorRetrievingJSON(action: action)
+                return
+            }
+            downloadTracker.setPagesTotal(action: action, totalPages: totalPagesInWP)
+            guard let json = response.result.value as? [Dictionary<String, Any>] else {
+                handleErrorRetrievingJSON(action: action)
+                return
+            }
+            if extractAndSave(action: action, json: json) {
+                if totalPagesInWP == 1 {
+                    downloadTracker.actionComplete(action: action)
+                } else {
+                    var parametersNew = parameters
+                    for page in 2...totalPagesInWP {
+                        parametersNew["page"] = page
+                        Alamofire.request(serverUrl!, method: .get, parameters: parametersNew, encoding: JSONEncoding.default).responseJSON {response in
+                            guard response.result.isSuccess else {
+                                handleErrorRetrievingJSON(action: action)
+                                return
+                            }
+                            guard let json = response.result.value as? [Dictionary<String, Any>]  else {
+                                handleErrorRetrievingJSON(action: action)
+                                return
+                            }
+                            print("About to extract \(action) page \(page)")
+                            if !extractAndSave(action: action, json: json) {
+                                print("Handle extract and save fail")
                             }
                         }
                     }
                 }
+            } else {
+                print("Handle extract and save fail")
             }
-        } else {
-            print("Handle extract and save fail")
         }
     }
 }
@@ -259,7 +233,7 @@ func handleErrorDeserialisingJSON(action: wordpressAction) {
 }
 
 func handleCoreDataError() {
-    showAlert(title: "Error accessing core data", message: "There was an error accessing core data. Please try again. If the problem persists please contact the developer at: www.thisnow.software/contact/.")
+    showAlert(title: "Error accessing core data", message: "There was an error accessing core data. Please try again. If the problem persists please contact the developer at: www.thisnow.software/contact/. 12parsecs will now close.")
 }
 
 

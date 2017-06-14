@@ -9,7 +9,6 @@
 import UIKit
 import Alamofire
 import CoreData
-import SystemConfiguration
 
 var filteredTags = [Int32]()
 var filter = false
@@ -60,36 +59,11 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
         self.blogTableView.delegate = self
         self.blogTableView.dataSource = self
         self.setUpTableView()
-        if !self.isInternetAvailable() {
+        if !isInternetAvailable() {
             self.handleErrorNoNetworkConnection()
         } else {
             self.updateBlogData()
         }
-    }
-
-    func isInternetAvailable() -> Bool {
-
-        var zeroAddress = sockaddr_in()
-        zeroAddress.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
-        zeroAddress.sin_family = sa_family_t(AF_INET)
-
-        guard let defaultRouteReachability = withUnsafePointer(to: &zeroAddress, {
-            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {
-                SCNetworkReachabilityCreateWithAddress(nil, $0)
-            }
-        }) else {
-            return false
-        }
-
-        var flags: SCNetworkReachabilityFlags = []
-        if !SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags) {
-            return false
-        }
-
-        let isReachable = flags.contains(.reachable)
-        let needsConnection = flags.contains(.connectionRequired)
-        
-        return (isReachable && !needsConnection)
     }
 
     func handleErrorNoNetworkConnection() {
@@ -103,7 +77,8 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
             fetch.predicate = filterBy
         }
         guard let moc = dataController?.mainContext else {
-            fatalError("MOC not initialized")
+            self.handleMOCError()
+            return
         }
         self.fRC = NSFetchedResultsController(fetchRequest: fetch, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
         self.fRC?.delegate = self
@@ -116,7 +91,10 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
         blogTableView.reloadData()
     }
 
-
+    func handleMOCError() {
+        showAlert(title: "MOC Error", message: "Error getting MOC. Unable to access data.")
+    }
+    
 // MARK: UITableViewDelegate Methods
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -137,6 +115,7 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let moc = dataController?.mainContext else {
+            handleMOCError()
             fatalError("Unable to get main context")
         }
         guard let obj = fRC?.object(at: indexPath) else {
@@ -200,26 +179,26 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
         switch type {
         case .insert:
             guard let nip = newIndexPath else {
-                fatalError("How?")
+                fatalError("Unknown error with fetched results controller")
             }
             blogTableView.insertRows(at: [nip], with: .fade)
         case .delete:
             guard let ip = indexPath else {
-                fatalError("How?")
+                fatalError("Unknown error with fetched results controller")
             }
             blogTableView.deleteRows(at: [ip], with: .fade)
         case .move:
             guard  let ip = indexPath else {
-                fatalError("How")
+                fatalError("Unknown error with fetched results controller")
             }
             guard let nip = newIndexPath else {
-                fatalError("How?")
+                fatalError("Unknown error with fetched results controller")
             }
             blogTableView.deleteRows(at: [ip], with: .fade)
             blogTableView.insertRows(at: [nip], with: .fade)
         case .update:
             guard let ip = indexPath else {
-                fatalError("How?")
+                fatalError("Unknown error with fetched results controller")
             }
             blogTableView.reloadRows(at: [ip], with: .fade)
         }
@@ -264,7 +243,8 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
         let fetch: NSFetchRequest<BlogTags> = BlogTags.createFetchRequest()
         fetch.sortDescriptors = [NSSortDescriptor(key: "tagId", ascending: true)]
         guard let moc = dataController?.mainContext else {
-            fatalError("MOC not initialized")
+            handleMOCError()
+            return
         }
         var blogTags: [BlogTags]? = nil
         do {
@@ -286,7 +266,8 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
             let selectedBlog = post?.value(forKey: "link")
             post?.newPost = false
             guard let moc = dataController?.writerContext else {
-                fatalError("Failed to get managed object context")
+                handleMOCError()
+                return
             }
             moc.performAndWait {
                 do {
@@ -319,7 +300,8 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
                     fetch.sortDescriptors = [NSSortDescriptor(key: "tagId", ascending: false)]
                     fetch.predicate = NSPredicate(format: "tagId IN %@", filteredTags)
                     guard let moc = dataController?.mainContext else {
-                        fatalError("MOC not initialized")
+                        handleMOCError()
+                        return
                     }
                     var postsForTags: [PostsForTag]? = nil
                     do {
@@ -402,7 +384,8 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
 
     @IBAction func markAllPostsRead(_ sender: Any) {
         guard let moc = dataController?.writerContext else {
-            fatalError("Failed to get writer context")
+            handleMOCError()
+            return
         }
         moc.perform({
             let request = NSBatchUpdateRequest(entityName: "BlogPosts")
@@ -428,7 +411,8 @@ class BlogViewController: UIViewController, NSFetchedResultsControllerDelegate, 
 
     func mergeExternalChanges(_ objectIDArray: [NSManagedObjectID], ofType type: String) {
         guard let main = dataController?.mainContext, let writer = dataController?.writerContext else {
-            fatalError("Failed to get context")
+            handleMOCError()
+            return
         }
         let save = [type: objectIDArray]
         let contexts = [main, writer]
